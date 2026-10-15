@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Synomy: take back what's yours</title>
-<meta name="description" content="Synomy is a notes app today and a network underneath it. Your computers talk to each other directly, so there is no server, no bill, no subscription, no ads and nobody to sell you to. Notes are the first chapter.">
+<meta name="description" content="Synomy is a free app for your notes, your meetings and the people you work with. Everything stays on your own computer, and what you share goes straight to the people you chose. No company in the middle, no ads, nobody to sell you to.">
 
 <meta property="og:title" content="Synomy: take back what's yours">
-<meta property="og:description" content="A notes app today, a network underneath. Nothing in the middle. Nobody to pay. Nobody to sell you to.">
+<meta property="og:description" content="A free app for your notes, meetings and the people you work with. It stays on your computer. Nobody in the middle.">
 <meta property="og:image" content="https://larslagauw.github.io/synomy-releases/assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -36,7 +36,7 @@
    The summit shows at the bottom of the first screen and the rest of the range
    comes up as the page starts to move, then dissolves into the night the
    chapters stand in. */
-.hero.say { --range-top: 16px; padding: clamp(104px, 13vh, 150px) 0 0; }
+.hero.say { --range-top: 16px; padding: calc(var(--bar-h) + clamp(42px, 6vh, 88px)) 0 0; }
 .hero.say h1.hero-h { max-width: 14ch; font-size: clamp(44px, 7.4vw, 104px); letter-spacing: -.045em; line-height: .94; }
 .hero.say .hero-lede { max-width: 44ch; font-size: clamp(18px, 1.7vw, 22px); }
 .hero.say .hero-lede, .hero.say .hero-meta, .hero.say .btn-text { text-shadow: 0 1px 18px rgba(0, 0, 0, .8); }
@@ -85,6 +85,19 @@
 .no-js .gone li, html:not(.js) .gone li { color: var(--ink-3); }
 html:not(.js) .gone li::after { transform: none; }
 
+/* Free: what is free and what might one day cost money, side by side, set like
+   the Today/Later columns further down. The free side is the bright one. */
+.plans { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(28px, 4vw, 56px); }
+.plan h3 { font-size: clamp(24px, 2.6vw, 34px); letter-spacing: -.03em; line-height: 1.1; padding-bottom: 14px; border-bottom: 1px solid var(--ink); }
+.plan .plan-say { margin: 16px 0 10px; font-size: clamp(18px, 1.6vw, 22px); line-height: 1.35; color: var(--ink); }
+.plan ul { list-style: none; margin: 0; padding: 0; }
+.plan li { position: relative; padding: 7px 0 7px 22px; font-size: clamp(16.5px, 1.35vw, 18.5px); line-height: 1.45; color: var(--ink-2); }
+.plan li::before { content: ""; position: absolute; left: 2px; top: .95em; width: 7px; height: 7px; border-radius: 50%; background: var(--ice); }
+.plan.later h3 { border-bottom-color: var(--ink-3); color: var(--ink-2); }
+.plan.later .plan-say { color: var(--ink-2); }
+.plan.later li { color: var(--ink-3); }
+.plan.later li::before { background: transparent; border: 1px solid var(--ink-3); }
+
 /* Grow: the network, arriving one machine at a time. */
 .grow { width: 100%; display: block; height: auto; }
 .grow circle { fill: var(--ink); opacity: 0; }
@@ -107,6 +120,9 @@ html:not(.js) .grow line { stroke-dashoffset: 0; }
 .cols ul { list-style: none; margin: 0; padding: 0; }
 .cols li { font-size: clamp(17px, 1.4vw, 19.5px); line-height: 1.4; color: var(--ink-2); padding: 7px 0; }
 .cols li b { color: var(--ink); font-weight: 600; }
+.cols .today { grid-column: span 2; }
+.cols .today ul { columns: 2; column-gap: clamp(28px, 4vw, 56px); }
+.cols .today li { break-inside: avoid; }
 .cols .soon h3 { border-bottom-color: var(--ink-3); color: var(--ink-2); }
 .cols .soon li { color: var(--ink-3); }
 .cols .soon li b { color: var(--ink-2); }
@@ -132,6 +148,9 @@ html:not(.js) .grow line { stroke-dashoffset: 0; }
 
 @media (max-width: 900px) {
   .cols { grid-template-columns: minmax(0, 1fr); gap: 36px; }
+  .cols .today { grid-column: auto; }
+  .cols .today ul { columns: 1; }
+  .plans { grid-template-columns: minmax(0, 1fr); gap: 40px; }
   .ledger li { grid-template-columns: minmax(0, 1fr); gap: 6px; }
   .ledger span { text-align: left; }
   .today-shot .hero-shot { max-height: 380px; }
@@ -151,7 +170,6 @@ html:not(.js) .grow line { stroke-dashoffset: 0; }
 </style>
 </head>
 <body>
-<div class="edges" aria-hidden="true"></div>
 
 <header class="bar" id="bar">
   <div class="bar-in">
@@ -166,7 +184,7 @@ html:not(.js) .grow line { stroke-dashoffset: 0; }
       <a href="install.html">Install</a>
     </nav>
     <div class="bar-sp"></div>
-    <span class="ver" data-version>2.4.18 beta</span>
+    <span class="ver" data-version>2.4.20 beta</span>
     <a class="btn btn-sm btn-bar" id="cta-bar" href="https://github.com/LarsLagauw/synomy-releases/releases/latest">Download</a>
   </div>
 </header>
@@ -185,7 +203,7 @@ html:not(.js) .grow line { stroke-dashoffset: 0; }
         <span>what's yours.</span>
       </h1>
       <p class="hero-lede">
-        Synomy is a notes app today, and a network underneath it. Nothing in the middle. Nobody to pay. Nobody to sell you to.
+        A free app for your notes, your meetings and the people you work with. It all stays on your own computer, and what you share goes straight to the people you chose. No company in the middle.
       </p>
       <div class="hero-cta">
         <a class="btn btn-light" id="cta-main" href="https://github.com/LarsLagauw/synomy-releases/releases/latest">
@@ -194,7 +212,7 @@ html:not(.js) .grow line { stroke-dashoffset: 0; }
         </a>
         <a class="btn-text" href="#bill">Read why it exists</a>
       </div>
-      <span class="hero-meta" id="cta-note">Free while in beta · Mac, Windows and Linux</span>
+      <span class="hero-meta" id="cta-note">Free · Mac and Windows</span>
     </div>
     <img class="scene range" src="assets/range-glow.webp" alt="" width="1771" height="441">
   </section>
@@ -245,15 +263,47 @@ html:not(.js) .grow line { stroke-dashoffset: 0; }
       </div>
       <div class="ch-vis">
         <ul class="gone rv" data-vig>
-          <li style="--i:0">Subscriptions</li>
-          <li style="--i:1">Ads</li>
-          <li style="--i:2">Selling your data</li>
-          <li style="--i:3">Sign-ups</li>
+          <li style="--i:0">Ads</li>
+          <li style="--i:1">Selling your data</li>
+          <li style="--i:2">Sign-ups</li>
+          <li style="--i:3">Features behind a paywall</li>
           <li style="--i:4">A feed that picks for you</li>
           <li style="--i:5">Terms that change on you</li>
           <li style="--i:6">A new owner</li>
         </ul>
-        <p class="ch-fine rv" style="--d:200ms">Synomy is free while it is in beta, and free after. There is nothing to upgrade to.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ Free -->
+  <section class="ch" id="free">
+    <div class="wrap">
+      <div class="ch-head">
+        <h2 class="rv">Free, with nothing held back.</h2>
+        <p class="rv" style="--d:80ms">Every feature in Synomy is free, for everyone, for good. Giving it away costs nothing, because your own computers do the work.</p>
+      </div>
+      <div class="ch-vis">
+        <div class="plans">
+          <div class="plan rv" style="--d:0ms">
+            <h3>Free</h3>
+            <p class="plan-say">Everything the app does.</p>
+            <ul>
+              <li>Notes, meetings, search, chat, sharing and files</li>
+              <li>The social cloud, which keeps your changes safe with other Synomy users while a friend is offline</li>
+              <li>No trial, no account, no ads</li>
+            </ul>
+          </div>
+          <div class="plan later rv" style="--d:120ms">
+            <h3>Paid, perhaps one day</h3>
+            <p class="plan-say">The same app, a little more dependable.</p>
+            <ul>
+              <li>Your changes kept on servers we rent, instead of on other people's computers</li>
+              <li>So they arrive even when nobody else happens to be online</li>
+              <li>Servers cost money every month, so this would be a small subscription</li>
+            </ul>
+          </div>
+        </div>
+        <p class="ch-fine rv" style="--d:200ms">There is no paid plan today. If one comes, it pays for servers, not for features: nothing in the free app gets taken away to make room for it.</p>
       </div>
     </div>
   </section>
@@ -263,7 +313,7 @@ html:not(.js) .grow line { stroke-dashoffset: 0; }
     <div class="wrap">
       <div class="ch-head">
         <h2 class="rv">Most networks get worse as they grow. This one gets better.</h2>
-        <p class="rv" style="--d:80ms">Every person who joins brings their own computer. That is more ways for your pages to travel and more people to reach, and still nothing to pay. A platform needs another data centre for every million people. Synomy needs nothing.</p>
+        <p class="rv" style="--d:80ms">Every person who joins brings their own computer. That is more ways for your pages to travel, more places to keep your changes safe while a friend is away, and still nothing to pay. A platform needs another data centre for every million people. Synomy needs nothing.</p>
       </div>
       <div class="ch-vis grow-wrap rv" data-vig>
         <svg class="grow" viewBox="0 0 1000 380" aria-hidden="true">
@@ -321,28 +371,24 @@ html:not(.js) .grow line { stroke-dashoffset: 0; }
     <div class="wrap">
       <div class="ch-head">
         <h2 class="rv">Notes are the first chapter.</h2>
-        <p class="rv" style="--d:80ms">The same network that carries a page can carry a message, a photo, a call. Everything you use a platform for today, without the platform.</p>
+        <p class="rv" style="--d:80ms">The network that carries your pages already carries your messages and your files. A photo or a call can travel the same way. Everything you use a platform for today, without the platform.</p>
       </div>
       <div class="ch-vis">
         <div class="cols">
-          <div class="rv" style="--d:0ms">
+          <div class="rv today" style="--d:0ms">
             <h3>Today</h3>
             <ul>
               <li><b>Notes</b> that are files on your computer.</li>
               <li><b>Meetings</b>, recorded and transcribed, with every speaker told apart.</li>
               <li><b>Search</b> that understands the question, not just the words.</li>
               <li><b>Writing together</b>, live, with no cloud in between.</li>
-              <li><b>Sharing</b> with exactly the people you pick.</li>
+              <li><b>Chat</b> beside every shared page, and messages between friends.</li>
+              <li><b>Files</b> of any size, sent straight to a friend.</li>
+              <li><b>Word documents, PDFs and tables</b>, inside your notes.</li>
+              <li><b>The social cloud</b>, so your changes reach a friend who was offline.</li>
             </ul>
           </div>
-          <div class="rv soon" style="--d:100ms">
-            <h3>Next</h3>
-            <ul>
-              <li><b>Messages</b> between friends, carried the same way pages are.</li>
-              <li><b>Sealed copies</b> of your notes kept on your friends' machines, so a lost laptop loses nothing. Only you can open them.</li>
-            </ul>
-          </div>
-          <div class="rv soon" style="--d:200ms">
+          <div class="rv soon" style="--d:120ms">
             <h3>Later</h3>
             <ul>
               <li><b>Photos, posts and calls</b>, with the people you chose and no feed in between.</li>
@@ -350,7 +396,7 @@ html:not(.js) .grow line { stroke-dashoffset: 0; }
             </ul>
           </div>
         </div>
-        <p class="ch-fine rv" style="--d:260ms">None of this comes with a date. It is the direction, and the network is already built for it.</p>
+        <p class="ch-fine rv" style="--d:260ms">Later comes with no date. It is the direction, and the network is already built for it.</p>
 
         <div class="today-shot rv" style="--d:120ms">
     <div class="hero-shot">
@@ -404,7 +450,7 @@ html:not(.js) .grow line { stroke-dashoffset: 0; }
             </div>
 
           </div>
-          <span class="a-ver" data-version>2.4.18 beta</span>
+          <span class="a-ver" data-version>2.4.20 beta</span>
         </div>
       </div>
     </div>
@@ -425,7 +471,7 @@ html:not(.js) .grow line { stroke-dashoffset: 0; }
       <div class="ch-head">
         <h2 class="rv">Why now, and not ten years ago.</h2>
         <div>
-          <p class="rv" style="--d:80ms">Building something like this used to take a company, and a company needs a business model. Today one person can build it, with AI doing much of the typing.</p>
+          <p class="rv" style="--d:80ms">Building something like this used to take a company, and a company needs a business model. Today two people can build it, with AI doing much of the typing.</p>
           <p class="rv" style="--d:160ms">So there is no company behind Synomy. No investors, no shareholders, and nothing to pay back.</p>
         </div>
       </div>
@@ -441,12 +487,12 @@ html:not(.js) .grow line { stroke-dashoffset: 0; }
         <div class="sky-tint" aria-hidden="true"></div>
         <div>
           <h2>Start with notes. Bring a friend.</h2>
-          <p class="lede">Free now, free to keep. It gets better with the second person, so tell one.</p>
+          <p class="lede">Free, and nothing held back. It gets better with the second person, so tell one.</p>
           <a class="btn btn-light" id="cta-get" href="https://github.com/LarsLagauw/synomy-releases/releases/latest">
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.5v9m0 0 3.2-3.2M8 10.5 4.8 7.3M2 12v1.5a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V12"/></svg>
             <span id="cta-get-label">Download the latest version</span>
           </a>
-          <p class="req">macOS 11 (Big Sur) or later, on Macs with an Apple or Intel chip &mdash; on Big Sur and Monterey, with Safari updated to 16.4 or later. Windows 10 (version 2004 or later) or Windows 11. Linux as an AppImage. Synomy is in beta, so expect the odd rough edge and frequent updates. Intel Macs and macOS before 15 are the least tested and may see more bugs. New to installing apps from the web? <a href="install.html">Here is every click, step by step.</a></p>
+          <p class="req">For Macs with macOS 11 Big Sur or newer, with an Apple or Intel chip (on Big Sur and Monterey, update Safari to 16.4 first), and for Windows 10 from the 2020 update on, or Windows 11. Synomy is in beta, so expect the odd rough edge and frequent updates; Intel Macs and older versions of macOS are the least tested. First time installing an app from the web? <a href="install.html">Here is every click, step by step.</a></p>
         </div>
         <div class="plats" id="plats">
           <a class="plat" data-os="macos" data-arch="arm64" href="https://github.com/LarsLagauw/synomy-releases/releases/latest">
@@ -461,21 +507,29 @@ html:not(.js) .grow line { stroke-dashoffset: 0; }
             <div><div class="os">Windows</div><div class="file" data-file>Installer. No administrator password needed.</div></div>
             <span class="go">Download<b data-size></b></span>
           </a>
-          <a class="plat" data-os="linux" href="https://github.com/LarsLagauw/synomy-releases/releases/latest">
-            <div><div class="os">Linux</div><div class="file" data-file>AppImage. Make it executable and run it.</div></div>
-            <span class="go">Download<b data-size></b></span>
-          </a>
         </div>
       </div>
     </div>
   </section>
 </main>
 
+<!-- ============================================================ Keep reading -->
+<nav class="onward" aria-label="The other pages">
+  <div class="wrap">
+    <h2>Keep reading</h2>
+    <ul>
+        <li><a href="app.html"><b>The app</b><span>Everything it does today, from meetings to chat.</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a></li>
+        <li><a href="how.html"><b>How it works</b><span>Plain answers to fair questions, like who can read your notes.</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a></li>
+        <li><a href="install.html"><b>Install</b><span>Every click of the first install, on Mac and Windows.</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a></li>
+    </ul>
+  </div>
+</nav>
+
 <footer class="foot">
   <div class="wrap foot-in">
     <a class="mark" href="#top"><img src="assets/icon.png" alt="" width="28" height="28"><span>Synomy Notes</span></a>
     <span class="fsp"></span>
-    <span>Version <span data-version>2.4.18 beta</span></span>
+    <span>Version <span data-version>2.4.20 beta</span></span>
     <a href="app.html">The app</a>
     <a href="how.html">How it works</a>
     <a href="install.html">Install help</a>

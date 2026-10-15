@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The app: everything Synomy Notes does today</title>
-<meta name="description" content="What Synomy Notes does today, on Mac, Windows and Linux: it records and transcribes meetings, searches your notes by meaning, and lets you write a page together with a friend. No account, no cloud, no subscription.">
+<meta name="description" content="What Synomy Notes does today, on Mac and Windows: it records and transcribes meetings, searches your notes by meaning, lets you write a page together with a friend, and chat and send files with no cloud in between. No account, nothing to pay.">
 
 <meta property="og:title" content="Synomy Notes: the app">
 <meta property="og:description" content="Record the meeting. Find it again by what you meant. Write together. Everything on your own computer.">
@@ -27,7 +27,7 @@
 
 <style>
 /* ---- a plain hero: white, ink type, the window underneath ---- */
-.hero.plain { --range-top: clamp(20px, 4vw, 56px); color: var(--ink); padding-top: 150px; }
+.hero.plain { --range-top: clamp(20px, 4vw, 56px); color: var(--ink); padding-top: calc(var(--bar-h) + 88px); }
 /* The window stands in front of the range: the summit shows above it, the sea
    of cloud at its sides. */
 .hero.plain .range { margin-bottom: calc(min(1600px, 112vw) * -.2); }
@@ -159,7 +159,6 @@
 </style>
 </head>
 <body>
-<div class="edges" aria-hidden="true"></div>
 
 <header class="bar ink" id="bar">
   <div class="bar-in">
@@ -174,7 +173,7 @@
       <a href="install.html">Install</a>
     </nav>
     <div class="bar-sp"></div>
-    <span class="ver" data-version>2.4.18 beta</span>
+    <span class="ver" data-version>2.4.20 beta</span>
     <a class="btn btn-sm btn-bar" id="cta-bar" href="https://github.com/LarsLagauw/synomy-releases/releases/latest">Download</a>
   </div>
 </header>
@@ -190,16 +189,16 @@
         <span>Everything it does today.</span>
       </h1>
       <p class="hero-lede">
-        Notes, meetings, search and writing together, on your own computer. This page is the tour. <a href="index.html">Why it exists</a> is the other one.
+        Notes, meetings, search, chat and writing together, all on your own computer. This page is the tour.
       </p>
       <div class="hero-cta">
         <a class="btn btn-ink" id="cta-main" href="https://github.com/LarsLagauw/synomy-releases/releases/latest">
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.5v9m0 0 3.2-3.2M8 10.5 4.8 7.3M2 12v1.5a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V12"/></svg>
           <span id="cta-main-label">Download the latest version</span>
         </a>
-        <a class="btn-text" href="#download">Also for Windows and Linux</a>
+        <a class="btn-text" href="#download">Also for Windows</a>
       </div>
-      <span class="hero-meta" id="cta-note">Free while in beta · Mac, Windows and Linux</span>
+      <span class="hero-meta" id="cta-note">Free · Mac and Windows</span>
     </div>
     <img class="scene range" src="assets/range-clouds.webp" alt="" width="988" height="275">
 
@@ -254,7 +253,7 @@
             </div>
 
           </div>
-          <span class="a-ver" data-version>2.4.18 beta</span>
+          <span class="a-ver" data-version>2.4.20 beta</span>
         </div>
       </div>
       <div class="shot-fade" aria-hidden="true"></div>
@@ -318,7 +317,7 @@
               <span class="m-btn quiet">Cancel</span>
             </div>
           </div>
-          <span class="a-ver" data-version>2.4.18 beta</span>
+          <span class="a-ver" data-version>2.4.20 beta</span>
         </div>
       </div>
     </div>
@@ -359,7 +358,7 @@
               </div>
             </div>
           </div>
-          <span class="a-ver" data-version>2.4.18 beta</span>
+          <span class="a-ver" data-version>2.4.20 beta</span>
         </div>
       </div>
     </div>
@@ -403,7 +402,7 @@
               <div class="sl-item" style="--i:9"><span class="gl"><i data-g="photo"></i></span>Image</div>
             </div>
           </div>
-          <span class="a-ver" data-version>2.4.18 beta</span>
+          <span class="a-ver" data-version>2.4.20 beta</span>
         </div>
       </div>
     </div>
@@ -415,7 +414,7 @@
       <div class="txt centre" style="margin:0 auto 56px;max-width:64ch">
         <img class="emblem rv" src="assets/obj-peaks.webp" alt="" width="582" height="303">
         <h2 class="rv" style="max-width:24ch">Write the same page at the same time. No cloud in between.</h2>
-        <p class="rv" style="--d:80ms">Edit the same page letter by letter, as if you were at one keyboard. Your computers talk to each other directly. Take the share back and it's gone from their side too.</p>
+        <p class="rv" style="--d:80ms">Edit the same page letter by letter, as if you were at one keyboard. Your computers talk to each other directly, and a chat sits beside the page for everything you would rather say than write.</p>
       </div>
       <div class="two rv" style="--d:120ms" data-vig>
         <div>
@@ -470,7 +469,7 @@
     <div class="wrap stack">
       <div class="txt">
         <h2 class="rv">Your notes are files. Files are yours.</h2>
-        <p class="rv" style="--d:80ms">Every page is a plain text file in a folder you picked, readable by any app, today or in twenty years. No sign-in, no copy anywhere else.</p>
+        <p class="rv" style="--d:80ms">Every page is a plain text file in a folder you picked, readable by any app, today or in twenty years. No sign-in, and no copy anywhere you did not send one.</p>
       </div>
       <div class="vis rv files-vis" style="--d:120ms" data-vig>
         <div class="app" aria-hidden="true">
@@ -497,7 +496,7 @@
               </div>
             </div></div>
           </div>
-          <span class="a-ver" data-version>2.4.18 beta</span>
+          <span class="a-ver" data-version>2.4.20 beta</span>
         </div>
         <div class="finder" aria-hidden="true">
           <div class="fh"><span class="a-tl"><i></i><i></i><i></i></span>Notes</div>
@@ -518,23 +517,42 @@
     <div class="wrap">
       <h2 class="rv">Everything in Synomy, at a glance.</h2>
       <p class="rv" style="--d:60ms">Click anything to read more about it.</p>
+      <h3 class="all-group rv">Writing</h3>
+      <ul class="all-grid">
+        <li class="rv" style="--d:0ms"><button class="feat" data-pop="blocks"><span class="g" data-g="rectangle.on.rectangle"></span><div><b>Cards, columns, formulas, code</b><span>Lay a page out the way you'd sketch it.</span><em class="open">Read more</em></div></button></li>
+        <li class="rv" style="--d:30ms"><button class="feat" data-pop="databases"><span class="g" data-g="tablecells"></span><div><b>Tables that do the sums</b><span>Board, calendar and timeline views, formulas, reminders.</span><em class="open">Read more</em></div></button></li>
+        <li class="rv" style="--d:60ms"><button class="feat" data-pop="word"><span class="g" data-g="doc.text"></span><div><b>Word documents</b><span>Open a .docx and edit it, with suggestions and comments.</span><em class="open">Read more</em></div></button></li>
+        <li class="rv" style="--d:90ms"><button class="feat" data-pop="pdf"><span class="g" data-g="doc.richtext"></span><div><b>PDFs, marked up</b><span>Highlight, add notes, read one together.</span><em class="open">Read more</em></div></button></li>
+        <li class="rv" style="--d:120ms"><button class="feat" data-pop="panes"><span class="g" data-g="sidebar.left"></span><div><b>Two pages side by side</b><span>Read from one, write in the other.</span><em class="open">Read more</em></div></button></li>
+        <li class="rv" style="--d:150ms"><button class="feat" data-pop="history"><span class="g" data-g="clock"></span><div><b>Version history</b><span>Every page keeps its past, and who changed what.</span><em class="open">Read more</em></div></button></li>
+        <li class="rv" style="--d:180ms"><button class="feat" data-pop="trash"><span class="g" data-g="trash"></span><div><b>Thirty days to change your mind</b><span>Deleted pages wait in the trash.</span><em class="open">Read more</em></div></button></li>
+        <li class="rv" style="--d:210ms"><button class="feat" data-pop="pictures"><span class="g" data-g="photo"></span><div><b>Pictures that shrink themselves</b><span>A fraction of a JPEG, and you can't tell.</span><em class="open">Read more</em></div></button></li>
+      </ul>
+      <h3 class="all-group rv">Meetings and search</h3>
       <ul class="all-grid">
         <li class="rv" style="--d:0ms"><button class="feat" data-pop="meetings"><span class="g" data-g="waveform"></span><div><b>Meeting recordings</b><span>Record, transcribe, and know who said what.</span><em class="open">Read more</em></div></button></li>
         <li class="rv" style="--d:30ms"><button class="feat" data-pop="search"><span class="g" data-g="sparkle.magnifyingglass"></span><div><b>Search by meaning</b><span>Ask a question, in any language you like.</span><em class="open">Read more</em></div></button></li>
-        <li class="rv" style="--d:60ms"><button class="feat" data-pop="together"><span class="g" data-g="person.2"></span><div><b>Write together, live</b><span>Letter by letter, with no cloud in between.</span><em class="open">Read more</em></div></button></li>
-        <li class="rv" style="--d:90ms"><button class="feat" data-pop="sharing"><span class="g" data-g="paperplane"></span><div><b>Share with the people you pick</b><span>Viewer or editor. Take it back any time.</span><em class="open">Read more</em></div></button></li>
-        <li class="rv" style="--d:120ms"><button class="feat" data-pop="history"><span class="g" data-g="clock"></span><div><b>Version history</b><span>Every page keeps its past, and who changed what.</span><em class="open">Read more</em></div></button></li>
-        <li class="rv" style="--d:150ms"><button class="feat" data-pop="pictures"><span class="g" data-g="photo"></span><div><b>Pictures that shrink themselves</b><span>A fraction of a JPEG, and you can't tell.</span><em class="open">Read more</em></div></button></li>
-        <li class="rv" style="--d:180ms"><button class="feat" data-pop="files"><span class="g" data-g="doc.text"></span><div><b>Plain files, your folder</b><span>Markdown you can open with anything.</span><em class="open">Read more</em></div></button></li>
-        <li class="rv" style="--d:210ms"><button class="feat" data-pop="pdf"><span class="g" data-g="doc.richtext"></span><div><b>PDFs inside your notes</b><span>Read them, search them, share them.</span><em class="open">Read more</em></div></button></li>
-        <li class="rv" style="--d:240ms"><button class="feat" data-pop="blocks"><span class="g" data-g="rectangle.on.rectangle"></span><div><b>Cards, columns, formulas, code</b><span>Lay a page out the way you'd sketch it.</span><em class="open">Read more</em></div></button></li>
-        <li class="rv" style="--d:270ms"><button class="feat" data-pop="panes"><span class="g" data-g="sidebar.left"></span><div><b>Two pages side by side</b><span>Read from one, write in the other.</span><em class="open">Read more</em></div></button></li>
-        <li class="rv" style="--d:300ms"><button class="feat" data-pop="everywhere"><span class="g" data-g="laptopcomputer"></span><div><b>Mac, Windows and Linux</b><span>The same app on every desk.</span><em class="open">Read more</em></div></button></li>
-        <li class="rv" style="--d:330ms"><button class="feat" data-pop="updates"><span class="g" data-g="arrow.down.circle"></span><div><b>Updates from friends</b><span>A newer version travels friend to friend.</span><em class="open">Read more</em></div></button></li>
-        <li class="rv" style="--d:360ms"><button class="feat" data-pop="people"><span class="g" data-g="person.badge.plus"></span><div><b>Find people by name</b><span>Through friends of friends. No directory.</span><em class="open">Read more</em></div></button></li>
-        <li class="rv" style="--d:390ms"><button class="feat" data-pop="nearby"><span class="g" data-g="dot.radiowaves.left.and.right"></span><div><b>Works without a network</b><span>Bluetooth in the same room, and direct Wi‑Fi between Macs.</span><em class="open">Read more</em></div></button></li>
-        <li class="rv" style="--d:420ms"><button class="feat" data-pop="private"><span class="g" data-g="lock"></span><div><b>No account, no cloud</b><span>And nothing to subscribe to.</span><em class="open">Read more</em></div></button></li>
-        <li class="rv" style="--d:450ms"><button class="feat" data-pop="dark"><span class="g" data-g="moon"></span><div><b>Dark mode and three sizes</b><span>Compact, regular or roomy.</span><em class="open">Read more</em></div></button></li>
+        <li class="rv" style="--d:60ms"><button class="feat" data-pop="calendar"><span class="g" data-g="calendar"></span><div><b>Your calendar in your notes</b><span>Paste a calendar link; the events become rows.</span><em class="open">Read more</em></div></button></li>
+      </ul>
+      <h3 class="all-group rv">Together</h3>
+      <ul class="all-grid">
+        <li class="rv" style="--d:0ms"><button class="feat" data-pop="together"><span class="g" data-g="person.2"></span><div><b>Write together, live</b><span>Letter by letter, with no cloud in between.</span><em class="open">Read more</em></div></button></li>
+        <li class="rv" style="--d:30ms"><button class="feat" data-pop="chat"><span class="g" data-g="bubble.left.and.bubble.right"></span><div><b>Chat beside every page</b><span>And messages between friends. Pictures too.</span><em class="open">Read more</em></div></button></li>
+        <li class="rv" style="--d:60ms"><button class="feat" data-pop="sendfiles"><span class="g" data-g="tray.full"></span><div><b>Send files of any size</b><span>Straight to a friend's computer, no upload.</span><em class="open">Read more</em></div></button></li>
+        <li class="rv" style="--d:90ms"><button class="feat" data-pop="sharing"><span class="g" data-g="paperplane"></span><div><b>Share with the people you pick</b><span>Viewer or editor. Stop whenever you like.</span><em class="open">Read more</em></div></button></li>
+        <li class="rv" style="--d:120ms"><button class="feat" data-pop="socialcloud"><span class="g" data-g="cloud"></span><div><b>The social cloud</b><span>Your changes reach a friend who was offline.</span><em class="open">Read more</em></div></button></li>
+        <li class="rv" style="--d:150ms"><button class="feat" data-pop="people"><span class="g" data-g="person.badge.plus"></span><div><b>Find people by name</b><span>Through friends of friends. No directory.</span><em class="open">Read more</em></div></button></li>
+        <li class="rv" style="--d:180ms"><button class="feat" data-pop="nearby"><span class="g" data-g="dot.radiowaves.left.and.right"></span><div><b>Works without a network</b><span>Bluetooth in the same room, and direct Wi‑Fi between Macs.</span><em class="open">Read more</em></div></button></li>
+        <li class="rv" style="--d:210ms"><button class="feat" data-pop="updates"><span class="g" data-g="arrow.down.circle"></span><div><b>Updates from friends</b><span>A newer version travels friend to friend.</span><em class="open">Read more</em></div></button></li>
+      </ul>
+      <h3 class="all-group rv">Yours</h3>
+      <ul class="all-grid">
+        <li class="rv" style="--d:0ms"><button class="feat" data-pop="private"><span class="g" data-g="lock"></span><div><b>No account, no cloud</b><span>And nothing to pay for.</span><em class="open">Read more</em></div></button></li>
+        <li class="rv" style="--d:30ms"><button class="feat" data-pop="files"><span class="g" data-g="folder"></span><div><b>Plain files, your folder</b><span>Markdown you can open with anything.</span><em class="open">Read more</em></div></button></li>
+        <li class="rv" style="--d:60ms"><button class="feat" data-pop="everywhere"><span class="g" data-g="laptopcomputer"></span><div><b>Mac and Windows</b><span>The same app on either desk.</span><em class="open">Read more</em></div></button></li>
+        <li class="rv" style="--d:90ms"><button class="feat" data-pop="dark"><span class="g" data-g="paintpalette"></span><div><b>Dark mode, your colours</b><span>Seven backgrounds, seven accents, or any colour.</span><em class="open">Read more</em></div></button></li>
+        <li class="rv" style="--d:120ms"><button class="feat" data-pop="api"><span class="g" data-g="chevron.left.forwardslash.chevron.right"></span><div><b>Connect your own tools</b><span>A private door for other apps, AI included.</span><em class="open">Read more</em></div></button></li>
+        <li class="rv" style="--d:150ms"><button class="feat" data-pop="suggestions"><span class="g" data-g="lightbulb"></span><div><b>Tell us what to build</b><span>Ideas and bug reports, straight from the app.</span><em class="open">Read more</em></div></button></li>
       </ul>
     </div>
   </section>
@@ -548,12 +566,12 @@
         <div class="sky-tint" aria-hidden="true"></div>
         <div>
           <h2>Get Synomy Notes.</h2>
-          <p class="lede">Free while it's in beta, and free to keep. Pick your computer and you'll be writing in a minute.</p>
+          <p class="lede">Free, with nothing held back. Pick your computer and you'll be writing in a minute.</p>
           <a class="btn btn-light" id="cta-get" href="https://github.com/LarsLagauw/synomy-releases/releases/latest">
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.5v9m0 0 3.2-3.2M8 10.5 4.8 7.3M2 12v1.5a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V12"/></svg>
             <span id="cta-get-label">Download the latest version</span>
           </a>
-          <p class="req">macOS 11 (Big Sur) or later, on Macs with an Apple or Intel chip &mdash; on Big Sur and Monterey, with Safari updated to 16.4 or later. Windows 10 (version 2004 or later) or Windows 11. Linux as an AppImage. Synomy is in beta, so expect the odd rough edge and frequent updates. Intel Macs and macOS before 15 are the least tested and may see more bugs. New to installing apps from the web? <a href="install.html">Here is every click, step by step.</a></p>
+          <p class="req">For Macs with macOS 11 Big Sur or newer, with an Apple or Intel chip (on Big Sur and Monterey, update Safari to 16.4 first), and for Windows 10 from the 2020 update on, or Windows 11. Synomy is in beta, so expect the odd rough edge and frequent updates; Intel Macs and older versions of macOS are the least tested. First time installing an app from the web? <a href="install.html">Here is every click, step by step.</a></p>
         </div>
         <div class="plats" id="plats">
           <a class="plat" data-os="macos" data-arch="arm64" href="https://github.com/LarsLagauw/synomy-releases/releases/latest">
@@ -568,10 +586,6 @@
             <div><div class="os">Windows</div><div class="file" data-file>Installer. No administrator password needed.</div></div>
             <span class="go">Download<b data-size></b></span>
           </a>
-          <a class="plat" data-os="linux" href="https://github.com/LarsLagauw/synomy-releases/releases/latest">
-            <div><div class="os">Linux</div><div class="file" data-file>AppImage. Make it executable and run it.</div></div>
-            <span class="go">Download<b data-size></b></span>
-          </a>
         </div>
       </div>
     </div>
@@ -579,11 +593,23 @@
 
 </main>
 
+<!-- ============================================================ Keep reading -->
+<nav class="onward" aria-label="The other pages">
+  <div class="wrap">
+    <h2>Keep reading</h2>
+    <ul>
+        <li><a href="index.html"><b>Why Synomy</b><span>Why it's free, and why there's no company in the middle.</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a></li>
+        <li><a href="how.html"><b>How it works</b><span>Plain answers to fair questions, like who can read your notes.</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a></li>
+        <li><a href="install.html"><b>Install</b><span>Every click of the first install, on Mac and Windows.</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a></li>
+    </ul>
+  </div>
+</nav>
+
 <footer class="foot">
   <div class="wrap foot-in">
     <a class="mark" href="#top"><img src="assets/icon.png" alt="" width="28" height="28"><span>Synomy Notes</span></a>
     <span class="fsp"></span>
-    <span>Version <span data-version>2.4.18 beta</span></span>
+    <span>Version <span data-version>2.4.20 beta</span></span>
     <a href="index.html">Why Synomy</a>
     <a href="how.html">How it works</a>
     <a href="install.html">Install help</a>
@@ -605,35 +631,40 @@
     <p>Press record in any page. Synomy catches your microphone <b>and</b> your computer’s audio, so a video call arrives whole, then writes the transcript straight into the note. Click a name to change it, click a line to hear it.</p>
     <ul class="facts">
       <li><b>25</b><span>languages, Dutch included</span></li>
-      <li><b>~40×</b><span>faster than the meeting took</span></li>
-      <li><b>0</b><span>bytes uploaded</span></li>
+      <li><b>~30×</b><span>faster than the meeting took, on a recent Mac</span></li>
+      <li><b>0</b><span>seconds of sound uploaded</span></li>
     </ul>
-    <p class="fine">A written summary is the one optional feature that can use a cloud model, with a key you paste in yourself.</p>
+    <p class="fine">A written summary is the one optional feature that sends your words to a company: an AI service you connect with a key of your own. Recording a Mac’s own sound needs macOS 14.4 or newer.</p>
+    <details class="tech"><summary>The technical bit</summary><div><p>Three settings trade speed for care. <b>Quick</b> is the fastest and knows seven languages (Mac only); <b>Standard</b> and <b>Thorough</b> know 25, and Thorough makes the fewest mistakes. The models are downloaded once and then run on your own processor. Background noise is cleaned out of the recording you keep.</p></div></details>
   </div>
 </template>
 
 <template id="tpl-search">
   <div class="pop-head"><span class="g" data-g="sparkle.magnifyingglass"></span><div><h3 id="pop-title">Search that knows what you meant.</h3><p class="kicker">A question in, the sentence that answers it out.</p></div></div>
   <div class="pop-body">
-    <p>Ask for “the dinner at Marco’s” and get the page you called “Saturday plans”. Ask in Dutch, find the English note. Your pages and your PDFs are read on your own machine, and the index never leaves it.</p>
+    <p>Ask for “the dinner at Marco’s” and get the page you called “Saturday plans”. Ask in Dutch, find the English note. Your pages, PDFs and Word documents are read on your own computer, and what search learns about them never leaves it.</p>
     <ul class="facts">
-      <li><b>1 s</b><span>from question to answers</span></li>
-      <li><b>0</b><span>servers involved</span></li>
+      <li><b>Any</b><span>language you like to ask in</span></li>
+      <li><b>0</b><span>notes sent anywhere</span></li>
     </ul>
+    <p class="fine">Press ⌘F (Ctrl+F on Windows) to find exact words on the page in front of you, PDFs included.</p>
+    <details class="tech"><summary>The technical bit</summary><div><p>A small language model, downloaded once (about 135 MB), turns every sentence into a list of numbers describing its meaning. Your question gets one too, and the closest sentences are the answers. A scanned PDF with no text in it can be read but not searched.</p></div></details>
   </div>
 </template>
 
 <template id="tpl-together">
   <div class="pop-head"><span class="g" data-g="person.2"></span><div><h3 id="pop-title">Two people, one page, no cloud.</h3><p class="kicker">Live co-editing between your computers, directly.</p></div></div>
   <div class="pop-body">
-    <p>Open a shared page together and you see each other’s cursor, name and typing as it happens. No server merges your text. Your two computers agree between themselves, whether you meet a keystroke or a week apart.</p>
+    <p>Open a shared page together and you see each other’s cursor, name and typing as it happens. No server merges your text: your computers agree between themselves, whether you meet a keystroke or a week apart.</p>
+    <details class="tech"><summary>The technical bit</summary><div><p>Each computer keeps a record of every paragraph’s changes and settles them with the other’s, so both end on the same page without anyone picking a winner. With three or more people, the changes pass through the person who shared the page. Two people typing in the same paragraph at the very same moment: the newest text wins that paragraph.</p></div></details>
   </div>
 </template>
 
 <template id="tpl-sharing">
   <div class="pop-head"><span class="g" data-g="paperplane"></span><div><h3 id="pop-title">Share with exactly the people you choose.</h3><p class="kicker">A page, a branch, or a whole project. Viewer or editor.</p></div></div>
   <div class="pop-body">
-    <p>Hand a page to a friend as a copy, or pair it so you both keep it in step. Each person gets a role you can change. Take the share back and it is withdrawn everywhere it travelled, and it was sealed the whole way.</p>
+    <p>Hand a page to a friend as a copy, or pair it so you both keep it in step. Each person gets a role you can change, and the Share tile shows who holds a copy and whether they are up to date. Stop sharing whenever you like: they keep what you had already sent, and nothing after.</p>
+    <p class="fine">Everything you share is locked for the people you shared it with, the whole way there.</p>
   </div>
 </template>
 
@@ -657,17 +688,18 @@
 </template>
 
 <template id="tpl-files">
-  <div class="pop-head"><span class="g" data-g="doc.text"></span><div><h3 id="pop-title">Plain files, in a folder you chose.</h3><p class="kicker">Markdown you can open with anything, today or in twenty years.</p></div></div>
+  <div class="pop-head"><span class="g" data-g="folder"></span><div><h3 id="pop-title">Plain files, in a folder you chose.</h3><p class="kicker">Markdown you can open with anything, today or in twenty years.</p></div></div>
   <div class="pop-body">
     <p>Every page is a Markdown file with the name you gave it. Back it up the way you back up everything else. Point Synomy at notes you already have and it reads them without changing a byte.</p>
+    <p class="fine">Export any page as Markdown or HTML, and any database view as a spreadsheet (CSV).</p>
   </div>
 </template>
 
 <template id="tpl-pdf">
-  <div class="pop-head"><span class="g" data-g="doc.richtext"></span><div><h3 id="pop-title">PDFs live in your notes too.</h3><p class="kicker">Read them in a tile, search them by meaning, share them like a page.</p></div></div>
+  <div class="pop-head"><span class="g" data-g="doc.richtext"></span><div><h3 id="pop-title">PDFs live in your notes too.</h3><p class="kicker">Read them, mark them up, read them together.</p></div></div>
   <div class="pop-body">
-    <p>Import a PDF and it behaves like any other page: it opens in its own tile beside your notes, travels when you share a project, and is searched by meaning along with everything else.</p>
-    <p class="fine">A scanned PDF with no text layer is viewable but not searchable; Synomy does not run text recognition on images.</p>
+    <p>Import a PDF and it opens in a tile beside your notes. Highlight lines, add notes in boxes, and share it like a page. Then read it together: follow where your friend is reading, or point things out while they follow you. It is searched by meaning along with everything else.</p>
+    <p class="fine">Your marks are kept beside the PDF, never written into it. A scanned PDF with no text in it can be read but not searched. On a Mac, any page can also be saved as a PDF, with your choice of paper and margins.</p>
   </div>
 </template>
 
@@ -686,27 +718,29 @@
 </template>
 
 <template id="tpl-everywhere">
-  <div class="pop-head"><span class="g" data-g="laptopcomputer"></span><div><h3 id="pop-title">The same app on every desk.</h3><p class="kicker">Mac, Windows and Linux, from one codebase.</p></div></div>
+  <div class="pop-head"><span class="g" data-g="laptopcomputer"></span><div><h3 id="pop-title">The same app on Mac and Windows.</h3><p class="kicker">One app, two systems.</p></div></div>
   <div class="pop-body">
-    <p>A Mac and a Windows laptop share pages and write together exactly as two Macs do. Only the things that should follow your system do: the window buttons, the file dialogs, and whether the shortcut is ⌘ or Ctrl.</p>
+    <p>A Mac and a Windows laptop share pages, chat and write together exactly as two Macs do, over Wi‑Fi or the internet. Only the things that should follow your system do: the window buttons, the file dialogs, and whether the shortcut is ⌘ or Ctrl.</p>
     <ul class="facts">
-      <li><b>27 MB</b><span>the whole download</span></li>
-      <li><b>3</b><span>systems, one build of the same code</span></li>
+      <li><b>35 MB</b><span>to download</span></li>
+      <li><b>2</b><span>systems, one app</span></li>
     </ul>
+    <p class="fine">Transcription and search download their models the first time you use them. There is no Linux version yet.</p>
   </div>
 </template>
 
 <template id="tpl-updates">
   <div class="pop-head"><span class="g" data-g="arrow.down.circle"></span><div><h3 id="pop-title">A newer version travels friend to friend.</h3><p class="kicker">No app store in between, and nothing a friend can tamper with.</p></div></div>
   <div class="pop-body">
-    <p>When a friend is running a newer Synomy, yours can fetch it from theirs and offer to restart into it. Every build is checked against a description signed with the release key before a single byte is kept.</p>
+    <p>When a friend is running a newer Synomy, yours can fetch it from theirs and offer to restart into it. Every version is checked against a signature only its makers can produce, before a single byte is kept.</p>
   </div>
 </template>
 
 <template id="tpl-people">
   <div class="pop-head"><span class="g" data-g="person.badge.plus"></span><div><h3 id="pop-title">Find people by name.</h3><p class="kicker">Through the people you already know, with no directory anywhere.</p></div></div>
   <div class="pop-body">
-    <p>Type a name and Synomy asks the friends you already have. Whoever matches sends a card back and you send a request. There is no central list of users to be on, and you decide who is allowed to find you.</p>
+    <p>Type a name and Synomy asks your friends, and their friends. Whoever matches sends a card back and you send a request. There is no central list of users to be on, and you decide who can find you: everyone, only friends, or nobody.</p>
+    <p class="fine">A friend code or an invite code works too, for somebody who is not in your circle yet.</p>
   </div>
 </template>
 
@@ -714,20 +748,21 @@
   <div class="pop-head"><span class="g" data-g="dot.radiowaves.left.and.right"></span><div><h3 id="pop-title">It works in a room with no network.</h3><p class="kicker">No Wi‑Fi, no internet, no problem.</p></div></div>
   <div class="pop-body">
     <p>Two laptops on the same table can still write the same page. Synomy looks for whatever way there is between them and takes it. Nothing to switch on, nothing to configure. You open the page and it finds a way.</p>
+    <p class="fine">With no network at all, Bluetooth carries your text and your typing; pictures and files wait for a faster way.</p>
   </div>
 </template>
 
 <template id="tpl-private">
-  <div class="pop-head"><span class="g" data-g="lock"></span><div><h3 id="pop-title">No account. No cloud. Nothing to subscribe to.</h3><p class="kicker">Your notes are on your computer, and that is where the work happens.</p></div></div>
+  <div class="pop-head"><span class="g" data-g="lock"></span><div><h3 id="pop-title">No account. No cloud. Nothing to pay for.</h3><p class="kicker">Your notes are on your computer, and that is where the work happens.</p></div></div>
   <div class="pop-body">
-    <p>You never sign in, because there is nothing to sign in to. Transcription, search and pictures all run on your processor, and what you share is sealed for the person you sent it to.</p>
+    <p>You never sign in, because there is nothing to sign in to. Transcription, search and pictures all run on your own computer, and what you share is locked for the person you sent it to.</p>
   </div>
 </template>
 
 <template id="tpl-dark">
-  <div class="pop-head"><span class="g" data-g="moon"></span><div><h3 id="pop-title">Dark mode, and three sizes for the whole interface.</h3><p class="kicker">Follows your system, or set it yourself.</p></div></div>
+  <div class="pop-head"><span class="g" data-g="paintpalette"></span><div><h3 id="pop-title">Dark mode, and your own colours.</h3><p class="kicker">Follows your system, or set it yourself.</p></div></div>
   <div class="pop-body">
-    <p>Every colour keeps its ink in the dark: a yellow marker stays yellow, with dark writing on it, the way it would be on paper. Choose compact, regular or roomy for the bar and the lists.</p>
+    <p>Pick from seven backgrounds and seven accent colours, or any colour you like for each. Synomy keeps the text readable whatever you choose, and every marker keeps its ink in the dark: a yellow highlight stays yellow, with dark writing on it, the way it would on paper.</p>
     <div class="pop-vis vis">
       <div class="app" aria-hidden="true">
         <div class="a-bar">
@@ -750,6 +785,82 @@
   </div>
 </template>
 
+<template id="tpl-databases">
+  <div class="pop-head"><span class="g" data-g="tablecells"></span><div><h3 id="pop-title">Tables that do the sums.</h3><p class="kicker">A database in your notes, in six views.</p></div></div>
+  <div class="pop-body">
+    <p>Make a table of anything: a reading list, your cases, deadlines, a budget. See it as a table, a board, a calendar, a timeline, a list or a gallery. Link rows to each other, let formulas add things up, and get a reminder when a date comes round.</p>
+    <p class="fine">Drop in a spreadsheet saved as CSV and it becomes a database.</p>
+  </div>
+</template>
+
+<template id="tpl-word">
+  <div class="pop-head"><span class="g" data-g="doc.text"></span><div><h3 id="pop-title">Word documents, without Word.</h3><p class="kicker">Open a .docx and edit it inside your notes.</p></div></div>
+  <div class="pop-body">
+    <p>Put a Word document in your folder and it opens as a page. Edit it together, suggest changes and leave comments the way you would in Word, then accept or reject them one by one. It stays a .docx, so whoever gets it back gets a Word file.</p>
+    <p class="fine">Spelling is checked in the language you pick.</p>
+  </div>
+</template>
+
+<template id="tpl-trash">
+  <div class="pop-head"><span class="g" data-g="trash"></span><div><h3 id="pop-title">Deleted is not gone, for thirty days.</h3><p class="kicker">A trash for pages, and Undo right after.</p></div></div>
+  <div class="pop-body">
+    <p>Delete a page and Synomy offers Undo straight away. Missed it? The page waits in the trash for thirty days, ready to put back.</p>
+  </div>
+</template>
+
+<template id="tpl-calendar">
+  <div class="pop-head"><span class="g" data-g="calendar"></span><div><h3 id="pop-title">Your calendar, inside your notes.</h3><p class="kicker">Paste a calendar link and the events become rows.</p></div></div>
+  <div class="pop-body">
+    <p>Most calendars can give you a link to share them. Paste one into a database and your events appear as rows you can sort, link to and write notes on. They refresh every half hour.</p>
+    <p class="fine">It only reads: changes in Synomy do not go back to the calendar. Friends you share with see the events, never the link.</p>
+  </div>
+</template>
+
+<template id="tpl-chat">
+  <div class="pop-head"><span class="g" data-g="bubble.left.and.bubble.right"></span><div><h3 id="pop-title">Talk it over, right beside the page.</h3><p class="kicker">A chat on every shared page, and messages between friends.</p></div></div>
+  <div class="pop-body">
+    <p>Every page you share has a chat of its own, with everyone on that page in it. Send a friend a message on its own, too. Pictures work, you see who is typing, and your computer tells you when something arrives.</p>
+    <p class="fine">Messages disappear after 24 hours, unless somebody in the chat chooses to keep them longer.</p>
+    <details class="tech"><summary>The technical bit</summary><div><p>Chats travel the way pages do: locked for the people in them and sent straight between your computers. Nobody else, Synomy included, can read them.</p></div></details>
+  </div>
+</template>
+
+<template id="tpl-sendfiles">
+  <div class="pop-head"><span class="g" data-g="tray.full"></span><div><h3 id="pop-title">Send a file of any size.</h3><p class="kicker">Straight from your computer to theirs.</p></div></div>
+  <div class="pop-body">
+    <p>Drop a file on a friend and it goes directly to their computer: no upload, no size limit, no link that expires. They accept it first, and if the connection drops it picks up where it left off.</p>
+    <p class="fine">A file needs a proper connection between the two computers, so it does not travel over Bluetooth.</p>
+  </div>
+</template>
+
+<template id="tpl-socialcloud">
+  <div class="pop-head"><span class="g" data-g="cloud"></span><div><h3 id="pop-title">Your changes reach a friend who was offline.</h3><p class="kicker">The social cloud: other Synomy users carry for you, and cannot read a word.</p></div></div>
+  <div class="pop-body">
+    <p>Normally a change travels while you are both online. Switch on the social cloud and Synomy locks your changes and leaves them with four other computers running Synomy, which cannot open them. Your friend collects them when they come back, and the copies are deleted.</p>
+    <ul class="facts">
+      <li><b>4</b><span>computers hold each change</span></li>
+      <li><b>2 weeks</b><span>at most, then it is deleted</span></li>
+      <li><b>0</b><span>words of it readable to them</span></li>
+    </ul>
+    <p class="fine">Off until you switch it on. In return, your computer keeps room for other people’s changes: four times what yours take, at least 200 MB.</p>
+    <details class="tech"><summary>The technical bit</summary><div><p>Holders come from your own computers first, then friends, then other people who switched it on. They see your computer’s internet address, never your name or your words. For now it carries your text and the shape of your pages; pictures and files follow when the two of you are online together.</p></div></details>
+  </div>
+</template>
+
+<template id="tpl-api">
+  <div class="pop-head"><span class="g" data-g="chevron.left.forwardslash.chevron.right"></span><div><h3 id="pop-title">Let your other tools in, on your terms.</h3><p class="kicker">A private door for apps on your own computer.</p></div></div>
+  <div class="pop-body">
+    <p>Give another app on your computer a key to one project, and it can read or write your pages: an AI assistant, a script, a shortcut. Nothing is reachable from outside your computer, and you can take the key back any time.</p>
+    <details class="tech"><summary>The technical bit</summary><div><p>A REST API and an MCP server on 127.0.0.1, keys per project with read or write access, and signed webhooks when pages change.</p></div></details>
+  </div>
+</template>
+
+<template id="tpl-suggestions">
+  <div class="pop-head"><span class="g" data-g="lightbulb"></span><div><h3 id="pop-title">Tell us what to build.</h3><p class="kicker">Ideas and bug reports, straight from the app.</p></div></div>
+  <div class="pop-body">
+    <p>Click the light bulb beside the version number to suggest something or report a bug. Star the ideas you want most and see what is being worked on. It travels the way your pages do, with no form on a website.</p>
+  </div>
+</template>
 
 <script src="assets/glyphs.js"></script>
 <script src="assets/site.js"></script>

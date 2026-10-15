@@ -222,10 +222,11 @@
     if (/iPhone|iPad|iPod/i.test(ua)) return null;
     if (/Win/i.test(p) || /Windows/i.test(ua)) return 'windows';
     if (/Mac/i.test(p) || /Mac OS X/i.test(ua)) return 'macos';
-    if (/Linux|X11/i.test(p) || /Linux/i.test(ua)) return 'linux';
+    /* There is no Linux build: a Linux visitor gets the releases page, not a
+       button naming a file that does not exist. */
     return null;
   }
-  var LABEL = { windows: 'Windows', linux: 'Linux' };
+  var LABEL = { windows: 'Windows' };
 
   function macIsArm() {
     try {
@@ -246,8 +247,7 @@
   function pick(assets, os, arch) {
     var tests = {
       macos: arch === 'x86_64' ? [/-macos-x86_64\.dmg$/i] : [/-macos-arm64\.dmg$/i],
-      windows: [/-x86_64-setup\.exe$/i, /setup\.exe$/i, /\.exe$/i],
-      linux: [/\.AppImage$/i]
+      windows: [/-x86_64-setup\.exe$/i, /setup\.exe$/i, /\.exe$/i]
     }[os] || [];
     for (var t = 0; t < tests.length; t++) {
       for (var a = 0; a < assets.length; a++) {
@@ -309,7 +309,7 @@
           main.href = asset.browser_download_url;
           if (get) get.href = asset.browser_download_url;
           if (barBtn) barBtn.href = asset.browser_download_url;
-          if (note) note.textContent = 'Version ' + pretty(version) + ' · ' + mb(asset.size) + ' · Free while in beta';
+          if (note) note.textContent = 'Version ' + pretty(version) + ' · ' + mb(asset.size) + ' · Free';
         }
       }
     })

@@ -45,13 +45,16 @@
   --ui: -apple-system, BlinkMacSystemFont, 'Segoe UI Variable Display', 'Segoe UI', Inter, system-ui, sans-serif;
 
   --gut: clamp(20px, 5vw, 56px);
+  /* The fixed bar's height. Under 900px it grows a second row, the page tabs,
+     and everything placed under the bar follows. */
+  --bar-h: 62px;
   --measure: 1120px;
   --ease: cubic-bezier(.2, .7, .2, 1);
   color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; background: var(--night); }
+html { scroll-behavior: smooth; scroll-padding-top: var(--bar-h); -webkit-text-size-adjust: 100%; background: var(--night); }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
 body {
@@ -204,7 +207,7 @@ button { font: inherit; color: inherit; }
      page moves, and a clip there would draw a line across the night. */
   overflow: hidden; overflow: clip visible;
   background: transparent; color: var(--ink);
-  padding-top: 128px;
+  padding-top: calc(var(--bar-h) + 66px);
 }
 /* The glow behind the range, gone before the foot of the section, and the night
    above it. Neither paints the foot: anything opaque there would hide the ice
@@ -242,23 +245,6 @@ button { font: inherit; color: inherit; }
   will-change: transform;
 }
 @keyframes scenein { from { opacity: 0; filter: blur(16px); } }
-
-/* Ice at the edges: tall cliffs of crystal at both sides of the window, out of
-   focus and moving slower than the page, so going down it is passing them.
-   Not on a phone, which has no sides to put them on. */
-.edges {
-  --edge-w: clamp(150px, 15vw, 260px);
-  position: fixed; left: 0; right: 0; top: 0; height: 330vh; z-index: -1; pointer-events: none;
-  background:
-    url("edge-l1.webp") left -1vw top 96vh / var(--edge-w) auto no-repeat,
-    url("edge-r1.webp") right -1vw top 150vh / var(--edge-w) auto no-repeat,
-    url("edge-l2.webp") left -1vw top 205vh / var(--edge-w) auto no-repeat,
-    url("edge-r2.webp") right -1vw top 258vh / var(--edge-w) auto no-repeat;
-  filter: blur(2.5px);
-  opacity: .62;
-  transform: translate3d(0, calc(var(--p, 0) * -230vh), 0);
-}
-@media (max-width: 760px) { .edges { display: none; } }
 
 /* A passage between two chapters: a scene the page goes through, coming
    closer while it crosses the window (site.js writes --e). */
@@ -336,7 +322,6 @@ h1.hero-h span:nth-child(3) { animation-delay: .14s; }
 @media (prefers-reduced-motion: reduce) {
   .scene, .emblem, .hero-icon, h1.hero-h span, .hero-lede, .hero-cta, .hero-meta, .shot-move { animation: none; }
   .hero .range { transform: translate3d(-50%, 0, 0); }
-  .edges { transform: none; }
   .shot-move { transform: none; }
   .shot-fade { opacity: .55; }
 }
@@ -394,6 +379,50 @@ h1.hero-h span:nth-child(3) { animation-delay: .14s; }
 .ch-fine { margin-top: 26px; font-size: 15px; color: var(--ink-3); max-width: 60ch; }
 .ch-fine a { color: var(--ink-2); text-underline-offset: 4px; text-decoration-thickness: 1px; }
 
+/* The technical bit. Every answer on these pages is written for somebody who
+   takes notes, not somebody who writes software; the mechanism behind it is
+   one click away for whoever wants it, and closed for everybody else. */
+.tech { margin-top: 16px; max-width: 46ch; }
+.tech summary {
+  list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: 9px;
+  font-size: 15px; font-weight: 600; color: var(--ice); border-radius: 6px;
+}
+.tech summary::-webkit-details-marker { display: none; }
+.tech summary::before {
+  content: ""; width: 6px; height: 6px; margin-top: -2px;
+  border-right: 1.6px solid currentColor; border-bottom: 1.6px solid currentColor;
+  transform: rotate(-45deg); transition: transform .2s var(--ease), margin .2s var(--ease);
+}
+.tech[open] summary::before { transform: rotate(45deg); margin-top: -5px; }
+.tech summary:hover { color: var(--sky-900); }
+.tech > div {
+  margin-top: 12px; padding: 2px 0 2px 18px; border-left: 1px solid var(--rim);
+  font-size: 15.5px; line-height: 1.6; color: var(--ink-2);
+}
+.tech > div p + p { margin-top: 10px; }
+.tech b { color: var(--ink); font-weight: 600; }
+.ch-head .tech > div p { font-size: inherit; line-height: inherit; max-width: none; }
+.pop-body .tech { max-width: none; margin-top: 18px; }
+.pop-body .tech > div p { font-size: 15.5px; }
+
+/* Keep reading: the other pages, at the foot of every page, so somebody on a
+   phone who never noticed the tabs still finds them. */
+.onward { padding: clamp(56px, 7vw, 96px) 0 clamp(48px, 6vw, 80px); }
+.onward h2 { font-size: clamp(24px, 2.6vw, 32px); letter-spacing: -.025em; line-height: 1.1; margin-bottom: 18px; }
+.onward ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.onward a {
+  display: grid; grid-template-columns: 1fr auto; gap: 4px 14px; align-items: center; height: 100%;
+  padding: 20px 22px; border-radius: 18px; text-decoration: none;
+  background: linear-gradient(180deg, rgba(170, 210, 255, .07), rgba(170, 210, 255, .025));
+  border: 1px solid var(--rim); transition: background-color .2s ease, border-color .2s ease;
+}
+.onward a:hover { border-color: rgba(190, 225, 255, .34); background-color: rgba(170, 210, 255, .05); }
+.onward b { font-family: var(--display); font-weight: 600; font-size: 19px; letter-spacing: -.015em; }
+.onward span { grid-column: 1; font-size: 14.5px; line-height: 1.45; color: var(--ink-3); }
+.onward svg { grid-column: 2; grid-row: 1 / span 2; width: 16px; height: 16px; color: var(--ice); transition: transform .2s var(--ease); }
+.onward a:hover svg { transform: translateX(3px); }
+@media (max-width: 900px) { .onward ul { grid-template-columns: minmax(0, 1fr); } }
+
 /* ---------------------------------------------------------------- Why it is different (teaser) */
 .why { padding-top: clamp(96px, 12vw, 156px); }
 .why-card {
@@ -420,6 +449,12 @@ h1.hero-h span:nth-child(3) { animation-delay: .14s; }
   display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px;
   margin: 0; padding: 0; list-style: none;
 }
+/* Twenty-five things read as a wall; four groups of a few read as a menu. */
+.all-group {
+  font-size: clamp(19px, 1.7vw, 22px); letter-spacing: -.015em; line-height: 1.2;
+  margin: 36px 0 8px; padding: 0 0 12px 14px; border-bottom: 1px solid var(--line); color: var(--ink);
+}
+.all > .wrap > p + .all-group { margin-top: 0; }
 .feat {
   appearance: none; border: 1px solid transparent; background: transparent; text-align: left; cursor: pointer;
   display: grid; grid-template-columns: 40px 1fr; gap: 14px; align-items: start;
@@ -480,10 +515,12 @@ h1.hero-h span:nth-child(3) { animation-delay: .14s; }
 .get { position: relative; overflow: hidden; padding: clamp(96px, 12vw, 156px) 0 clamp(56px, 7vw, 90px); }
 .get > .lake {
   position: absolute; z-index: -1; left: 50%; top: 54%;
-  width: min(1900px, 150vw);
+  width: min(1500px, 120vw);
   transform: translate3d(-50%, -50%, 0);
-  -webkit-mask-image: radial-gradient(closest-side, #000 62%, transparent);
-  mask-image: radial-gradient(closest-side, #000 62%, transparent);
+  /* Only the water and the light on it: the peaks that frame the lake fade
+     out before they reach the sides of the page. */
+  -webkit-mask-image: radial-gradient(closest-side, #000 22%, transparent 78%);
+  mask-image: radial-gradient(closest-side, #000 22%, transparent 78%);
 }
 .skycard {
   position: relative; overflow: hidden; isolation: isolate;
@@ -888,7 +925,18 @@ h1.hero-h span:nth-child(3) { animation-delay: .14s; }
 
 /* ---------------------------------------------------------------- Narrow */
 @media (max-width: 900px) {
-  .nav { display: none; }
+  /* The four pages stay in sight on a phone: a row of tabs under the bar, not
+     a menu somebody has to know is there. */
+  :root { --bar-h: 116px; }
+  .bar-in { flex-wrap: wrap; height: auto; padding-top: 8px; padding-bottom: 10px; row-gap: 8px; }
+  .bar-in > .mark, .bar-in > .btn-bar { min-height: 40px; }
+  .nav {
+    order: 9; flex: 1 0 100%; margin: 0; gap: 2px; padding: 3px; border-radius: 12px;
+    background: rgba(12, 18, 28, .62); border: 1px solid var(--rim);
+    -webkit-backdrop-filter: blur(18px) saturate(150%); backdrop-filter: blur(18px) saturate(150%);
+  }
+  .nav a { flex: 1 1 0; text-align: center; padding: 9px 2px; border-radius: 9px; font-size: 13.5px; opacity: 1; color: var(--ink-2); }
+  .nav a.here { background: rgba(190, 225, 255, .16); color: var(--ink); text-decoration: none; }
   .txt h2 { max-width: 22ch; }
   .txt p { max-width: 60ch; }
   .why-card, .skycard { grid-template-columns: minmax(0, 1fr); }
@@ -898,8 +946,9 @@ h1.hero-h span:nth-child(3) { animation-delay: .14s; }
 }
 @media (max-width: 640px) {
   .ver { display: none; }
-  .bar-in { gap: 16px; }
-  .hero { padding-top: 120px; }
+  .bar-in { gap: 12px; }
+  .nav a { font-size: 13px; }
+  .hero { padding-top: calc(var(--bar-h) + 40px); }
   .hero-icon { width: 84px; height: 84px; border-radius: 20px; margin-bottom: 24px; }
   h1.hero-h { font-size: clamp(34px, 9.6vw, 44px); max-width: 100%; }
   h1.hero-h span { display: inline; }
