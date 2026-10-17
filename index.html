@@ -25,7 +25,7 @@
 <link rel="stylesheet" href="assets/site.css?v=75a333ee">
 <script>document.documentElement.className += ' js';</script>
 
-<style><style>
+<style>
 /* ------------------------------------------------------------------ Why, and how
    index.html says why Synomy exists and how it works, on one page (October
    2026: how.html was a second tab, and a reader had to leave the argument to
@@ -36,26 +36,67 @@
    in between, and point down to the question that goes deeper. White type in
    the night, one ice blue. */
 
-/* ---- the hero: type in the night, the range rising under it ----
-   The summit shows at the bottom of the first screen and the rest of the range
-   comes up as the page starts to move, then dissolves into the night the
-   chapters stand in. */
-.hero.say { --range-top: 16px; padding: calc(var(--bar-h) + clamp(42px, 6vh, 88px)) 0 0; }
-.hero.say h1.hero-h { max-width: 14ch; font-size: clamp(44px, 7.4vw, 104px); letter-spacing: -.045em; line-height: .94; }
-/* One line wherever it fits (Lars, 2026-10-17): the hero is let out to 1440 and
-   the size follows the width, the line being 10.9em of Schibsted at this
-   tracking, so it fills the window edge to edge. Narrower than that it wraps,
-   balanced; on a phone the size below takes over. */
-.hero.say .hero-in { max-width: 1440px; }
-.hero.say h1.hero-h {
-  max-width: none; text-wrap: balance;
-  font-size: clamp(44px, calc((min(100vw, 1440px) - 2 * var(--gut)) / 11.2), 124px);
+/* ---- the hero: one line, two buttons, the range rising under them ----
+   A poster, not a pitch (Lars, 2026-10-17: the paragraph and the stacked icon
+   read as a template). The first screen is the tag, the line, the two doors and
+   the summit; what the app is and why it exists is the page below. The hero is
+   one screen tall: the range fills whatever the type leaves and sinks behind
+   the buttons by a fixed share of its height, never more, so a short window
+   cannot push the summit into the line. */
+.hero.say {
+  --rw: min(128vw, 2100px, 172svh);
+  display: flex; flex-direction: column; min-height: 100svh;
+  padding: calc(var(--bar-h) + clamp(28px, 7svh, 96px)) 0 0;
 }
-.hero.say h1.hero-h span { display: inline-block; }
-.hero.say .hero-cta .btn-ghost { background: rgba(170, 210, 255, .06); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
-.hero.say .hero-lede { max-width: 44ch; font-size: clamp(18px, 1.7vw, 22px); }
-.hero.say .hero-lede, .hero.say .hero-meta, .hero.say .btn-text { text-shadow: 0 1px 18px rgba(0, 0, 0, .8); }
-@media (max-width: 640px) { .hero.say { --range-w: 200vw; --range-top: 36px; } }
+.hero.say .hero-in { max-width: 1600px; width: 100%; container-type: inline-size; }
+.hero.say .hero-fill { flex: 1 1 0; }
+.hero.say .range {
+  --range-w: var(--rw);
+  margin-top: calc(var(--rw) * -.07);
+}
+.hero.say .sky { background: radial-gradient(60% 50% at 50% 92%, rgba(40, 110, 255, .38), transparent 72%); }
+
+/* The tag says what this is, the job the paragraph had, in one line that is
+   also the way to the app's own page. */
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 10px; margin: 0 auto clamp(22px, 3.4svh, 36px);
+  padding: 6px 14px 6px 6px; border-radius: 999px; text-decoration: none;
+  font-size: 14px; font-weight: 500; color: var(--ink-2); line-height: 1;
+  background: rgba(170, 210, 255, .06); border: 1px solid var(--rim);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  transition: border-color .2s ease, color .2s ease;
+  animation: rise .9s var(--ease) both;
+}
+.hero-tag:hover { border-color: rgba(190, 225, 255, .4); color: var(--ink); }
+.hero-tag img { width: 24px; height: 24px; border-radius: 6px; box-shadow: 0 0 0 1px rgba(190, 225, 255, .18), 0 4px 14px -4px rgba(47, 123, 255, .7); }
+.hero-tag b { font-weight: 600; color: var(--ink); }
+.hero-tag b::after { content: ""; display: inline-block; width: 1px; height: 14px; margin-left: 10px; vertical-align: -2px; background: var(--rim); }
+.hero-tag svg { width: 13px; height: 13px; transition: transform .2s var(--ease); }
+.hero-tag:hover svg { transform: translateX(3px); }
+
+/* One line wherever it fits (Lars, 2026-10-17), edge to edge: the line is
+   10.52em of Schibsted at this tracking, so the size is the column (cqw, which
+   leaves the scrollbar out where vw does not) over 10.75.
+   A phone wraps it in two, balanced, at the size further down. The glow is the
+   range's light on the letters. */
+.hero.say h1.hero-h {
+  max-width: none; margin: 0 auto clamp(26px, 4.2svh, 44px); text-wrap: balance;
+  font-size: clamp(44px, calc(100cqw / 10.75), 150px);
+  letter-spacing: -.05em; line-height: .92;
+  filter: drop-shadow(0 0 42px rgba(70, 150, 255, .32));
+}
+.hero.say h1.hero-h span { display: inline-block; padding-bottom: .06em; }
+.hero.say h1.hero-h span:nth-child(3) { animation-delay: .14s; }
+.hero.say h1.hero-h span:nth-child(4) { animation-delay: .21s; }
+
+/* Two doors of one size: the download, and the community. */
+.hero.say .hero-cta { gap: 14px; }
+.hero.say .hero-cta .btn { padding: 18px 26px; font-size: 17px; border-radius: 14px; gap: 11px; }
+.hero.say .hero-cta .btn svg { width: 18px; height: 18px; }
+.hero.say .hero-cta .btn-ghost { background: rgba(170, 210, 255, .07); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
+.hero.say .hero-cta .btn-ghost svg { width: 20px; height: 20px; }
+.hero.say .hero-meta { margin-top: 16px; }
+.hero.say .hero-meta, .hero.say .hero-tag { text-shadow: 0 1px 18px rgba(0, 0, 0, .8); }
 
 /* The bill: what a free thing costs, set as a ledger. */
 .ledger { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
@@ -164,7 +205,12 @@ html:not(.js) .grow line { stroke-dashoffset: 0; }
   .ledger span { text-align: left; }
 }
 @media (max-width: 640px) {
-  .hero.say h1.hero-h { font-size: clamp(38px, 11vw, 52px); }
+  .hero.say { --rw: 220vw; }
+  .hero.say h1.hero-h { font-size: clamp(42px, 13vw, 64px); line-height: .94; }
+  .hero-tag { font-size: 13px; padding-right: 12px; }
+  .hero-tag b { display: none; }
+  .hero.say .hero-cta { flex-direction: column; align-items: stretch; max-width: 420px; margin-inline: auto; }
+  .hero.say .hero-cta .btn { justify-content: center; }
   .gone li::after { height: 2px; }
   .grow-cap { flex-direction: column; gap: 4px; }
 }
@@ -273,24 +319,23 @@ html:not(.js) .grow line { stroke-dashoffset: 0; }
     <div class="sky-tint" aria-hidden="true"></div>
 
     <div class="hero-in wrap">
-      <img class="hero-icon" src="assets/icon-256.png" alt="" width="104" height="104">
+      <a class="hero-tag" href="app.html"><img src="assets/icon-256.png" alt="" width="24" height="24"><b>Synomy Notes</b><span>Notes and meetings, on your own computer</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10m-4-4 4 4-4 4"/></svg></a>
       <h1 class="hero-h">
-        <span>Take back</span>
-        <span>what's yours.</span>
+        <span>Take</span>
+        <span>back</span>
+        <span>what's</span>
+        <span>yours.</span>
       </h1>
-      <p class="hero-lede">
-        A free app for your notes, your meetings and the people you work with. It all stays on your own computer, and what you share goes straight to the people you chose. No company in the middle.
-      </p>
       <div class="hero-cta">
         <a class="btn btn-light" id="cta-main" href="https://github.com/LarsLagauw/synomy-releases/releases/latest">
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.5v9m0 0 3.2-3.2M8 10.5 4.8 7.3M2 12v1.5a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V12"/></svg>
           <span id="cta-main-label">Download the latest version</span>
         </a>
         <a class="btn btn-ghost" href="https://discord.gg/fm6PRXMeNC" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.865-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .078-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.009c.12.1.246.199.373.292a.077.077 0 0 1-.006.128 12.3 12.3 0 0 1-1.873.891.077.077 0 0 0-.041.107c.36.698.772 1.363 1.225 1.993a.076.076 0 0 0 .084.029 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.086-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.332-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.086-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.332-.946 2.418-2.157 2.418z"/></svg><span>Join us on Discord</span></a>
-        <a class="btn-text" href="#bill">Read why it exists</a>
       </div>
       <span class="hero-meta" id="cta-note">Free · Mac and Windows</span>
     </div>
+    <div class="hero-fill"></div>
     <img class="scene range" src="assets/range-glow.webp" alt="" width="1771" height="441">
   </section>
 
