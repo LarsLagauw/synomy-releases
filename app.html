@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The app: everything Synomy Notes does today</title>
-<meta name="description" content="What Synomy Notes does today, on Mac and Windows: it records and transcribes meetings, searches your notes by meaning, lets you write a page together with a friend, and chat and send files with no cloud in between. No account, nothing to pay.">
+<meta name="description" content="What Synomy Notes does today, on Mac and Windows: it records and transcribes meetings, searches your notes by meaning, lets you write a page together with a friend, comment beside any paragraph and send files, with no cloud in between. No account, nothing to pay.">
 
 <meta property="og:title" content="Synomy Notes: the app">
 <meta property="og:description" content="Record the meeting. Find it again by what you meant. Write together. Everything on your own computer.">
@@ -22,7 +22,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700&family=Hanken+Grotesk:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=e9ca61b6">
+<link rel="stylesheet" href="assets/site.css?v=75a333ee">
 <script>document.documentElement.className += ' js';</script>
 
 <style>
@@ -32,19 +32,19 @@
    of cloud at its sides. */
 .hero.plain .range { margin-bottom: calc(min(1600px, 112vw) * -.2); }
 @media (max-width: 640px) { .hero.plain { --range-w: 210vw; } .hero.plain .range { margin-bottom: -30vw; } }
-.hero.plain .hero-shot { margin-top: 0; }
 .hero.plain .hero-h { text-shadow: none; font-size: clamp(36px, 5.4vw, 68px); }
 .hero.plain .hero-lede { color: var(--ink-2); text-shadow: none; }
-.hero.plain .hero-lede a { color: var(--ink); text-underline-offset: 4px; text-decoration-thickness: 1px; text-decoration-color: rgba(255, 255, 255, .35); }
-.hero.plain .hero-lede a:hover { text-decoration-color: currentColor; }
 .hero.plain .hero-meta { color: var(--ink-3); }
 .hero.plain .btn-text { color: var(--ink-2); text-decoration-color: rgba(255, 255, 255, .3); }
 .hero.plain .shot-move { box-shadow: none; }
 .hero.plain .shot-fade { display: none; }
-/* ---- the hero window: one page, standing still ---- */
-.hero .app { --w: 1100; }
-.hero .a-desk { min-height: calc(var(--u) * 560); }
-.hero .e-cur { display: none; }
+/* ---- the hero window: one page, standing still, smaller than the screen ----
+   It used to fill the column at 1100 app pixels and read as a screenshot to
+   squint at; at about 900 it is a window you look at. Its height is a window's
+   too: the page runs on below the edge, as a page does. */
+.hero.plain .hero-shot { margin-top: 0; max-width: 960px; }
+.hero .app { --w: 1040; }
+.hero .a-desk { height: calc(var(--u) * 600); }
 
 /* ---- vignettes that play once when they scroll in ---- */
 .type .w { opacity: 0; }
@@ -52,8 +52,11 @@
 @keyframes wordin { to { opacity: 1; } }
 @keyframes riseIn { from { opacity: 0; transform: translateY(calc(var(--u) * 6)); } to { opacity: 1; transform: none; } }
 
+/* The windows beside their text are drawn 740 app pixels wide: about 600 on a laptop. */
+.pair .app { --w: 740; }
+
 /* Meetings: the capsule records, then transcribes, then the words land in the page. */
-.meet-vis .a-desk { min-height: calc(var(--u) * 510); }
+.meet-vis .a-desk { height: calc(var(--u) * 540); }
 .meet-vis .m-bar.rec, .meet-vis .m-bar.job { opacity: 0; }
 .meet-vis.is-in .m-bar.rec { animation: showhide 5.2s steps(1) .2s both; }
 .meet-vis.is-in .m-bar.job { animation: showhide 3.4s steps(1) 5.3s both; }
@@ -74,10 +77,10 @@
 .meet-vis .e-meet .mh .live::before { content: ""; width: calc(var(--u) * 8); height: calc(var(--u) * 8); border-radius: 50%; background: var(--a-danger); }
 .meet-vis.is-in .e-meet .mh .live { animation: showhide 8.4s steps(1) both; }
 
-/* Search: the question is typed, the answers arrive. */
-.srch-vis .a-desk { min-height: calc(var(--u) * 470); }
-.srch-vis .s-pop { right: auto; left: 50%; transform: translateX(-50%); top: calc(var(--u) * 52); height: auto; max-height: calc(var(--u) * 420); }
-.srch-vis .under { opacity: .35; filter: blur(.5px); }
+/* Search: the question is typed, the answers arrive. The panel hangs under the
+   Search button, right-aligned with it, as chrome.js anchors it. */
+.srch-vis .a-desk { height: calc(var(--u) * 480); }
+.srch-vis .s-pop { left: auto; right: calc(var(--u) * 100); top: calc(var(--u) * 50); height: auto; max-height: calc(var(--u) * 420); }
 .srch-vis .s-field .c { opacity: 0; }
 .srch-vis.is-in .s-field .c { animation: wordin .05s linear both; animation-delay: calc(.5s + var(--i) * 55ms); }
 .srch-vis .s-field .cur { width: 2px; height: calc(var(--u) * 18); background: var(--a-text); display: inline-block; margin-left: 1px; animation: blink 1s steps(1) infinite; }
@@ -87,9 +90,10 @@
 .srch-vis.is-in .s-status { animation: gone .01s linear 2.3s both; }
 @keyframes gone { to { opacity: 0; } }
 
-/* Writing: the slash menu, and the highlight walking down it. */
-.write-vis .a-desk { min-height: calc(var(--u) * 692); }
-.write-vis .sl-menu { left: calc(50% - var(--u) * 312); top: calc(var(--u) * 302); opacity: 0; transform: translateY(calc(var(--u) * -4)) scale(.98); transform-origin: 0 0; }
+/* Writing: the slash menu, and the highlight walking down it one row (32 app
+   pixels: a 22 tile and 5 above and below) at a time. */
+.write-vis .a-desk { height: calc(var(--u) * 572); }
+.write-vis .sl-menu { left: calc(var(--u) * 56); top: calc(var(--u) * 284); opacity: 0; transform: translateY(calc(var(--u) * -4)) scale(.98); transform-origin: 0 0; }
 .write-vis.is-in .sl-menu { animation: menuin .4s var(--ease) .7s both; }
 @keyframes menuin { to { opacity: 1; transform: none; } }
 .write-vis .sl-item { opacity: 0; }
@@ -99,30 +103,30 @@
 @keyframes hlwalk {
   0% { opacity: 0; transform: translateY(0); }
   8% { opacity: 1; transform: translateY(0); }
-  30% { transform: translateY(calc(var(--u) * 96)); }
-  55% { transform: translateY(calc(var(--u) * 192)); }
-  80%, 100% { opacity: 1; transform: translateY(calc(var(--u) * 256)); }
+  30% { transform: translateY(calc(var(--u) * 64)); }
+  55% { transform: translateY(calc(var(--u) * 128)); }
+  80%, 100% { opacity: 1; transform: translateY(calc(var(--u) * 192)); }
 }
 .write-vis .sl-item { position: relative; z-index: 1; }
 
-/* Together: two windows, one page, two carets. */
-.two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(18px, 3vw, 40px); align-items: start; }
+/* Together: two windows, one page, two carets, the faces at each tile's foot. */
+.two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(18px, 3vw, 40px); align-items: start; max-width: 1000px; margin-inline: auto; }
 .two .vis { container-type: inline-size; }
-.two .app { --w: 620; }
-.two .a-desk { min-height: calc(var(--u) * 400); }
+.two .app { --w: 600; }
+.two .a-desk { height: calc(var(--u) * 300); }
+.two .e-p.typed { min-height: calc(var(--u) * 72); }
 .two .who { text-align: center; margin-top: 14px; font-size: 14.5px; color: var(--ink-3); font-weight: 500; }
 .two .e-caret, .two .e-cur { opacity: 0; }
 .two.is-in .e-caret { animation: wordin .2s ease-out both; animation-delay: var(--t0); }
 .two.is-in .e-cur { animation: wordin .01s linear var(--t0) both, blink 1s steps(1) calc(var(--t0) + 1.4s) infinite; }
 
-/* Your files: the folder in front of the window. */
-.files-vis { display: grid; grid-template-columns: minmax(0, 62fr) minmax(0, 34fr); gap: 4%; align-items: end; }
+/* Your files: the Pages screen, and the same folder as the computer sees it. */
+.files-vis { display: grid; grid-template-columns: minmax(0, 64fr) minmax(0, 36fr); gap: 4%; align-items: end; max-width: 1000px; margin-inline: auto; }
 .files-vis .app { --w: 640; max-width: 100%; }
-.files-vis .a-desk { min-height: calc(var(--u) * 430); }
-.files-vis .h-cols { grid-template-columns: minmax(0, 1fr); }
-.files-vis .a-home { padding: calc(var(--u) * 34) calc(var(--u) * 28) calc(var(--u) * 40); }
-.files-vis .h-doing { flex-wrap: wrap; gap: calc(var(--u) * 6) calc(var(--u) * 14); }
-.files-vis .h-doing span { white-space: nowrap; }
+.files-vis .a-desk { height: calc(var(--u) * 350); }
+.files-vis .e-page { opacity: .9; }
+.files-vis .a-sheet { top: calc(var(--u) * 56); padding: calc(var(--u) * 26) calc(var(--u) * 26) calc(var(--u) * 24); }
+.files-vis .pv-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .files-vis .finder { --u: min(1px, calc(32cqw / 330)); align-self: end; }
 .files-vis .finder .fr { opacity: 0; }
 .files-vis.is-in .finder .fr { animation: riseIn .4s var(--ease) both; animation-delay: calc(.4s + var(--i) * 70ms); }
@@ -137,20 +141,17 @@
 .bars .b span:first-child { color: var(--ink); font-weight: 500; }
 .pop .app { --w: 620; }
 .pop .vis { container-type: inline-size; }
-.pop .a-desk { min-height: calc(var(--u) * 300); }
+.pop .a-desk { height: calc(var(--u) * 330); }
 
 @media (max-width: 640px) {
   .two { grid-template-columns: minmax(0, 1fr); }
   .files-vis { grid-template-columns: minmax(0, 1fr); gap: 18px; }
   .files-vis .finder { --u: min(1px, calc(100cqw / 340)); }
   .bars .b { grid-template-columns: 80px 1fr 70px; }
-  .write-vis .sl-menu { left: calc(50% - var(--u) * 300); }
+  .srch-vis .s-pop { right: calc(var(--u) * 10); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .js .hero .s-pop, .js .hero .a-chip.srch, .js .hero .s-field .c, .js .hero .hit, .js .hero .s-status { animation: none; }
-  .hero .s-pop, .hero .s-field .c, .hero .hit { opacity: 1; transform: none; }
-  .hero .s-status { display: none; }
-  .type .w, .meet-vis .m-bar.job, .meet-vis .e-meet .mb-body, .meet-vis .e-meet .tb, .meet-vis .e-meet .mt, .meet-vis .e-meet .mp, .meet-vis .after,
+  .type .w, .meet-vis .m-bar.job, .meet-vis .e-meet .mb-body, .meet-vis .e-meet .tb, .meet-vis .after,
   .srch-vis .s-field .c, .srch-vis .hit, .write-vis .sl-menu, .write-vis .sl-item, .two .e-caret, .two .e-cur, .files-vis .finder .fr { opacity: 1 !important; animation: none !important; transform: none !important; }
   .meet-vis .m-bar.rec, .srch-vis .s-status, .write-vis .sl-hl, .meet-vis .e-meet .mh .live, .meet-vis .e-meet .mb-note { display: none; }
   .meet-vis .e-meet .mb-body { max-height: none !important; }
@@ -169,11 +170,11 @@
     <nav class="nav" aria-label="Pages">
       <a href="index.html">Why Synomy</a>
       <a class="here" href="app.html">The app</a>
-      <a href="how.html">How it works</a>
+      <a href="index.html#questions">Questions</a>
       <a href="install.html">Install</a>
     </nav>
     <div class="bar-sp"></div>
-    <span class="ver" data-version>2.4.20 beta</span>
+    <span class="ver" data-version>2.6.0 beta</span>
     <a class="btn btn-sm btn-bar" id="cta-bar" href="https://github.com/LarsLagauw/synomy-releases/releases/latest">Download</a>
   </div>
 </header>
@@ -189,7 +190,7 @@
         <span>Everything it does today.</span>
       </h1>
       <p class="hero-lede">
-        Notes, meetings, search, chat and writing together, all on your own computer. This page is the tour.
+        Notes, meetings, search, comments and writing together, all on your own computer. This page is the tour.
       </p>
       <div class="hero-cta">
         <a class="btn btn-ink" id="cta-main" href="https://github.com/LarsLagauw/synomy-releases/releases/latest">
@@ -205,55 +206,37 @@
     <div class="hero-shot">
       <div class="shot-move">
         <div class="app" aria-hidden="true">
-          <div class="a-bar">
-            <span class="a-tl"><i></i><i></i><i></i></span>
-            <div class="a-left">
-              <span class="a-chip ico"><i data-g="chevron.backward"></i></span>
-              <span class="a-chip"><i data-g="square.grid.2x2"></i>Pages<i class="hint" data-g="chevron.down"></i></span>
-              <span class="a-chip"><i data-g="plus"></i>New</span>
-            </div>
+          <div class="a-bar"><span class="a-tl"><i></i><i></i><i></i></span>
+            <div class="a-left"><span class="a-chip ico"><i data-g="chevron.backward"></i></span><span class="a-chip ico dis"><i data-g="chevron.forward"></i></span><span class="a-chip"><i data-g="square.grid.2x2"></i>Pages<i class="hint" data-g="chevron.down"></i></span><span class="a-chip"><i data-g="plus"></i>New</span><span class="a-chip drop"><i data-g="chevron.down"></i></span></div>
             <div class="a-centre"><span class="a-proj"><i class="pg" data-g="folder"></i>Notes<i class="hint" data-g="chevron.down"></i></span></div>
-            <div class="a-right">
-              <span class="a-chip"><i data-g="magnifyingglass"></i>Search</span>
-              <span class="a-chip ico"><i data-g="arrow.clockwise"></i></span>
-              <span class="a-chip ico"><i data-g="clock"></i></span>
-              <span class="a-chip ico"><i data-g="person.2"></i></span>
-              <span class="a-chip ico"><i data-g="bell"></i><span class="a-badge">1</span></span>
-              <span class="a-chip ico"><i data-g="gearshape"></i></span>
-              <span class="a-chip ico"><i data-g="square.and.arrow.up"></i></span>
-            </div>
+            <div class="a-right"><span class="a-chip"><i data-g="ph:magnifying-glass"></i>Search</span><span class="a-chip ico"><i data-g="ph:bell"></i></span><span class="a-chip ico"><i data-g="gearshape"></i></span><span class="a-chip ico"><i data-g="ph:dots-three"></i></span></div>
           </div>
           <div class="a-desk">
             <div class="e-page">
               <h1 class="e-title">Weekend market</h1>
-              <div class="e-byline">
-                <span class="e-faces"><span class="e-face on" style="--hue:320">L</span></span>
-                <span>In step with Lena</span><span class="dot"></span><span>Local network</span><span class="word">Share</span>
-              </div>
-              <p class="e-p sec">Saturday 12 September · Stall 14, next to the flower seller</p>
+              <p class="e-p">Saturday 12 September · Stall 14, next to the flower seller</p>
               <ul class="e-todo">
                 <li class="on">Book the stall</li>
                 <li class="on">Order 40 jars from Lena</li>
                 <li>Print the price cards</li>
                 <li>Borrow Sam's folding tables</li>
               </ul>
-              <div class="e-card blue"><div class="t">Bring more change for the float this time.</div><p>Last spring we ran out before eleven.</p></div>
+              <div class="e-card blue"><div class="t">Bring more change</div><div class="s">Last spring we ran out before eleven.</div><div class="l">Float</div><div class="b">€ 150 in coins, € 100 in fives</div></div>
               <div class="e-cols">
                 <div>
                   <h3 class="e-h3">Prices</h3>
-                  <ul class="e-ul"><li>Plum jam, 350 g · € 6</li><li>Honey, 500 g · € 8</li><li>Sourdough loaf · € 4</li><li>Three for € 15</li></ul>
+                  <ul class="e-ul"><li>Plum jam, 350 g · € 6</li><li>Honey, 500 g · € 8</li><li>Sourdough loaf · € 4</li></ul>
                 </div>
                 <div>
                   <h3 class="e-h3">Who's coming</h3>
                   <ul class="e-ul"><li>Lena, from eight</li><li>Marco, with the van</li><li>Sam, after football</li></ul>
                 </div>
               </div>
-              <p class="e-p">Open questions are in</p>
+              <p class="e-p">Open questions are in <span class="e-hl">the page below</span>.</p>
               <div class="e-badge"><div class="t"><i data-g="doc.text"></i>Questions before we sign</div><div class="d">Scaffolding, the permit, the deposit</div></div>
             </div>
-
           </div>
-          <span class="a-ver" data-version>2.4.20 beta</span>
+          <span class="a-ver" data-version>2.6.0 beta</span>
         </div>
       </div>
       <div class="shot-fade" aria-hidden="true"></div>
@@ -263,19 +246,18 @@
 
   <!-- ============================================================ Meetings -->
   <section class="sec" id="meetings">
-    <div class="wrap stack">
+    <div class="wrap pair">
       <div class="txt">
         <img class="emblem rv" src="assets/obj-wave.webp" alt="" width="526" height="418">
         <h2 class="rv">Press record. Read back who said what.</h2>
         <p class="rv" style="--d:80ms">Synomy catches your microphone and your computer's audio, then writes the transcript into the page with every speaker told apart.</p>
       </div>
       <div class="vis rv meet-vis" style="--d:120ms" data-vig data-loop>
-        <div class="app" style="--w:900" aria-hidden="true">
-          <div class="a-bar">
-            <span class="a-tl"><i></i><i></i><i></i></span>
-            <div class="a-left"><span class="a-chip ico"><i data-g="chevron.backward"></i></span><span class="a-chip"><i data-g="square.grid.2x2"></i>Pages<i class="hint" data-g="chevron.down"></i></span><span class="a-chip"><i data-g="plus"></i>New</span></div>
+        <div class="app" aria-hidden="true">
+          <div class="a-bar"><span class="a-tl"><i></i><i></i><i></i></span>
+            <div class="a-left"><span class="a-chip ico"><i data-g="chevron.backward"></i></span><span class="a-chip ico dis"><i data-g="chevron.forward"></i></span><span class="a-chip"><i data-g="square.grid.2x2"></i>Pages<i class="hint" data-g="chevron.down"></i></span><span class="a-chip"><i data-g="plus"></i>New</span><span class="a-chip drop"><i data-g="chevron.down"></i></span></div>
             <div class="a-centre"><span class="a-proj"><i class="pg" data-g="hammer"></i>Renovation<i class="hint" data-g="chevron.down"></i></span></div>
-            <div class="a-right"><span class="a-chip"><i data-g="magnifyingglass"></i>Search</span><span class="a-chip ico"><i data-g="arrow.clockwise"></i></span><span class="a-chip ico"><i data-g="clock"></i></span><span class="a-chip ico"><i data-g="person.2"></i></span><span class="a-chip ico"><i data-g="bell"></i></span><span class="a-chip ico"><i data-g="gearshape"></i></span><span class="a-chip ico"><i data-g="square.and.arrow.up"></i></span></div>
+            <div class="a-right"><span class="a-chip"><i data-g="ph:magnifying-glass"></i>Search</span><span class="a-chip ico"><i data-g="ph:bell"></i></span><span class="a-chip ico"><i data-g="gearshape"></i></span><span class="a-chip ico"><i data-g="ph:dots-three"></i></span></div>
           </div>
           <div class="a-desk">
             <div class="e-page">
@@ -304,7 +286,7 @@
             <div class="m-bar rec">
               <span class="m-rec"></span>
               <span class="m-clock" data-clock="18:37">18:37</span>
-              <span class="m-meter"><i class="live" style="--i:0;--h:50%"></i><i class="live" style="--i:1;--h:90%"></i><i class="live" style="--i:2;--h:40%"></i><i class="live" style="--i:3;--h:75%"></i><i class="live" style="--i:4;--h:100%"></i><i class="live" style="--i:5;--h:55%"></i><i class="live" style="--i:6;--h:85%"></i><i class="live" style="--i:7;--h:35%"></i><i class="live" style="--i:8;--h:70%"></i><i class="live" style="--i:9;--h:95%"></i><i class="live" style="--i:10;--h:45%"></i><i class="live" style="--i:11;--h:80%"></i><i class="live" style="--i:12;--h:60%"></i><i class="live" style="--i:13;--h:90%"></i><i class="live" style="--i:14;--h:50%"></i><i class="live" style="--i:15;--h:70%"></i></span>
+              <span class="m-meter"><i class="live" style="--i:0;--h:50%"></i><i class="live" style="--i:1;--h:90%"></i><i class="live" style="--i:2;--h:40%"></i><i class="live" style="--i:3;--h:75%"></i><i class="live" style="--i:4;--h:100%"></i><i class="live" style="--i:5;--h:55%"></i><i class="live" style="--i:6;--h:85%"></i><i class="live" style="--i:7;--h:35%"></i><i class="live" style="--i:8;--h:70%"></i><i class="live" style="--i:9;--h:95%"></i><i class="live" style="--i:10;--h:45%"></i><i class="live" style="--i:11;--h:80%"></i></span>
               <span class="m-lines"><span class="m-into"><i data-g="waveform"></i><span>Call with the contractor</span></span><span class="m-sub">Microphone and this Mac's audio</span></span>
               <span class="m-gap"></span>
               <span class="m-btn danger"><span class="sq"></span>Stop</span>
@@ -317,7 +299,7 @@
               <span class="m-btn quiet">Cancel</span>
             </div>
           </div>
-          <span class="a-ver" data-version>2.4.20 beta</span>
+          <span class="a-ver" data-version>2.6.0 beta</span>
         </div>
       </div>
     </div>
@@ -325,22 +307,21 @@
 
   <!-- ============================================================ Search -->
   <section class="sec" id="search">
-    <div class="wrap stack">
+    <div class="wrap pair flip">
       <div class="txt">
         <img class="emblem rv" src="assets/obj-lens.webp" alt="" width="957" height="740">
         <h2 class="rv">Ask your notes a question.</h2>
         <p class="rv" style="--d:80ms">Search understands what you meant, not the words you typed. Ask for “the dinner at Marco's” and get the page you called “Saturday plans”.</p>
       </div>
       <div class="vis rv srch-vis" style="--d:120ms" data-vig>
-        <div class="app" style="--w:900" aria-hidden="true">
-          <div class="a-bar">
-            <span class="a-tl"><i></i><i></i><i></i></span>
-            <div class="a-left"><span class="a-chip ico"><i data-g="chevron.backward"></i></span><span class="a-chip"><i data-g="square.grid.2x2"></i>Pages<i class="hint" data-g="chevron.down"></i></span><span class="a-chip"><i data-g="plus"></i>New</span></div>
+        <div class="app" aria-hidden="true">
+          <div class="a-bar"><span class="a-tl"><i></i><i></i><i></i></span>
+            <div class="a-left"><span class="a-chip ico"><i data-g="chevron.backward"></i></span><span class="a-chip ico dis"><i data-g="chevron.forward"></i></span><span class="a-chip"><i data-g="square.grid.2x2"></i>Pages<i class="hint" data-g="chevron.down"></i></span><span class="a-chip"><i data-g="plus"></i>New</span><span class="a-chip drop"><i data-g="chevron.down"></i></span></div>
             <div class="a-centre"><span class="a-proj"><i class="pg" data-g="hammer"></i>Renovation<i class="hint" data-g="chevron.down"></i></span></div>
-            <div class="a-right"><span class="a-chip on"><i data-g="magnifyingglass"></i>Search</span><span class="a-chip ico"><i data-g="arrow.clockwise"></i></span><span class="a-chip ico"><i data-g="clock"></i></span><span class="a-chip ico"><i data-g="person.2"></i></span><span class="a-chip ico"><i data-g="bell"></i></span><span class="a-chip ico"><i data-g="gearshape"></i></span><span class="a-chip ico"><i data-g="square.and.arrow.up"></i></span></div>
+            <div class="a-right"><span class="a-chip on"><i data-g="ph:magnifying-glass"></i>Search</span><span class="a-chip ico"><i data-g="ph:bell"></i></span><span class="a-chip ico"><i data-g="gearshape"></i></span><span class="a-chip ico"><i data-g="ph:dots-three"></i></span></div>
           </div>
           <div class="a-desk">
-            <div class="e-page under">
+            <div class="e-page">
               <h1 class="e-title">Kitchen renovation</h1>
               <p class="e-p">Quotes from three builders, and what we still have to decide about the floor. The tiles arrive on the 14th.</p>
               <ul class="e-todo"><li class="on">Pick the tiles</li><li>Confirm the plumber</li><li>Ask about the permit</li></ul>
@@ -348,17 +329,16 @@
               <p class="e-p">Lena wants the sink under the window. So do I.</p>
             </div>
             <div class="a-pop s-pop">
-              <div class="s-head"><i data-g="sparkle.magnifyingglass"></i><span class="s-field"><span data-chars>afspraak met de aannemer</span><span class="cur"></span></span></div>
+              <div class="s-head"><i data-g="ph:magnifying-glass"></i><span class="s-field"><span data-chars>afspraak met de aannemer</span><span class="cur"></span></span></div>
               <div class="s-body">
                 <div class="s-status">1,284 sentences indexed</div>
                 <div class="hit" style="--i:0"><div class="hit-top"><span class="hit-page">Call with the contractor</span><span class="hit-score">82%</span></div><div class="hit-text">Can we push the tiling to Thursday? The delivery slipped a day. <mark>Thursday is fine, I'll move the plumber to the afternoon.</mark> Then I'll warn the neighbours about the noise.</div></div>
                 <div class="hit" style="--i:1"><div class="hit-top"><span class="hit-page">Questions before we sign</span><span class="hit-score">71%</span></div><div class="hit-text"><mark>Is the scaffolding included, and who handles the permit?</mark> When does the deposit come back if the start date slips?</div></div>
-                <div class="hit" style="--i:2"><div class="hit-top"><span class="hit-page">Kitchen renovation</span><span class="hit-score">63%</span></div><div class="hit-text"><mark>Quotes from three builders, and what we still have to decide about the floor.</mark> The tiles arrive on the 14th.</div></div>
-                <div class="hit" style="--i:3"><div class="hit-top"><span class="hit-page">Builder's quote.pdf</span><span class="hit-score">58%</span></div><div class="hit-text"><mark>Start date to be agreed with the client; a deposit of 30% is due on signing.</mark></div></div>
+                <div class="hit" style="--i:2"><div class="hit-top"><span class="hit-page">Builder's quote.pdf</span><span class="hit-score">58%</span></div><div class="hit-text"><mark>Start date to be agreed with the client; a deposit of 30% is due on signing.</mark></div></div>
               </div>
             </div>
           </div>
-          <span class="a-ver" data-version>2.4.20 beta</span>
+          <span class="a-ver" data-version>2.6.0 beta</span>
         </div>
       </div>
     </div>
@@ -366,43 +346,39 @@
 
   <!-- ============================================================ Writing -->
   <section class="sec" id="writing">
-    <div class="wrap stack">
+    <div class="wrap pair">
       <div class="txt">
         <img class="emblem rv" src="assets/obj-page.webp" alt="" width="384" height="490">
         <h2 class="rv">Writing that gets out of your way.</h2>
-        <p class="rv" style="--d:80ms">Type a slash and pick what you need: a heading, a to-do, a card, a formula, a page inside the page. Drag any block where it belongs.</p>
+        <p class="rv" style="--d:80ms">Type a slash and pick what you need: a card, a task list, a table, a page inside the page. Drag any block where it belongs.</p>
       </div>
       <div class="vis rv write-vis" style="--d:120ms" data-vig>
-        <div class="app" style="--w:900" aria-hidden="true">
-          <div class="a-bar">
-            <span class="a-tl"><i></i><i></i><i></i></span>
-            <div class="a-left"><span class="a-chip ico"><i data-g="chevron.backward"></i></span><span class="a-chip"><i data-g="square.grid.2x2"></i>Pages<i class="hint" data-g="chevron.down"></i></span><span class="a-chip"><i data-g="plus"></i>New</span></div>
+        <div class="app" aria-hidden="true">
+          <div class="a-bar"><span class="a-tl"><i></i><i></i><i></i></span>
+            <div class="a-left"><span class="a-chip ico"><i data-g="chevron.backward"></i></span><span class="a-chip ico dis"><i data-g="chevron.forward"></i></span><span class="a-chip"><i data-g="square.grid.2x2"></i>Pages<i class="hint" data-g="chevron.down"></i></span><span class="a-chip"><i data-g="plus"></i>New</span><span class="a-chip drop"><i data-g="chevron.down"></i></span></div>
             <div class="a-centre"><span class="a-proj"><i class="pg" data-g="book"></i>Book club<i class="hint" data-g="chevron.down"></i></span></div>
-            <div class="a-right"><span class="a-chip"><i data-g="magnifyingglass"></i>Search</span><span class="a-chip ico"><i data-g="arrow.clockwise"></i></span><span class="a-chip ico"><i data-g="clock"></i></span><span class="a-chip ico"><i data-g="person.2"></i></span><span class="a-chip ico"><i data-g="bell"></i></span><span class="a-chip ico"><i data-g="gearshape"></i></span><span class="a-chip ico"><i data-g="square.and.arrow.up"></i></span></div>
+            <div class="a-right"><span class="a-chip"><i data-g="ph:magnifying-glass"></i>Search</span><span class="a-chip ico"><i data-g="ph:bell"></i></span><span class="a-chip ico"><i data-g="gearshape"></i></span><span class="a-chip ico"><i data-g="ph:dots-three"></i></span></div>
           </div>
           <div class="a-desk">
             <div class="e-page">
               <h1 class="e-title">Book club, October</h1>
-              <p class="e-p">We're reading <i>The Overstory</i>. Marco hosts, so bring something for the table.</p>
-              <p class="e-p"><span class="e-hl">Chapter six is the one to argue about.</span> Lena says it's the best thing in the book, Sam says it's the reason he stopped.</p>
-              <div class="e-math">∑<sub>k=1</sub><sup>n</sup> k = n(n+1) / 2</div>
+              <p class="e-p">We're reading <i>The Overstory</i>. <span class="e-hl">Chapter six is the one to argue about.</span></p>
+              <div class="e-card green"><div class="t">Next time</div><div class="s">Thursday 6 November, at Lena's</div></div>
               <p class="e-p">/<span class="e-cur"></span></p>
             </div>
             <div class="sl-menu">
               <div class="sl-hl"></div>
-              <div class="sl-item" style="--i:0"><span class="gl"><i data-g="doc.text"></i></span>Text</div>
-              <div class="sl-item" style="--i:1"><span class="gl">H1</span>Heading 1</div>
-              <div class="sl-item" style="--i:2"><span class="gl"><i data-g="checklist"></i></span>To-do list</div>
-              <div class="sl-item" style="--i:3"><span class="gl"><i data-g="rectangle.on.rectangle"></i></span>Card</div>
-              <div class="sl-item" style="--i:4"><span class="gl">“</span>Quote</div>
-              <div class="sl-item" style="--i:5"><span class="gl"><i data-g="function"></i></span>Block equation</div>
-              <div class="sl-item" style="--i:6"><span class="gl"><i data-g="curlybraces"></i></span>Code block</div>
-              <div class="sl-item" style="--i:7"><span class="gl"><i data-g="doc.on.doc"></i></span>Page</div>
-              <div class="sl-item" style="--i:8"><span class="gl"><i data-g="mic"></i></span>Transcribe a meeting</div>
-              <div class="sl-item" style="--i:9"><span class="gl"><i data-g="photo"></i></span>Image</div>
+              <div class="sl-item" style="--i:0"><span class="gl"><svg viewBox="0 0 16 16"><path d="M12.55 8.4V5.2L9.35 2H4.6a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3.9"/><path d="M9.1 2v3.45h3.45"/><path d="M11.9 10.1v4.1M9.85 12.15h4.1"/></svg></span>Page</div>
+              <div class="sl-item" style="--i:1"><span class="gl"><svg viewBox="0 0 16 16"><rect x="2" y="2.75" width="12" height="10.5" rx="1.6"/><path d="M2 6.6h12M4.6 9.4h5M4.6 11.3h3"/></svg></span>Card</div>
+              <div class="sl-item" style="--i:2"><span class="gl"><svg viewBox="0 0 16 16"><path d="M2.4 4.3l1.2 1.2 2-2.2M2.4 9.3l1.2 1.2 2-2.2M7.6 4.5h6M7.6 9.5h6M7.6 13h4"/></svg></span>Task list</div>
+              <div class="sl-item" style="--i:3"><span class="gl"><svg viewBox="0 0 16 16"><rect x="1.8" y="2.6" width="3.6" height="9.4" rx="1"/><rect x="6.2" y="2.6" width="3.6" height="6.4" rx="1"/><rect x="10.6" y="2.6" width="3.6" height="11" rx="1"/></svg></span>Board</div>
+              <div class="sl-item" style="--i:4"><span class="gl"><svg viewBox="0 0 16 16"><rect x="2" y="3.2" width="12" height="10.6" rx="1.6"/><path d="M2 6.6h12M5.2 1.8v2.6M10.8 1.8v2.6M5 9.2h1.2M7.4 9.2h1.2M9.8 9.2h1.2M5 11.4h1.2M7.4 11.4h1.2"/></svg></span>Calendar</div>
+              <div class="sl-item" style="--i:5"><span class="gl"><svg viewBox="0 0 16 16"><rect x="2" y="2.75" width="12" height="10.5" rx="1.6"/><path d="M2 6.3h12M6.2 2.75v10.5M8.4 8.9h3.4M8.4 11.2h2.2"/></svg></span>Database</div>
+              <div class="sl-item" style="--i:6"><span class="gl"><svg viewBox="0 0 16 16"><rect x="6.1" y="1.75" width="3.8" height="7.1" rx="1.9"/><path d="M3.9 7.2a4.1 4.1 0 0 0 8.2 0M8 11.2v2.6M6 13.8h4"/></svg></span>Record a meeting</div>
+              <div class="sl-item" style="--i:7"><span class="gl"><svg viewBox="0 0 16 16"><path d="M8 1.9v7.2M5.3 6.5L8 9.2l2.7-2.7"/><path d="M2.6 10.6v2a1.5 1.5 0 0 0 1.5 1.5h7.8a1.5 1.5 0 0 0 1.5-1.5v-2"/></svg></span>Import a file</div>
             </div>
           </div>
-          <span class="a-ver" data-version>2.4.20 beta</span>
+          <span class="a-ver" data-version>2.6.0 beta</span>
         </div>
       </div>
     </div>
@@ -414,26 +390,24 @@
       <div class="txt centre" style="margin:0 auto 56px;max-width:64ch">
         <img class="emblem rv" src="assets/obj-peaks.webp" alt="" width="582" height="303">
         <h2 class="rv" style="max-width:24ch">Write the same page at the same time. No cloud in between.</h2>
-        <p class="rv" style="--d:80ms">Edit the same page letter by letter, as if you were at one keyboard. Your computers talk to each other directly, and a chat sits beside the page for everything you would rather say than write.</p>
+        <p class="rv" style="--d:80ms">Edit the same page letter by letter, as if you were at one keyboard. Your computers talk to each other directly, and anybody on the page can leave a comment beside any paragraph.</p>
       </div>
       <div class="two rv" style="--d:120ms" data-vig>
         <div>
           <div class="vis">
           <div class="app" aria-hidden="true">
-            <div class="a-bar">
-              <span class="a-tl"><i></i><i></i><i></i></span>
-              <div class="a-left"><span class="a-chip ico"><i data-g="chevron.backward"></i></span><span class="a-chip ico"><i data-g="square.grid.2x2"></i></span><span class="a-chip ico"><i data-g="plus"></i></span></div>
-              <div class="a-centre"><span class="a-proj"><i class="pg" data-g="folder"></i>Notes<i class="hint" data-g="chevron.down"></i></span></div>
-              <div class="a-right"><span class="a-chip ico"><i data-g="magnifyingglass"></i></span><span class="a-chip ico"><i data-g="person.2"></i></span><span class="a-chip ico"><i data-g="bell"></i></span></div>
-            </div>
+            <div class="a-bar"><span class="a-tl"><i></i><i></i><i></i></span>
+            <div class="a-left"><span class="a-chip ico"><i data-g="chevron.backward"></i></span><span class="a-chip ico"><i data-g="square.grid.2x2"></i></span><span class="a-chip ico"><i data-g="plus"></i></span></div>
+            <div class="a-centre"><span class="a-proj"><i class="pg" data-g="folder"></i>Notes<i class="hint" data-g="chevron.down"></i></span></div>
+            <div class="a-right"><span class="a-chip ico"><i data-g="ph:magnifying-glass"></i></span><span class="a-chip ico"><i data-g="ph:bell"></i></span><span class="a-chip ico"><i data-g="ph:dots-three"></i></span></div>
+          </div>
             <div class="a-desk">
               <div class="e-page">
                 <h1 class="e-title">Weekend market</h1>
-                <div class="e-byline"><span class="e-faces"><span class="e-face on" style="--hue:320">L</span></span><span>In step with Lena</span><span class="dot"></span><span>Internet, direct</span><span class="word">Share</span></div>
-                <p class="e-p sec">Saturday 12 September · Stall 14, next to the flower seller</p>
                 <p class="e-p">Marco's bringing the van at seven so we can set up before the crowd.</p>
-                <p class="e-p"><span class="type" style="--t0:.6s" data-type>Lena has the big umbrella in case it rains, and a second one for the jam table.</span><span class="e-caret" data-n="Lena" style="--c:#ff9ad5;--t0:.6s"></span></p>
+                <p class="e-p typed"><span class="type" style="--t0:.6s" data-type>Lena has the big umbrella in case it rains, and a second one for the jam table.</span><span class="e-caret" data-n="Lena" style="--c:hsl(320 62% 46%);--t0:.6s"></span></p>
               </div>
+              <div class="e-peers"><span class="e-face on live" style="--hue:320">L</span></div>
             </div>
           </div>
           </div>
@@ -443,18 +417,17 @@
           <div class="vis">
           <div class="app win" aria-hidden="true">
             <div class="a-bar">
-              <div class="a-left"><span class="a-chip ico"><i data-g="chevron.backward"></i></span><span class="a-chip ico"><i data-g="square.grid.2x2"></i></span><span class="a-chip ico"><i data-g="plus"></i></span></div>
-              <div class="a-centre"><span class="a-proj"><i class="pg" data-g="folder"></i>Notes<i class="hint" data-g="chevron.down"></i></span></div>
-              <div class="a-right"><span class="a-chip ico"><i data-g="magnifyingglass"></i></span><span class="a-chip ico"><i data-g="person.2"></i></span><span class="a-chip ico"><i data-g="bell"></i></span><span class="a-caps"><span>—</span><span>▢</span><span>✕</span></span></div>
-            </div>
+            <div class="a-left"><span class="a-chip ico"><i data-g="chevron.backward"></i></span><span class="a-chip ico"><i data-g="square.grid.2x2"></i></span><span class="a-chip ico"><i data-g="plus"></i></span></div>
+            <div class="a-centre"><span class="a-proj"><i class="pg" data-g="folder"></i>Notes<i class="hint" data-g="chevron.down"></i></span></div>
+            <div class="a-right"><span class="a-chip ico"><i data-g="ph:magnifying-glass"></i></span><span class="a-chip ico"><i data-g="ph:bell"></i></span><span class="a-chip ico"><i data-g="ph:dots-three"></i></span><span class="a-caps"><span>—</span><span>▢</span><span>✕</span></span></div>
+          </div>
             <div class="a-desk">
               <div class="e-page">
                 <h1 class="e-title">Weekend market</h1>
-                <div class="e-byline"><span class="e-faces"><span class="e-face on" style="--hue:95">S</span></span><span>In step with Sam</span><span class="dot"></span><span>Internet, direct</span><span class="word">Share</span></div>
-                <p class="e-p sec">Saturday 12 September · Stall 14, next to the flower seller</p>
                 <p class="e-p">Marco's bringing the van at seven so we can set up before the crowd.</p>
-                <p class="e-p"><span class="type" style="--t0:.6s" data-type>Lena has the big umbrella in case it rains, and a second one for the jam table.</span><span class="e-cur" style="--t0:.6s"></span></p>
+                <p class="e-p typed"><span class="type" style="--t0:.6s" data-type>Lena has the big umbrella in case it rains, and a second one for the jam table.</span><span class="e-cur" style="--t0:.6s"></span></p>
               </div>
+              <div class="e-peers"><span class="e-face on live" style="--hue:95">S</span></div>
             </div>
           </div>
           </div>
@@ -473,30 +446,36 @@
       </div>
       <div class="vis rv files-vis" style="--d:120ms" data-vig>
         <div class="app" aria-hidden="true">
-          <div class="a-bar">
-            <span class="a-tl"><i></i><i></i><i></i></span>
-            <div class="a-left"><span class="a-chip ico dis"><i data-g="chevron.backward"></i></span><span class="a-chip ico"><i data-g="square.grid.2x2"></i></span><span class="a-chip ico"><i data-g="plus"></i></span></div>
-            <div class="a-centre"><span class="a-proj on"><i class="pg" data-g="folder"></i>Notes<i class="hint" data-g="chevron.down"></i></span></div>
-            <div class="a-right"><span class="a-chip ico"><i data-g="magnifyingglass"></i></span><span class="a-chip ico"><i data-g="arrow.clockwise"></i></span><span class="a-chip ico"><i data-g="bell"></i></span><span class="a-chip ico"><i data-g="gearshape"></i></span><span class="a-chip ico"><i data-g="square.and.arrow.up"></i></span></div>
+          <div class="a-bar"><span class="a-tl"><i></i><i></i><i></i></span>
+            <div class="a-left"><span class="a-chip ico"><i data-g="chevron.backward"></i></span><span class="a-chip ico"><i data-g="square.grid.2x2"></i></span><span class="a-chip ico"><i data-g="plus"></i></span></div>
+            <div class="a-centre"><span class="a-proj"><i class="pg" data-g="folder"></i>Notes<i class="hint" data-g="chevron.down"></i></span></div>
+            <div class="a-right"><span class="a-chip ico"><i data-g="ph:magnifying-glass"></i></span><span class="a-chip ico"><i data-g="ph:bell"></i></span><span class="a-chip ico"><i data-g="ph:dots-three"></i></span></div>
           </div>
           <div class="a-desk">
-            <div class="a-home"><div class="h-wrap">
-              <div class="h-title"><span class="h-icon"><i data-g="folder"></i></span><h1>Notes</h1></div>
-              <div class="h-sub">4 pages · 2 of 3 friends online</div>
-              <div class="h-where">~/Notes <b>Show in Finder</b></div>
-              <div class="h-cols">
-                <div>
-                  <div class="h-head"><h2>Pages</h2><span class="h-filter"><i data-g="magnifyingglass"></i>Filter pages</span></div>
-                  <div class="h-row"><span class="rg"><i data-g="doc.text"></i></span><span class="rl"><span class="rt">Weekend market</span><span class="rd">Saturday 12 September · Stall 14, next to the flower seller</span></span><span class="pin"><i data-g="pin"></i></span></div>
-                  <div class="h-row"><span class="rg"><i data-g="waveform"></i></span><span class="rl"><span class="rt">Call with the contractor</span><span class="rd">Thursday: tiling moved, plumber in the afternoon</span></span></div>
-                  <div class="h-row"><span class="rg"><i data-g="book"></i></span><span class="rl"><span class="rt">Book club, October</span><span class="rd">We're reading The Overstory. Marco hosts.</span></span></div>
-                  <div class="h-row"><span class="rg"><i data-g="map"></i></span><span class="rl"><span class="rt">Trip to the Dolomites</span><span class="rd">Late September, five days</span></span></div>
-                  <div class="h-doing"><span><i data-g="plus"></i>New page</span><span><i data-g="doc.richtext"></i>Import a PDF</span><span><i data-g="link"></i>Add a page from an invite code</span></div>
-                </div>
-              </div>
-            </div></div>
+            <div class="e-page">
+              <h1 class="e-title">Weekend market</h1>
+              <p class="e-p">Saturday 12 September · Stall 14, next to the flower seller</p>
+              <ul class="e-todo"><li class="on">Book the stall</li><li>Print the price cards</li></ul>
+            </div>
           </div>
-          <span class="a-ver" data-version>2.4.20 beta</span>
+          <div class="a-scrim"></div>
+          <div class="a-sheet">
+            <span class="x"><i data-g="xmark"></i></span>
+            <h1 class="pv-title">Pages</h1>
+            <div class="pv-bar"><span class="pv-act"><i data-g="plus"></i>New page</span><span class="pv-act"><i data-g="tablecells"></i>New database</span><span class="pv-filter"><i data-g="magnifyingglass"></i>Filter pages</span></div>
+            <div class="pv-grid">
+              <div class="pv-col">
+                <div class="pv-card"><div class="pv-row root"><i class="tw" data-g="chevron.down"></i><i class="rg" data-g="doc.text"></i>Weekend market</div><div class="pv-row kid"><i class="rg" data-g="doc.text"></i>Price cards</div><div class="pv-row kid"><i class="rg" data-g="doc.text"></i>Who brings what</div></div>
+                <div class="pv-card"><div class="pv-row root flat"><i class="rg" data-g="waveform"></i>Call with the contractor</div></div>
+                <div class="pv-card"><div class="pv-row root"><i class="tw" data-g="chevron.down"></i><i class="rg" data-g="hammer"></i>Kitchen renovation</div><div class="pv-row kid"><i class="rg" data-g="doc.text"></i>Questions before we sign</div></div>
+              </div>
+              <div class="pv-col">
+                <div class="pv-card"><div class="pv-row root"><i class="tw" data-g="chevron.down"></i><i class="rg" data-g="book"></i>Book club, October</div><div class="pv-row kid"><i class="rg" data-g="doc.text"></i>Chapter six</div></div>
+                <div class="pv-card"><div class="pv-row root"><i class="tw" data-g="chevron.down"></i><i class="rg" data-g="map"></i>Trip to the Dolomites</div><div class="pv-row kid"><i class="rg" data-g="checklist"></i>Packing list</div><div class="pv-row kid"><i class="rg" data-g="doc.text"></i>Huts and routes</div></div>
+              </div>
+            </div>
+          </div>
+          <span class="a-ver" data-version>2.6.0 beta</span>
         </div>
         <div class="finder" aria-hidden="true">
           <div class="fh"><span class="a-tl"><i></i><i></i><i></i></span>Notes</div>
@@ -536,7 +515,7 @@
       <h3 class="all-group rv">Together</h3>
       <ul class="all-grid">
         <li class="rv" style="--d:0ms"><button class="feat" data-pop="together"><span class="g" data-g="person.2"></span><div><b>Write together, live</b> <span>Letter by letter, with no cloud in between.</span><em class="open">Read more</em></div></button></li>
-        <li class="rv" style="--d:30ms"><button class="feat" data-pop="chat"><span class="g" data-g="bubble.left.and.bubble.right"></span><div><b>Chat beside every page</b> <span>And messages between friends. Pictures too.</span><em class="open">Read more</em></div></button></li>
+        <li class="rv" style="--d:30ms"><button class="feat" data-pop="comments"><span class="g" data-g="ph:chat-circle"></span><div><b>Comments on any paragraph</b> <span>Talk a page over right where it says it.</span><em class="open">Read more</em></div></button></li>
         <li class="rv" style="--d:60ms"><button class="feat" data-pop="sendfiles"><span class="g" data-g="tray.full"></span><div><b>Send files of any size</b> <span>Straight to a friend's computer, no upload.</span><em class="open">Read more</em></div></button></li>
         <li class="rv" style="--d:90ms"><button class="feat" data-pop="sharing"><span class="g" data-g="paperplane"></span><div><b>Share with the people you pick</b> <span>Viewer or editor. Stop whenever you like.</span><em class="open">Read more</em></div></button></li>
         <li class="rv" style="--d:120ms"><button class="feat" data-pop="socialcloud"><span class="g" data-g="cloud"></span><div><b>The social cloud</b> <span>Your changes reach a friend who was offline.</span><em class="open">Read more</em></div></button></li>
@@ -551,8 +530,18 @@
         <li class="rv" style="--d:60ms"><button class="feat" data-pop="everywhere"><span class="g" data-g="laptopcomputer"></span><div><b>Mac and Windows</b> <span>The same app on either desk.</span><em class="open">Read more</em></div></button></li>
         <li class="rv" style="--d:90ms"><button class="feat" data-pop="dark"><span class="g" data-g="paintpalette"></span><div><b>Dark mode, your colours</b> <span>Seven backgrounds, seven accents, or any colour.</span><em class="open">Read more</em></div></button></li>
         <li class="rv" style="--d:120ms"><button class="feat" data-pop="api"><span class="g" data-g="chevron.left.forwardslash.chevron.right"></span><div><b>Connect your own tools</b> <span>A private door for other apps, AI included.</span><em class="open">Read more</em></div></button></li>
-        <li class="rv" style="--d:150ms"><button class="feat" data-pop="suggestions"><span class="g" data-g="lightbulb"></span><div><b>Tell us what to build</b> <span>Ideas and bug reports, straight from the app.</span><em class="open">Read more</em></div></button></li>
       </ul>
+    </div>
+  </section>
+
+  <!-- ============================================================ Community -->
+  <section class="community" id="community">
+    <div class="wrap">
+      <h2 class="rv">Missing something? Tell us.</h2>
+      <p class="rv" style="--d:80ms">Ideas and bug reports live in our Discord community, where the people who make Synomy read them. Say what to build next, report what broke, or ask how something works.</p>
+      <p class="asks rv" style="--d:140ms"><span>Ideas</span><span>Bug reports</span><span>Questions</span><span>How you use it</span></p>
+      <a class="btn btn-light btn-lg rv" style="--d:200ms" href="https://discord.gg/fm6PRXMeNC" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.865-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .078-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.009c.12.1.246.199.373.292a.077.077 0 0 1-.006.128 12.3 12.3 0 0 1-1.873.891.077.077 0 0 0-.041.107c.36.698.772 1.363 1.225 1.993a.076.076 0 0 0 .084.029 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.086-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.332-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.086-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.332-.946 2.418-2.157 2.418z"/></svg><span>Join us on Discord</span></a>
+      <span class="fine rv" style="--d:240ms">discord.gg/fm6PRXMeNC · Joining needs a Discord account.</span>
     </div>
   </section>
 
@@ -597,8 +586,7 @@
   <div class="wrap">
     <h2>Keep reading</h2>
     <ul>
-        <li><a href="index.html"><b>Why Synomy</b> <span>Why it's free, and why there's no company in the middle.</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a></li>
-        <li><a href="how.html"><b>How it works</b> <span>Plain answers to fair questions, like who can read your notes.</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a></li>
+        <li><a href="index.html"><b>Why Synomy</b> <span>Why it's free, how it works with no servers, and plain answers to fair questions.</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a></li>
         <li><a href="install.html"><b>Install</b> <span>Every click of the first install, on Mac and Windows.</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a></li>
     </ul>
   </div>
@@ -608,10 +596,11 @@
   <div class="wrap foot-in">
     <a class="mark" href="#top"><img src="assets/icon.png" alt="" width="28" height="28"><span>Synomy Notes</span></a>
     <span class="fsp"></span>
-    <span>Version <span data-version>2.4.20 beta</span></span>
+    <span>Version <span data-version>2.6.0 beta</span></span>
     <a href="index.html">Why Synomy</a>
-    <a href="how.html">How it works</a>
+    <a href="index.html#questions">Questions</a>
     <a href="install.html">Install help</a>
+    <a href="https://discord.gg/fm6PRXMeNC" rel="noopener">Discord</a>
     <a href="https://github.com/LarsLagauw/synomy-releases/releases">All releases</a>
     <a href="https://github.com/LarsLagauw/synomy-releases/releases/latest">What's new</a>
     <a href="https://github.com/LarsLagauw/synomy-releases/blob/main/EULA.md">Licence</a>
@@ -670,7 +659,7 @@
 <template id="tpl-history">
   <div class="pop-head"><span class="g" data-g="clock"></span><div><h3 id="pop-title">Every page keeps its own past.</h3><p class="kicker">Scroll back through a page, see who changed what, restore any of it.</p></div></div>
   <div class="pop-body">
-    <p>Press the clock and the page becomes a timeline. Drag through it to see the page as it stood yesterday or last month, with every change marked by who made it. Restoring keeps the newer states too, so nothing is lost by looking back.</p>
+    <p>Choose History from the ⋯ menu and the page becomes a timeline. Drag through it to see the page as it stood yesterday or last month, with every change marked by who made it. Restoring keeps the newer states too, so nothing is lost by looking back.</p>
   </div>
 </template>
 
@@ -719,7 +708,7 @@
 <template id="tpl-everywhere">
   <div class="pop-head"><span class="g" data-g="laptopcomputer"></span><div><h3 id="pop-title">The same app on Mac and Windows.</h3><p class="kicker">One app, two systems.</p></div></div>
   <div class="pop-body">
-    <p>A Mac and a Windows laptop share pages, chat and write together exactly as two Macs do, over Wi‑Fi or the internet. Only the things that should follow your system do: the window buttons, the file dialogs, and whether the shortcut is ⌘ or Ctrl.</p>
+    <p>A Mac and a Windows laptop share pages, comment and write together exactly as two Macs do, over Wi‑Fi or the internet. Only the things that should follow your system do: the window buttons, the file dialogs, and whether the shortcut is ⌘ or Ctrl.</p>
     <ul class="facts">
       <li><b>35 MB</b> <span>to download</span></li>
       <li><b>2</b> <span>systems, one app</span></li>
@@ -739,7 +728,6 @@
   <div class="pop-head"><span class="g" data-g="person.badge.plus"></span><div><h3 id="pop-title">Find people by name.</h3><p class="kicker">Through the people you already know, with no directory anywhere.</p></div></div>
   <div class="pop-body">
     <p>Type a name and Synomy asks your friends, and their friends. Whoever matches sends a card back and you send a request. There is no central list of users to be on, and you decide who can find you: everyone, only friends, or nobody.</p>
-    <p class="fine">A friend code or an invite code works too, for somebody who is not in your circle yet.</p>
   </div>
 </template>
 
@@ -764,19 +752,18 @@
     <p>Pick from seven backgrounds and seven accent colours, or any colour you like for each. Synomy keeps the text readable whatever you choose, and every marker keeps its ink in the dark: a yellow highlight stays yellow, with dark writing on it, the way it would on paper.</p>
     <div class="pop-vis vis">
       <div class="app" aria-hidden="true">
-        <div class="a-bar">
-          <span class="a-tl"><i></i><i></i><i></i></span>
-          <div class="a-left"><span class="a-chip ico"><i data-g="chevron.backward"></i></span><span class="a-chip"><i data-g="square.grid.2x2"></i>Pages<i class="hint" data-g="chevron.down"></i></span><span class="a-chip"><i data-g="plus"></i>New</span></div>
+        <div class="a-bar"><span class="a-tl"><i></i><i></i><i></i></span>
+          <div class="a-left"><span class="a-chip ico"><i data-g="chevron.backward"></i></span><span class="a-chip ico"><i data-g="square.grid.2x2"></i></span><span class="a-chip ico"><i data-g="plus"></i></span></div>
           <div class="a-centre"><span class="a-proj"><i class="pg" data-g="folder"></i>Notes<i class="hint" data-g="chevron.down"></i></span></div>
-          <div class="a-right"><span class="a-chip"><i data-g="magnifyingglass"></i>Search</span><span class="a-chip ico"><i data-g="person.2"></i></span><span class="a-chip ico"><i data-g="bell"></i></span><span class="a-chip ico"><i data-g="gearshape"></i></span></div>
+          <div class="a-right"><span class="a-chip ico"><i data-g="ph:magnifying-glass"></i></span><span class="a-chip ico"><i data-g="ph:bell"></i></span><span class="a-chip ico"><i data-g="ph:dots-three"></i></span></div>
         </div>
         <div class="a-desk">
           <div class="e-page">
             <h1 class="e-title">Weekend market</h1>
-            <p class="e-p sec">Saturday 12 September · Stall 14</p>
+            <p class="e-p">Saturday 12 September · Stall 14</p>
             <ul class="e-todo"><li class="on">Book the stall</li><li>Print the price cards</li></ul>
             <p class="e-p"><span class="e-hl">Bring more change</span> for the float this time.</p>
-            <div class="e-card yellow"><div class="t">Lena has the umbrella.</div></div>
+            <div class="e-card yellow"><div class="t">Lena has the umbrella</div><div class="s">And a second one for the jam table.</div></div>
           </div>
         </div>
       </div>
@@ -807,12 +794,12 @@
   </div>
 </template>
 
-<template id="tpl-chat">
-  <div class="pop-head"><span class="g" data-g="bubble.left.and.bubble.right"></span><div><h3 id="pop-title">Talk it over, right beside the page.</h3><p class="kicker">A chat on every shared page, and messages between friends.</p></div></div>
+<template id="tpl-comments">
+  <div class="pop-head"><span class="g" data-g="ph:chat-circle"></span><div><h3 id="pop-title">Talk it over beside the paragraph.</h3><p class="kicker">Comments on any block of a page you share.</p></div></div>
   <div class="pop-body">
-    <p>Every page you share has a chat of its own, with everyone on that page in it. Send a friend a message on its own, too. Pictures work, you see who is typing, and your computer tells you when something arrives.</p>
-    <p class="fine">Messages disappear after 24 hours, unless somebody in the chat chooses to keep them longer.</p>
-    <details class="tech"><summary>The technical bit</summary><div><p>Chats travel the way pages do: locked for the people in them and sent straight between your computers. Nobody else, Synomy included, can read them.</p></div></details>
+    <p>Everybody on a shared page can leave a comment beside a paragraph, a list or a card, and the people on it can answer there. Open them all in a tile beside the page, read in order, and press one to jump to what it is about. The bell tells you when somebody comments.</p>
+    <p class="fine">Viewers can comment too, so somebody who may only read a page can still ask about it.</p>
+    <details class="tech"><summary>The technical bit</summary><div><p>Comments travel the way pages do: locked for the people on the page and sent straight between your computers. Nobody else, Synomy included, can read them.</p></div></details>
   </div>
 </template>
 
@@ -846,14 +833,8 @@
   </div>
 </template>
 
-<template id="tpl-suggestions">
-  <div class="pop-head"><span class="g" data-g="lightbulb"></span><div><h3 id="pop-title">Tell us what to build.</h3><p class="kicker">Ideas and bug reports, straight from the app.</p></div></div>
-  <div class="pop-body">
-    <p>Click the light bulb beside the version number to suggest something or report a bug. Star the ideas you want most and see what is being worked on. It travels the way your pages do, with no form on a website.</p>
-  </div>
-</template>
 
-<script src="assets/glyphs.js?v=1ca849f9"></script>
-<script src="assets/site.js?v=43f35e74"></script>
+<script src="assets/glyphs.js?v=f78f2b7b"></script>
+<script src="assets/site.js?v=f3fed5f7"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-/* Synomy Notes — the site's one script. Shared by index.html and how.html.
+/* Synomy Notes — the site's one script. Shared by every page.
 
    Nothing here is needed to read the page: every reveal starts visible without
    scripting (see .rv in site.css), every popup's text is in the document, and
@@ -210,6 +210,19 @@
       setTimeout(function () { openPop(wanted, document.querySelector('[data-pop="' + wanted + '"]')); }, 300);
     }
   }
+
+  /* ---------------------------------------------------------------- Questions */
+  /* A link to a question opens it: the chapters point down at theirs, and the
+     old how.html anchors (#hearing, #sealed …) land here through its redirect. */
+  function openQuestion() {
+    var id = location.hash.slice(1);
+    var q = id && document.getElementById(id);
+    if (!q || !q.matches('details.qa')) return;
+    q.open = true;
+    q.querySelector('summary').scrollIntoView({ block: 'start' });
+  }
+  openQuestion();
+  window.addEventListener('hashchange', openQuestion);
 
   /* ---------------------------------------------------------------- Which build is this visitor after? */
   var main = document.getElementById('cta-main');
