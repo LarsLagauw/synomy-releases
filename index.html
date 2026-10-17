@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Synomy: take back what's yours</title>
-<meta name="description" content="Synomy is a free app for your notes, your meetings and the people you work with. Everything stays on your own computer, and what you share goes straight to the people you chose. Why it is free, how it works with no servers, and plain answers to fair questions.">
+<meta name="description" content="Synomy is a free app for your notes and your meetings. Everything stays on your own computer: no account, no cloud, no monthly plan. For Mac and Windows.">
 
 <meta property="og:title" content="Synomy: take back what's yours">
 <meta property="og:description" content="A free app for your notes, meetings and the people you work with. It stays on your computer. Nobody in the middle.">
@@ -24,108 +24,81 @@
 <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700&family=Hanken+Grotesk:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css?v=75a333ee">
 <script>document.documentElement.className += ' js';</script>
+<script>
+/* The long read moved to docs.html (October 2026). A link to one of its
+   chapters or questions, from when they were on this page, follows it there. */
+(function () {
+  var h = location.hash.slice(1);
+  if (/^(bill|chain|together|locked|meetings|search|carried|grow|gone|free|next|now|questions|hearing|meaning|sealed|finding|offline|lost|account|systems|knows|stops)$/.test(h)) {
+    location.replace('docs.html#' + h);
+  }
+})();
+</script>
 
 <style>
-/* ------------------------------------------------------------------ Why, and how
-   index.html says why Synomy exists and how it works, on one page (October
-   2026: how.html was a second tab, and a reader had to leave the argument to
-   check it). app.html says what it does. The argument is set like one: a
-   chapter is a large statement on the left, its sentences on the right, one
-   plain picture underneath. The middle chapters take one part of the app each,
-   say what it usually costs somebody to run, how Synomy runs it with nothing
-   in between, and point down to the question that goes deeper. White type in
-   the night, one ice blue. */
+/* ------------------------------------------------------------------ Why Synomy
+   index.html is the short case for the app, for somebody choosing between it
+   and Notion (Lars, 2026-10-17: "way too much text", it has to be catchy and
+   easy to remember). Every block is one line to remember and one thing to look
+   at. The reasons in full are docs.html, the features app.html. */
 
-/* ---- the hero: one line, two buttons, the range rising under them ----
-   A poster, not a pitch (Lars, 2026-10-17: the paragraph and the stacked icon
-   read as a template). The first screen is the tag, the line, the two doors and
-   the summit; what the app is and why it exists is the page below. The hero is
-   one screen tall: the range fills whatever the type leaves and sinks behind
-   the buttons by a fixed share of its height, never more, so a short window
-   cannot push the summit into the line. */
-.hero.say {
-  --rw: min(128vw, 2100px, 172svh);
-  display: flex; flex-direction: column; min-height: 100svh;
-  padding: calc(var(--bar-h) + clamp(28px, 7svh, 96px)) 0 0;
-}
-.hero.say .hero-in { max-width: 1600px; width: 100%; container-type: inline-size; }
-.hero.say .hero-fill { flex: 1 1 0; }
-.hero.say .range {
-  --range-w: var(--rw);
-  margin-top: calc(var(--rw) * -.07);
-}
-.hero.say .sky { background: radial-gradient(60% 50% at 50% 92%, rgba(40, 110, 255, .38), transparent 72%); }
+/* ---- the hero: set like the install page's, the range under it ---- */
+.hero.say { padding: calc(var(--bar-h) + clamp(64px, 9vw, 104px)) 0 0; }
+.hero.say h1.hero-h { max-width: none; font-size: clamp(40px, 6vw, 78px); text-wrap: balance; }
+.hero.say h1.hero-h span { display: inline-block; }
+.hero.say .hero-lede { max-width: 40ch; text-wrap: balance; }
+.hero.say .hero-cta { gap: 12px; }
+.hero.say .hero-cta .btn-ghost { background: rgba(170, 210, 255, .06); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
+.hero.say .hero-cta .btn-ghost svg { width: 18px; height: 18px; }
+.hero.say .hero-lede, .hero.say .hero-meta { text-shadow: 0 1px 18px rgba(0, 0, 0, .8); }
+.hero.say .range { --range-w: min(1400px, 122vw); --range-top: clamp(26px, 3.6vw, 48px); }
 
-/* The tag says what this is, the job the paragraph had, in one line that is
-   also the way to the app's own page. */
-.hero-tag {
-  display: inline-flex; align-items: center; gap: 10px; margin: 0 auto clamp(22px, 3.4svh, 36px);
-  padding: 6px 14px 6px 6px; border-radius: 999px; text-decoration: none;
-  font-size: 14px; font-weight: 500; color: var(--ink-2); line-height: 1;
-  background: rgba(170, 210, 255, .06); border: 1px solid var(--rim);
-  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
-  transition: border-color .2s ease, color .2s ease;
-  animation: rise .9s var(--ease) both;
-}
-.hero-tag:hover { border-color: rgba(190, 225, 255, .4); color: var(--ink); }
-.hero-tag img { width: 24px; height: 24px; border-radius: 6px; box-shadow: 0 0 0 1px rgba(190, 225, 255, .18), 0 4px 14px -4px rgba(47, 123, 255, .7); }
-.hero-tag b { font-weight: 600; color: var(--ink); }
-.hero-tag b::after { content: ""; display: inline-block; width: 1px; height: 14px; margin-left: 10px; vertical-align: -2px; background: var(--rim); }
-.hero-tag svg { width: 13px; height: 13px; transition: transform .2s var(--ease); }
-.hero-tag:hover svg { transform: translateX(3px); }
+/* ---- the app itself, rising out of the range ---- */
+.see { position: relative; z-index: 1; margin-top: calc(min(1400px, 122vw) * -.1); }
+.see .hero-shot { margin: 0 auto; padding-inline: 0; max-width: 760px; }
+/* Drawn wider than shown, so the bar has the room it has on a real screen. */
+.see .app { --w: 1100; }
+.see .a-desk { height: calc(var(--u) * 560); }
+.see-cap { display: flex; justify-content: center; margin-top: 22px; }
+.see-cap .more { margin: 0; }
 
-/* One line wherever it fits (Lars, 2026-10-17), edge to edge: the line is
-   10.52em of Schibsted at this tracking, so the size is the column (cqw, which
-   leaves the scrollbar out where vw does not) over 10.75.
-   A phone wraps it in two, balanced, at the size further down. The glow is the
-   range's light on the letters. */
-.hero.say h1.hero-h {
-  max-width: none; margin: 0 auto clamp(26px, 4.2svh, 44px); text-wrap: balance;
-  font-size: clamp(44px, calc(100cqw / 10.75), 150px);
-  letter-spacing: -.05em; line-height: .92;
-  filter: drop-shadow(0 0 42px rgba(70, 150, 255, .32));
-}
-.hero.say h1.hero-h span { display: inline-block; padding-bottom: .06em; }
-.hero.say h1.hero-h span:nth-child(3) { animation-delay: .14s; }
-.hero.say h1.hero-h span:nth-child(4) { animation-delay: .21s; }
+/* A statement on its own: the chapters' size, the whole width. */
+.big { font-size: clamp(36px, 5.2vw, 72px); line-height: .98; letter-spacing: -.04em; font-weight: 700; text-wrap: balance; }
+.big span { display: inline-block; }
+#nobill h2 span { display: block; }
 
-/* Two doors of one size: the download, and the community. */
-.hero.say .hero-cta { gap: 14px; }
-.hero.say .hero-cta .btn { padding: 18px 26px; font-size: 17px; border-radius: 14px; gap: 11px; }
-.hero.say .hero-cta .btn svg { width: 18px; height: 18px; }
-.hero.say .hero-cta .btn-ghost { background: rgba(170, 210, 255, .07); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
-.hero.say .hero-cta .btn-ghost svg { width: 20px; height: 20px; }
-.hero.say .hero-meta { margin-top: 16px; }
-.hero.say .hero-meta, .hero.say .hero-tag { text-shadow: 0 1px 18px rgba(0, 0, 0, .8); }
-
-/* The bill: what a free thing costs, set as a ledger. */
-.ledger { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
-.ledger li {
-  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 20px; align-items: baseline;
-  padding: clamp(18px, 2.4vw, 30px) 0; border-bottom: 1px solid var(--line);
+/* ---- Synomy beside the cloud apps: one table, the Synomy column lit ---- */
+.vs {
+  position: relative; isolation: isolate; margin-top: clamp(40px, 5vw, 64px);
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr) minmax(0, 6fr); grid-template-rows: repeat(8, auto);
 }
-.ledger b { font-family: var(--display); font-weight: 600; font-size: clamp(20px, 2.2vw, 30px); letter-spacing: -.025em; line-height: 1.1; }
-.ledger span { font-size: clamp(17px, 1.5vw, 22px); line-height: 1.35; color: var(--ink-2); text-align: right; }
-.ledger span em { font-style: normal; color: var(--ink); }
-
-/* The chain: each line follows from the one before. */
-.chain { list-style: none; margin: 0; padding: 0; position: relative; max-width: 920px; }
-.chain::before { content: ""; position: absolute; left: 6px; top: 14px; bottom: 14px; width: 1px; background: var(--line); }
-.chain li {
-  position: relative; padding: 0 0 clamp(26px, 3vw, 40px) 40px;
-  font-family: var(--display); font-weight: 600; font-size: clamp(22px, 2.8vw, 38px); letter-spacing: -.03em; line-height: 1.12;
+/* Absolute, so the band covers the column without taking part in the placing
+   of the cells (a placed grid item would push them aside). */
+.vs::before {
+  content: ""; position: absolute; inset: 0; grid-column: 2; grid-row: 1 / -1; z-index: -1; border-radius: 18px;
+  background: linear-gradient(180deg, rgba(170, 210, 255, .1), rgba(170, 210, 255, .04));
+  border: 1px solid var(--rim); box-shadow: 0 30px 80px -40px rgba(47, 123, 255, .6);
 }
-.chain li:last-child { padding-bottom: 0; }
-.chain li::before {
-  content: ""; position: absolute; left: 0; top: .42em; width: 13px; height: 13px; border-radius: 50%;
-  background: var(--night); border: 1px solid var(--ink-3);
+.vs-row { display: contents; }
+.vs-row > * { padding: clamp(14px, 1.7vw, 20px) clamp(14px, 2vw, 26px); border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 10px; }
+.vs-row:last-child > * { border-bottom: 0; }
+.vs-row > :first-child { padding-left: 0; font-size: clamp(15px, 1.25vw, 17px); color: var(--ink-3); }
+.vs .us { font-weight: 600; font-size: clamp(16.5px, 1.45vw, 20px); color: var(--ink); border-bottom-color: transparent; }
+.vs .them { font-size: clamp(15.5px, 1.35vw, 18px); color: var(--ink-3); }
+.vs .us::before, .vs .them::before {
+  content: ""; flex: none; width: 18px; height: 18px; background: currentColor;
+  -webkit-mask: var(--m) center / contain no-repeat; mask: var(--m) center / contain no-repeat;
 }
-.chain li:last-child::before { background: var(--ice); border-color: var(--ice); box-shadow: 0 0 18px 2px rgba(143, 200, 255, .55); }
-.chain li span { color: var(--ink-3); font-weight: 500; }
-.chain li:last-child span { color: var(--ink); }
+.vs .us::before { color: var(--ice); --m: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3.2 3L13 4.5' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+.vs .them::before { opacity: .7; --m: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 4.5l7 7m0-7l-7 7' fill='none' stroke='%23000' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E"); }
+.vs-head > * { font-family: var(--display); font-weight: 700; font-size: clamp(19px, 1.9vw, 26px); letter-spacing: -.02em; color: var(--ink); padding-top: clamp(18px, 2vw, 24px); }
+.vs-head .us::before, .vs-head .them::before { content: none; }
+.vs-head .us img { width: 26px; height: 26px; border-radius: 7px; box-shadow: 0 0 0 1px rgba(190, 225, 255, .18), 0 4px 14px -4px rgba(47, 123, 255, .7); }
+.vs-head .them { flex-direction: column; align-items: flex-start; gap: 3px; color: var(--ink-2); }
+.vs-head .them small { font-family: var(--body); font-weight: 500; font-size: 13.5px; letter-spacing: 0; color: var(--ink-3); }
 
-/* Gone: the tricks, struck through one by one. */
-.gone { display: flex; flex-wrap: wrap; gap: clamp(10px, 1.6vw, 18px) clamp(18px, 3vw, 40px); margin: 0; padding: 0; list-style: none; }
+/* ---- no servers, so no bill: the struck-through list ---- */
+.gone { display: flex; flex-wrap: wrap; gap: clamp(10px, 1.6vw, 18px) clamp(18px, 3vw, 40px); margin: clamp(40px, 5vw, 64px) 0 0; padding: 0; list-style: none; }
 .gone li {
   position: relative; font-family: var(--display); font-weight: 600;
   font-size: clamp(26px, 4.2vw, 56px); letter-spacing: -.035em; line-height: 1.1; color: var(--ink);
@@ -138,157 +111,45 @@
 .js .gone.is-in li::after { animation: strike .55s var(--ease) both; animation-delay: calc(var(--i) * .16s + .5s); }
 .js .gone.is-in li { color: var(--ink-3); }
 @keyframes strike { to { transform: scaleX(1); } }
-.no-js .gone li, html:not(.js) .gone li { color: var(--ink-3); }
+html:not(.js) .gone li { color: var(--ink-3); }
 html:not(.js) .gone li::after { transform: none; }
 
-/* Free: what is free and what might one day cost money, side by side, set like
-   the Today/Later columns further down. The free side is the bright one. */
-.plans { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(28px, 4vw, 56px); }
-.plan h3 { font-size: clamp(24px, 2.6vw, 34px); letter-spacing: -.03em; line-height: 1.1; padding-bottom: 14px; border-bottom: 1px solid var(--ink); }
-.plan .plan-say { margin: 16px 0 10px; font-size: clamp(18px, 1.6vw, 22px); line-height: 1.35; color: var(--ink); }
-.plan ul { list-style: none; margin: 0; padding: 0; }
-.plan li { position: relative; padding: 7px 0 7px 22px; font-size: clamp(16.5px, 1.35vw, 18.5px); line-height: 1.45; color: var(--ink-2); }
-.plan li::before { content: ""; position: absolute; left: 2px; top: .95em; width: 7px; height: 7px; border-radius: 50%; background: var(--ice); }
-.plan.later h3 { border-bottom-color: var(--ink-3); color: var(--ink-2); }
-.plan.later .plan-say { color: var(--ink-2); }
-.plan.later li { color: var(--ink-3); }
-.plan.later li::before { background: transparent; border: 1px solid var(--ink-3); }
+/* ---- what is inside: words, no cards; each one opens its part of app.html ---- */
+.feats { list-style: none; margin: clamp(40px, 5vw, 64px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(28px, 3.4vw, 48px) clamp(24px, 3.4vw, 48px); }
+.feats a { display: block; padding-top: 16px; border-top: 1px solid var(--ink-3); text-decoration: none; transition: border-color .2s ease; }
+.feats a:hover { border-top-color: var(--ice); }
+.feats b { display: block; font-family: var(--display); font-weight: 700; font-size: clamp(21px, 2vw, 27px); letter-spacing: -.025em; line-height: 1.1; color: var(--ink); }
+.feats span { display: block; margin-top: 8px; font-size: clamp(16px, 1.3vw, 18px); line-height: 1.45; color: var(--ink-2); max-width: 30ch; }
 
-/* Grow: the network, arriving one machine at a time. */
-.grow { width: 100%; display: block; height: auto; }
-.grow circle { fill: var(--ink); opacity: 0; }
-.grow circle.you { fill: var(--ice); filter: drop-shadow(0 0 8px rgba(143, 200, 255, .8)); }
-.grow line { stroke: var(--ink); stroke-opacity: .28; stroke-width: 1; stroke-dasharray: var(--len); stroke-dashoffset: var(--len); }
-.js .grow-wrap.is-in circle { animation: dotin .6s var(--ease) both; animation-delay: calc(var(--at) * 1s); }
-.js .grow-wrap.is-in line { animation: draw 1s var(--ease) both; animation-delay: calc(var(--at) * 1s + .25s); }
-html:not(.js) .grow circle { opacity: 1; }
-html:not(.js) .grow line { stroke-dashoffset: 0; }
-@keyframes dotin { from { opacity: 0; transform: scale(.4); } to { opacity: 1; transform: none; } }
-@keyframes draw { to { stroke-dashoffset: 0; } }
-.grow circle { transform-box: fill-box; transform-origin: center; }
-.grow-cap { display: flex; justify-content: space-between; gap: 16px; margin-top: 14px; font-size: 14.5px; color: var(--ink-3); }
-
-/* Next: three columns of words, no cards. */
-.next { position: relative; margin-top: clamp(104px, 13vw, 176px); padding: clamp(88px, 10vw, 140px) 0 clamp(88px, 10vw, 140px); }
-.cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(28px, 4vw, 56px); }
-.cols h3 { font-size: clamp(22px, 2.2vw, 30px); letter-spacing: -.025em; line-height: 1.1; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--ink); }
-.cols.rv h3 { border-bottom-color: var(--ink); }
-.cols ul { list-style: none; margin: 0; padding: 0; }
-.cols li { font-size: clamp(17px, 1.4vw, 19.5px); line-height: 1.4; color: var(--ink-2); padding: 7px 0; }
-.cols li b { color: var(--ink); font-weight: 600; }
-.cols .today { grid-column: span 2; }
-.cols .today ul { columns: 2; column-gap: clamp(28px, 4vw, 56px); }
-.cols .today li { break-inside: avoid; }
-.cols .soon h3 { border-bottom-color: var(--ink-3); color: var(--ink-2); }
-.cols .soon li { color: var(--ink-3); }
-.cols .soon li b { color: var(--ink-2); }
-.today-shot { margin-top: clamp(56px, 7vw, 96px); }
-.today-shot .hero-shot { margin: 0 auto; padding-inline: 0; max-width: 820px; }
-.today-shot .shot-move { animation: none; }
-.today-shot .app { --w: 960; }
-/* The whole window, smaller, rather than a big one fading out at its middle:
-   a window cut in half read as a picture of a window. */
-.today-shot .a-desk { height: calc(var(--u) * 560); }
-.today-cap { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 12px 24px; margin-top: 22px; }
-.today-cap p { font-size: 16px; color: var(--ink-2); }
-.today-cap .more { margin: 0; }
-
-/* Now: one person, and the download. */
+.community p.asks { margin-top: 0; }
 .get { padding-top: clamp(104px, 13vw, 176px); }
 
 @media (max-width: 900px) {
-  .cols { grid-template-columns: minmax(0, 1fr); gap: 36px; }
-  .cols .today { grid-column: auto; }
-  .cols .today ul { columns: 1; }
-  .plans { grid-template-columns: minmax(0, 1fr); gap: 40px; }
-  .ledger li { grid-template-columns: minmax(0, 1fr); gap: 6px; }
-  .ledger span { text-align: left; }
+  .feats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 640px) {
-  .hero.say { --rw: 220vw; }
-  .hero.say h1.hero-h { font-size: clamp(42px, 13vw, 64px); line-height: .94; }
-  .hero-tag { font-size: 13px; padding-right: 12px; }
-  .hero-tag b { display: none; }
-  .hero.say .hero-cta { flex-direction: column; align-items: stretch; max-width: 420px; margin-inline: auto; }
+  .hero.say .range { --range-w: 200vw; }
+  .hero.say .hero-cta { flex-direction: column; align-items: stretch; max-width: 380px; margin-inline: auto; }
   .hero.say .hero-cta .btn { justify-content: center; }
+  .see { margin-top: -40px; }
+  /* A phone has no room for three columns: each row's label stands over its
+     two answers, and the lit column becomes the lit answer. */
+  .vs { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: none; column-gap: 10px; }
+  .vs::before { content: none; }
+  .vs-row > * { padding: 0; border: 0; }
+  .vs-row > :first-child { grid-column: 1 / -1; padding: 18px 0 8px; border-top: 1px solid var(--line); font-size: 14px; }
+  .vs-head > :first-child { display: none; }
+  .vs .us { align-self: start; }
+  .vs .them { align-self: start; }
+  .vs-head > * { padding: 0 0 12px; }
+  .feats { grid-template-columns: minmax(0, 1fr); }
   .gone li::after { height: 2px; }
-  .grow-cap { flex-direction: column; gap: 4px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .js .gone.is-in li::after, .js .grow-wrap.is-in circle, .js .grow-wrap.is-in line { animation: none; }
+  .js .gone.is-in li::after { animation: none; }
   .gone li::after { transform: none; }
   .gone li { color: var(--ink-3); }
-  .grow circle { opacity: 1; }
-  .grow line { stroke-dashoffset: 0; }
 }
-
-/* The drawings, from the old how.html. `ln` draws a path, `in` fades a thing in,
-   `trav` walks a shape along `--p`, `lay` is one wave of light through a model,
-   `sc` is text that will not settle, `wv` is sound. A drawing plays when its
-   chapter scrolls in. Held to 900 wide, the width they were drawn at: across
-   the whole column they stood taller than the argument beside them. */
-.art { display: block; width: 100%; max-width: 900px; height: auto; max-height: 46vh; margin-inline: auto; }
-.art .ln { stroke-dasharray: var(--len, 400); stroke-dashoffset: var(--len, 400); }
-.is-in .art .ln { animation: draw 1.4s var(--ease) both; animation-delay: var(--at, 0s); }
-@keyframes draw { to { stroke-dashoffset: 0; } }
-.art .in { opacity: 0; }
-.is-in .art .in { animation: fade .8s var(--ease) both; animation-delay: var(--at, 0s); }
-@keyframes fade { to { opacity: 1; } }
-.art .trav { offset-path: var(--p); offset-rotate: 0deg; opacity: 0; }
-.is-in .art .trav { animation: trav var(--dur, 2.4s) linear infinite; animation-delay: var(--at, .6s); }
-.is-in .art .trav.once { animation-iteration-count: 1; animation-fill-mode: both; }
-@keyframes trav {
-  0% { offset-distance: 0%; opacity: 0; }
-  12% { opacity: 1; }
-  86% { opacity: 1; }
-  100% { offset-distance: 100%; opacity: 0; }
-}
-.art .halo { transform-box: fill-box; transform-origin: center; opacity: 0; }
-.is-in .art .halo { animation: halo 2.6s var(--ease) both; animation-delay: var(--at, 0s); }
-@keyframes halo { 0% { opacity: .45; transform: scale(.2); } 80%, 100% { opacity: 0; transform: scale(1.35); } }
-.art .wv { transform-box: fill-box; transform-origin: center; }
-.is-in .art .wv { animation: wv 1.5s ease-in-out infinite alternate; animation-delay: calc(var(--i) * -127ms); }
-@keyframes wv { from { transform: scaleY(.3); } to { transform: scaleY(1); } }
-.art .lay { opacity: .34; }
-.is-in .art .lay { animation: lay 3.6s ease-in-out infinite; animation-delay: calc(var(--l) * .34s); }
-@keyframes lay { 0%, 46%, 100% { opacity: .34; } 16% { opacity: 1; } }
-.is-in .art .sc { animation: shuffle 3s steps(1, end) infinite; }
-.is-in .art .sc.s2 { animation-delay: 1s; }
-.is-in .art .sc.s3 { animation-delay: 2s; }
-@keyframes shuffle { 0%, 33% { opacity: 1; } 34%, 100% { opacity: 0; } }
-.art .sc.s2, .art .sc.s3 { opacity: 0; }
-.art text { font-family: var(--body); font-size: 17px; fill: var(--ink-3); }
-.art .body { font-size: 15px; fill: rgba(232, 238, 246, .74); }
-.art .body.dim { fill: rgba(232, 238, 246, .46); }
-.art .wire { stroke: rgba(255, 255, 255, .16); stroke-width: 1; fill: none; }
-.art .edge { stroke: rgba(255, 255, 255, .17); stroke-width: 1; fill: none; }
-.art .box { fill: none; stroke: rgba(255, 255, 255, .4); stroke-width: 1; }
-.art .box.off { stroke: rgba(255, 255, 255, .18); stroke-dasharray: 4 5; }
-/* The waiting pages: they sit, then the wire draws, then they go one by one. */
-.is-in .art .wait { animation: fade .6s var(--ease) both; animation-delay: var(--at, 0s); }
-.art .wait { opacity: 0; }
-.is-in .art .gone { animation: unfade .3s ease both; animation-delay: var(--at, 0s); }
-@keyframes unfade { to { opacity: 0; } }
-.art .ice { fill: var(--ice); }
-
-@media (max-width: 860px) {
-  .art { max-height: none; }
-  /* A drawing laid out for a wide screen shrinks to a third on a phone, so its
-     writing and its lines are drawn heavier there to stay readable. */
-  .art text { font-size: 30px; }
-  .art .body { font-size: 21px; }
-  .art .box, .art .wire, .art .edge { stroke-width: 1.8; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .art .in, .art .trav, .art .wait { opacity: 1; animation: none !important; }
-  .art .gone { opacity: 0; }
-  .art .ln { stroke-dashoffset: 0; animation: none !important; }
-  .art .trav { offset-distance: 55%; }
-  .art .sc, .art .wv, .art .lay, .art .halo { animation: none !important; }
-}
-
-/* Two paragraphs and a link beside a heading: both sides start at the top. */
-.ch.how .ch-head { align-items: start; }
 </style>
 </head>
 <body>
@@ -302,7 +163,7 @@ html:not(.js) .grow line { stroke-dashoffset: 0; }
     <nav class="nav" aria-label="Pages">
       <a class="here" href="index.html">Why Synomy</a>
       <a href="app.html">The app</a>
-      <a href="#questions">Questions</a>
+      <a href="docs.html">Docs</a>
       <a href="install.html">Install</a>
     </nav>
     <div class="bar-sp"></div>
@@ -319,13 +180,11 @@ html:not(.js) .grow line { stroke-dashoffset: 0; }
     <div class="sky-tint" aria-hidden="true"></div>
 
     <div class="hero-in wrap">
-      <a class="hero-tag" href="app.html"><img src="assets/icon-256.png" alt="" width="24" height="24"><b>Synomy Notes</b><span>Notes and meetings, on your own computer</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10m-4-4 4 4-4 4"/></svg></a>
       <h1 class="hero-h">
-        <span>Take</span>
-        <span>back</span>
-        <span>what's</span>
-        <span>yours.</span>
+        <span>Take back</span>
+        <span>what's yours.</span>
       </h1>
+      <p class="hero-lede">Notes and meetings in one free app. Everything stays on your computer, not in a cloud.</p>
       <div class="hero-cta">
         <a class="btn btn-light" id="cta-main" href="https://github.com/LarsLagauw/synomy-releases/releases/latest">
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.5v9m0 0 3.2-3.2M8 10.5 4.8 7.3M2 12v1.5a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V12"/></svg>
@@ -335,517 +194,12 @@ html:not(.js) .grow line { stroke-dashoffset: 0; }
       </div>
       <span class="hero-meta" id="cta-note">Free · Mac and Windows</span>
     </div>
-    <div class="hero-fill"></div>
     <img class="scene range" src="assets/range-glow.webp" alt="" width="1771" height="441">
   </section>
 
-  <!-- ============================================================ The bill -->
-  <section class="ch" id="bill">
-    <div class="wrap">
-      <div class="ch-head">
-        <h2 class="rv">Every free app has a bill. You just don't see it.</h2>
-        <p class="rv" style="--d:80ms">Servers cost money, so somebody pays. When it isn't you at a checkout, it's you some other way.</p>
-      </div>
-      <div class="ch-vis">
-        <ul class="ledger">
-          <li class="rv" style="--d:0ms"><b>A free account</b> <span>Paid with <em>your attention</em>, sold by the minute.</span></li>
-          <li class="rv" style="--d:70ms"><b>A free upload</b> <span>Paid with <em>your data</em>, sold by the profile.</span></li>
-          <li class="rv" style="--d:140ms"><b>A free start</b> <span>Paid with <em>a subscription</em>, once your things are inside.</span></li>
-          <li class="rv" style="--d:210ms"><b>A free timeline</b> <span>Paid with <em>your evenings</em>. It is tuned so you never put it down.</span></li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================ The chain -->
-  <section class="ch" id="chain">
-    <div class="wrap">
-      <div class="ch-head">
-        <h2 class="rv">Synomy has no servers. Everything follows from that.</h2>
-        <p class="rv" style="--d:80ms">Your notes live on your computer. When you share, your computers talk to each other directly. There is no machine in the middle, so there is no bill for one.</p>
-      </div>
-      <div class="ch-vis">
-        <ol class="chain">
-          <li class="rv" style="--d:0ms">No servers, <span>so nothing to run.</span></li>
-          <li class="rv" style="--d:160ms">Nothing to run, <span>so nothing to pay for.</span></li>
-          <li class="rv" style="--d:320ms">Nothing to pay for, <span>so no reason to charge you.</span></li>
-          <li class="rv" style="--d:480ms">No reason to charge you, <span>so no reason to sell you.</span></li>
-          <li class="rv" style="--d:700ms">Which leaves one job. <span>Make it good.</span></li>
-        </ol>
-      </div>
-    </div>
-  </section>
-
-  <section class="ch how" id="together">
-    <div class="wrap">
-      <div class="ch-head">
-        <h2 class="rv">Two people, one page, no server between them.</h2>
-        <div>
-          <p class="rv" style="--d:80ms">Writing together usually runs through a company's server, and somebody pays for it every month. That bill is where the subscription and the ads come from.</p>
-          <p class="rv" style="--d:150ms">Here your two computers talk directly and settle every change between themselves. Nothing in the middle, nothing to pay for, so it stays free.</p>
-          <a class="deeper rv" style="--d:220ms" href="#finding">How two computers find each other <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3v10M4 9l4 4 4-4"/></svg></a>
-        </div>
-      </div>
-      <div class="ch-vis rv" style="--d:120ms" data-vig>
-        <svg class="art" viewBox="0 0 900 380" role="img" aria-label="Machines passing locked pages straight to one another, with nothing in the centre">
-        <g class="edge">
-        <path class="ln" style="--len:330;--at:.2s" d="M128 104 L436 56"/>
-        <path class="ln" style="--len:330;--at:.3s" d="M436 56 L760 128"/>
-        <path class="ln" style="--len:300;--at:.4s" d="M760 128 L798 288"/>
-        <path class="ln" style="--len:330;--at:.5s" d="M798 288 L502 342"/>
-        <path class="ln" style="--len:330;--at:.6s" d="M502 342 L182 310"/>
-        <path class="ln" style="--len:300;--at:.7s" d="M182 310 L128 104"/>
-        <path class="ln" style="--len:700;--at:.85s" d="M128 104 L798 288"/>
-        <path class="ln" style="--len:700;--at:.95s" d="M182 310 L760 128"/>
-        <path class="ln" style="--len:700;--at:1.05s" d="M436 56 L502 342"/>
-        </g>
-        <g class="in" style="--at:.15s">
-        <rect class="box" x="112" y="88" width="30" height="30" rx="8"/>
-        <rect class="box" x="420" y="40" width="30" height="30" rx="8"/>
-        <rect class="box" x="744" y="112" width="30" height="30" rx="8"/>
-        <rect class="box" x="782" y="272" width="30" height="30" rx="8"/>
-        <rect class="box" x="486" y="326" width="30" height="30" rx="8"/>
-        <rect class="box" x="166" y="294" width="30" height="30" rx="8"/>
-        </g>
-        <g class="trav" style="--p:path('M128 104 L798 288');--dur:3.4s;--at:1.4s"><rect x="-10" y="-8" width="20" height="16" rx="5" class="ice"/></g>
-        <g class="trav" style="--p:path('M182 310 L760 128');--dur:3.4s;--at:3.2s"><rect x="-10" y="-8" width="20" height="16" rx="5" class="ice"/></g>
-        </svg>
-      </div>
-    </div>
-  </section>
-
-  <section class="ch how" id="locked">
-    <div class="wrap">
-      <div class="ch-head">
-        <h2 class="rv">Nobody in between can read it.</h2>
-        <div>
-          <p class="rv" style="--d:80ms">Everything you share is locked on your computer before it leaves, so only the people you chose can open it.</p>
-          <p class="rv" style="--d:150ms">Whatever carries it on the way sees the middle picture. And with no Synomy server keeping a copy, there is nothing to read, sell or hand over.</p>
-          <a class="deeper rv" style="--d:220ms" href="#sealed">Who can read what you send <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3v10M4 9l4 4 4-4"/></svg></a>
-        </div>
-      </div>
-      <div class="ch-vis rv" style="--d:120ms" data-vig>
-        <svg class="art" viewBox="0 0 900 300" role="img" aria-label="A page that reads plainly on your machine, is unreadable on the way, and reads plainly again on theirs">
-        <g class="in" style="--at:.05s">
-        <rect class="box" x="30" y="52" width="250" height="170" rx="16"/>
-        <text x="54" y="96" class="body">Tables at eight</text>
-        <text x="54" y="126" class="body">Lena brings the jars</text>
-        <text x="54" y="156" class="body">Print the price cards</text>
-        <text x="54" y="186" class="body">Back before eleven</text>
-        <text x="155" y="262" text-anchor="middle" font-size="16">your machine</text>
-        </g>
-        <line class="wire ln" style="--len:60;--at:.5s" x1="288" y1="137" x2="317" y2="137"/>
-        <g class="in" style="--at:.7s">
-        <rect class="box" x="325" y="52" width="250" height="170" rx="16" stroke="rgba(255,255,255,.22)"/>
-        <g class="sc s1">
-        <text x="349" y="96" class="body dim">6u683 rt6vg 4ts</text>
-        <text x="349" y="126" class="body dim">w4fdrke u4 xbwp9rx w</text>
-        <text x="349" y="156" class="body dim">fwa5tcb g7 wa3 mrv5g</text>
-        <text x="349" y="186" class="body dim">hxksay rx qu85 zj</text>
-        </g>
-        <g class="sc s2">
-        <text x="349" y="96" class="body dim">3htk cv pd pc9a</text>
-        <text x="349" y="126" class="body dim">agg88bs zpqcv g3yjmc</text>
-        <text x="349" y="156" class="body dim">ma9q eh dabr4sf ugrtg</text>
-        <text x="349" y="186" class="body dim">3eqxpdp gaj64 k7ag</text>
-        </g>
-        <g class="sc s3">
-        <text x="349" y="96" class="body dim">p6w vdbegrj 3w</text>
-        <text x="349" y="126" class="body dim">5kpc cg xhawnn re9vs</text>
-        <text x="349" y="156" class="body dim">e6pfxe 8h5w 2gf x9ugy</text>
-        <text x="349" y="186" class="body dim">7swcq dd t9 h2zp q</text>
-        </g>
-        <text x="450" y="262" text-anchor="middle" font-size="16">on the way</text>
-        </g>
-        <line class="wire ln" style="--len:60;--at:1.1s" x1="583" y1="137" x2="612" y2="137"/>
-        <g class="in" style="--at:1.3s">
-        <rect class="box" x="620" y="52" width="250" height="170" rx="16"/>
-        <text x="644" y="96" class="body">Tables at eight</text>
-        <text x="644" y="126" class="body">Lena brings the jars</text>
-        <text x="644" y="156" class="body">Print the price cards</text>
-        <text x="644" y="186" class="body">Back before eleven</text>
-        <text x="745" y="262" text-anchor="middle" font-size="16">their machine</text>
-        </g>
-        </svg>
-      </div>
-    </div>
-  </section>
-
-  <section class="ch how" id="meetings">
-    <div class="wrap">
-      <div class="ch-head">
-        <h2 class="rv">Your meetings are typed out on your own computer.</h2>
-        <div>
-          <p class="rv" style="--d:80ms">Most apps upload the recording and pay a server by the minute to type it out. That meter is why transcription so often sits behind a paywall.</p>
-          <p class="rv" style="--d:150ms">Synomy does the work on your computer, and the sound never leaves it. No meter, so nothing to charge you for.</p>
-          <a class="deeper rv" style="--d:220ms" href="#hearing">Who hears your meetings <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3v10M4 9l4 4 4-4"/></svg></a>
-        </div>
-      </div>
-      <div class="ch-vis rv" style="--d:120ms" data-vig>
-        <svg class="art" viewBox="0 0 900 300" role="img" aria-label="Sound going into a model on your own machine and coming out as a transcript with speakers told apart">
-        <g class="in" style="--at:.05s">
-        <rect class="wv" style="--i:0" x="28.0" y="140.8" width="3" height="18.4" rx="1.5" fill="#e8eef6" opacity="0.36"/>
-        <rect class="wv" style="--i:1" x="35.2" y="134.6" width="3" height="30.8" rx="1.5" fill="#e8eef6" opacity="0.40"/>
-        <rect class="wv" style="--i:2" x="42.4" y="132.4" width="3" height="35.2" rx="1.5" fill="#e8eef6" opacity="0.42"/>
-        <rect class="wv" style="--i:3" x="49.6" y="127.1" width="3" height="45.9" rx="1.5" fill="#e8eef6" opacity="0.45"/>
-        <rect class="wv" style="--i:4" x="56.8" y="123.9" width="3" height="52.2" rx="1.5" fill="#e8eef6" opacity="0.47"/>
-        <rect class="wv" style="--i:5" x="64.0" y="128.4" width="3" height="43.2" rx="1.5" fill="#e8eef6" opacity="0.44"/>
-        <rect class="wv" style="--i:6" x="71.2" y="127.4" width="3" height="45.3" rx="1.5" fill="#e8eef6" opacity="0.45"/>
-        <rect class="wv" style="--i:7" x="78.4" y="113.8" width="3" height="72.4" rx="1.5" fill="#e8eef6" opacity="0.54"/>
-        <rect class="wv" style="--i:8" x="85.6" y="120.8" width="3" height="58.5" rx="1.5" fill="#e8eef6" opacity="0.49"/>
-        <rect class="wv" style="--i:9" x="92.8" y="119.9" width="3" height="60.2" rx="1.5" fill="#e8eef6" opacity="0.50"/>
-        <rect class="wv" style="--i:10" x="100.0" y="106.1" width="3" height="87.8" rx="1.5" fill="#e8eef6" opacity="0.59"/>
-        <rect class="wv" style="--i:11" x="107.2" y="113.9" width="3" height="72.2" rx="1.5" fill="#e8eef6" opacity="0.54"/>
-        <rect class="wv" style="--i:12" x="114.4" y="106.8" width="3" height="86.4" rx="1.5" fill="#e8eef6" opacity="0.59"/>
-        <rect class="wv" style="--i:13" x="121.6" y="112.6" width="3" height="74.8" rx="1.5" fill="#e8eef6" opacity="0.55"/>
-        <rect class="wv" style="--i:14" x="128.8" y="109.5" width="3" height="81.0" rx="1.5" fill="#e8eef6" opacity="0.57"/>
-        <rect class="wv" style="--i:15" x="136.0" y="118.2" width="3" height="63.6" rx="1.5" fill="#e8eef6" opacity="0.51"/>
-        <rect class="wv" style="--i:16" x="143.2" y="109.8" width="3" height="80.4" rx="1.5" fill="#e8eef6" opacity="0.57"/>
-        <rect class="wv" style="--i:17" x="150.4" y="106.2" width="3" height="87.5" rx="1.5" fill="#e8eef6" opacity="0.59"/>
-        <rect class="wv" style="--i:18" x="157.6" y="113.0" width="3" height="74.0" rx="1.5" fill="#e8eef6" opacity="0.55"/>
-        <rect class="wv" style="--i:19" x="164.8" y="110.4" width="3" height="79.3" rx="1.5" fill="#e8eef6" opacity="0.56"/>
-        <rect class="wv" style="--i:20" x="172.0" y="112.8" width="3" height="74.4" rx="1.5" fill="#e8eef6" opacity="0.55"/>
-        <rect class="wv" style="--i:21" x="179.2" y="123.8" width="3" height="52.4" rx="1.5" fill="#e8eef6" opacity="0.47"/>
-        <rect class="wv" style="--i:22" x="186.4" y="114.9" width="3" height="70.1" rx="1.5" fill="#e8eef6" opacity="0.53"/>
-        <rect class="wv" style="--i:23" x="193.6" y="119.4" width="3" height="61.2" rx="1.5" fill="#e8eef6" opacity="0.50"/>
-        <rect class="wv" style="--i:24" x="200.8" y="125.4" width="3" height="49.2" rx="1.5" fill="#e8eef6" opacity="0.46"/>
-        <rect class="wv" style="--i:25" x="208.0" y="130.8" width="3" height="38.5" rx="1.5" fill="#e8eef6" opacity="0.43"/>
-        <rect class="wv" style="--i:26" x="215.2" y="124.4" width="3" height="51.3" rx="1.5" fill="#e8eef6" opacity="0.47"/>
-        <rect class="wv" style="--i:27" x="222.4" y="131.5" width="3" height="37.0" rx="1.5" fill="#e8eef6" opacity="0.42"/>
-        <rect class="wv" style="--i:28" x="229.6" y="133.3" width="3" height="33.3" rx="1.5" fill="#e8eef6" opacity="0.41"/>
-        <rect class="wv" style="--i:29" x="236.8" y="137.7" width="3" height="24.7" rx="1.5" fill="#e8eef6" opacity="0.38"/>
-        <text x="122" y="244" text-anchor="middle" font-size="16">what was said</text>
-        </g>
-        <g class="in" style="--at:.45s">
-        <g class="edge lay" style="--l:0.50">
-        <line x1="372" y1="104" x2="462" y2="104"/>
-        <line x1="372" y1="104" x2="462" y2="150"/>
-        <line x1="372" y1="104" x2="462" y2="196"/>
-        <line x1="372" y1="150" x2="462" y2="104"/>
-        <line x1="372" y1="150" x2="462" y2="150"/>
-        <line x1="372" y1="150" x2="462" y2="196"/>
-        <line x1="372" y1="196" x2="462" y2="104"/>
-        <line x1="372" y1="196" x2="462" y2="150"/>
-        <line x1="372" y1="196" x2="462" y2="196"/>
-        </g>
-        <g class="edge lay" style="--l:1.50">
-        <line x1="462" y1="104" x2="552" y2="104"/>
-        <line x1="462" y1="104" x2="552" y2="150"/>
-        <line x1="462" y1="104" x2="552" y2="196"/>
-        <line x1="462" y1="150" x2="552" y2="104"/>
-        <line x1="462" y1="150" x2="552" y2="150"/>
-        <line x1="462" y1="150" x2="552" y2="196"/>
-        <line x1="462" y1="196" x2="552" y2="104"/>
-        <line x1="462" y1="196" x2="552" y2="150"/>
-        <line x1="462" y1="196" x2="552" y2="196"/>
-        </g>
-        <g class="lay" style="--l:0">
-        <circle cx="372" cy="104" r="4" fill="#e8eef6"/>
-        <circle cx="372" cy="150" r="4" fill="#e8eef6"/>
-        <circle cx="372" cy="196" r="4" fill="#e8eef6"/>
-        </g>
-        <g class="lay" style="--l:1">
-        <circle cx="462" cy="104" r="4" fill="#e8eef6"/>
-        <circle cx="462" cy="150" r="4" fill="#e8eef6"/>
-        <circle cx="462" cy="196" r="4" fill="#e8eef6"/>
-        </g>
-        <g class="lay" style="--l:2">
-        <circle cx="552" cy="104" r="4" fill="#e8eef6"/>
-        <circle cx="552" cy="150" r="4" fill="#e8eef6"/>
-        <circle cx="552" cy="196" r="4" fill="#e8eef6"/>
-        </g>
-        <text x="462" y="252" text-anchor="middle" font-size="16">a model on your disk</text>
-        </g>
-        <line class="wire ln" style="--len:180;--at:.3s" x1="238" y1="150" x2="356" y2="150"/>
-        <line class="wire ln" style="--len:180;--at:.8s" x1="568" y1="150" x2="700" y2="150"/>
-        <g class="in" style="--at:2.2s">
-        <text x="716" y="110" class="body">Lena</text>
-        <rect x="716" y="122" width="150" height="6" rx="3" fill="#e8eef6" opacity=".4"/>
-        </g>
-        <g class="in" style="--at:2.45s">
-        <text x="716" y="164" class="body">Marco</text>
-        <rect x="716" y="176" width="120" height="6" rx="3" fill="#e8eef6" opacity=".4"/>
-        </g>
-        <g class="in" style="--at:2.7s">
-        <text x="716" y="218" class="body">You</text>
-        <rect x="716" y="230" width="138" height="6" rx="3" fill="#e8eef6" opacity=".4"/>
-        </g>
-        </svg>
-      </div>
-    </div>
-  </section>
-
-  <section class="ch how" id="search">
-    <div class="wrap">
-      <div class="ch-head">
-        <h2 class="rv">Search that understands you, and keeps your notes at home.</h2>
-        <div>
-          <p class="rv" style="--d:80ms">A search that understands questions usually reads your notes on somebody else's server.</p>
-          <p class="rv" style="--d:150ms">Synomy reads them on your computer, so asking for “the dinner at Marco's” finds the page you called “Saturday plans”. Nothing is uploaded, and nothing costs anything to run.</p>
-          <a class="deeper rv" style="--d:220ms" href="#meaning">How search works with no cloud <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3v10M4 9l4 4 4-4"/></svg></a>
-        </div>
-      </div>
-      <div class="ch-vis rv" style="--d:120ms" data-vig>
-        <svg class="art" viewBox="0 0 900 320" role="img" aria-label="A question placed among your sentences, with the closest ones lighting up">
-        <g class="in" style="--at:.05s">
-        <rect class="box" x="34" y="130" width="64" height="64" rx="14"/>
-        <rect x="50" y="152" width="32" height="5" rx="2.5" fill="#e8eef6" opacity=".6"/>
-        <rect x="50" y="166" width="22" height="5" rx="2.5" fill="#e8eef6" opacity=".4"/>
-        <text x="66" y="228" text-anchor="middle" font-size="16">your question</text>
-        </g>
-        <path id="q" class="wire ln" style="--len:420;--at:.4s" d="M106 162 C220 162 330 158 494 158"/>
-        <circle class="in" style="--at:0.30s" cx="422" cy="77" r="3.5" fill="#e8eef6" opacity=".3"/>
-        <circle class="in" style="--at:0.33s" cx="595" cy="58" r="3.5" fill="#e8eef6" opacity=".3"/>
-        <circle class="in" style="--at:0.39s" cx="281" cy="165" r="3.5" fill="#e8eef6" opacity=".3"/>
-        <circle class="in" style="--at:0.42s" cx="287" cy="62" r="3.5" fill="#e8eef6" opacity=".3"/>
-        <circle class="in" style="--at:0.45s" cx="475" cy="243" r="3.5" fill="#e8eef6" opacity=".3"/>
-        <circle class="in" style="--at:0.48s" cx="316" cy="95" r="3.5" fill="#e8eef6" opacity=".3"/>
-        <circle class="in" style="--at:0.51s" cx="583" cy="273" r="3.5" fill="#e8eef6" opacity=".3"/>
-        <circle class="in" style="--at:0.54s" cx="767" cy="51" r="3.5" fill="#e8eef6" opacity=".3"/>
-        <circle class="in" style="--at:0.57s" cx="705" cy="111" r="3.5" fill="#e8eef6" opacity=".3"/>
-        <circle class="in" style="--at:0.60s" cx="413" cy="241" r="3.5" fill="#e8eef6" opacity=".3"/>
-        <circle class="in" style="--at:0.63s" cx="346" cy="183" r="3.5" fill="#e8eef6" opacity=".3"/>
-        <circle class="in" style="--at:0.66s" cx="589" cy="132" r="3.5" fill="#e8eef6" opacity=".3"/>
-        <circle class="in" style="--at:0.69s" cx="540" cy="55" r="3.5" fill="#e8eef6" opacity=".3"/>
-        <circle class="in" style="--at:0.72s" cx="416" cy="184" r="3.5" fill="#e8eef6" opacity=".3"/>
-        <circle class="in" style="--at:0.78s" cx="671" cy="212" r="3.5" fill="#e8eef6" opacity=".3"/>
-        <circle class="in" style="--at:0.81s" cx="528" cy="255" r="3.5" fill="#e8eef6" opacity=".3"/>
-        <circle class="in" style="--at:0.84s" cx="637" cy="111" r="3.5" fill="#e8eef6" opacity=".3"/>
-        <circle class="in" style="--at:0.87s" cx="271" cy="204" r="3.5" fill="#e8eef6" opacity=".3"/>
-        <circle class="in" style="--at:0.90s" cx="619" cy="186" r="3.5" fill="#e8eef6" opacity=".3"/>
-        <circle class="in" style="--at:0.93s" cx="695" cy="272" r="3.5" fill="#e8eef6" opacity=".3"/>
-        <circle class="in" style="--at:1.02s" cx="398" cy="142" r="3.5" fill="#e8eef6" opacity=".3"/>
-        <circle class="in" style="--at:1.05s" cx="755" cy="210" r="3.5" fill="#e8eef6" opacity=".3"/>
-        <circle class="in" style="--at:1.08s" cx="713" cy="236" r="3.5" fill="#e8eef6" opacity=".3"/>
-        <circle class="in" style="--at:1.14s" cx="361" cy="80" r="3.5" fill="#e8eef6" opacity=".3"/>
-        <circle class="in" style="--at:1.17s" cx="250" cy="77" r="3.5" fill="#e8eef6" opacity=".3"/>
-        <g class="edge">
-        <line class="ln" style="--len:200;--at:1.90s" x1="500" y1="158" x2="490" y2="114"/>
-        <line class="ln" style="--len:200;--at:2.02s" x1="500" y1="158" x2="501" y2="203"/>
-        <line class="ln" style="--len:200;--at:2.14s" x1="500" y1="158" x2="458" y2="138"/>
-        <line class="ln" style="--len:200;--at:2.26s" x1="500" y1="158" x2="454" y2="204"/>
-        </g>
-        <circle class="in" style="--at:2.00s" cx="490" cy="114" r="5" fill="#e8eef6"/>
-        <circle class="in" style="--at:2.12s" cx="501" cy="203" r="5" fill="#e8eef6"/>
-        <circle class="in" style="--at:2.24s" cx="458" cy="138" r="5" fill="#e8eef6"/>
-        <circle class="in" style="--at:2.36s" cx="454" cy="204" r="5" fill="#e8eef6"/>
-        <circle class="halo" style="--at:1.9s" cx="500" cy="158" r="54" fill="none" stroke="rgba(232,238,246,.45)" stroke-width="1.5"/>
-        <circle class="in" style="--at:1.7s" cx="500" cy="158" r="7" fill="#e8eef6"/>
-        <g class="trav once" style="--p:path('M106 162 C220 162 330 158 494 158');--dur:2.2s;--at:.9s"><circle r="4.5" class="ice"/></g>
-        <text x="620" y="300" text-anchor="middle" font-size="16" class="in" style="--at:2.6s">the sentences that mean the same thing</text>
-        </svg>
-      </div>
-    </div>
-  </section>
-
-  <section class="ch how" id="carried">
-    <div class="wrap">
-      <div class="ch-head">
-        <h2 class="rv">A friend offline? Other people carry your changes, unread.</h2>
-        <div>
-          <p class="rv" style="--d:80ms">A platform holds your changes on its servers until your friend is back. Synomy has none, so it can leave them, locked, on a few other people's computers instead.</p>
-          <p class="rv" style="--d:150ms">Your friend collects them later and the copies are deleted. You hold a little for others in return, so it costs nobody anything.</p>
-          <a class="deeper rv" style="--d:220ms" href="#offline">What happens while a friend is away <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3v10M4 9l4 4 4-4"/></svg></a>
-        </div>
-      </div>
-      <div class="ch-vis rv" style="--d:120ms" data-vig>
-        <svg class="art" viewBox="0 0 900 290" role="img" aria-label="Your changes go to four other computers while your friend is offline; when your friend comes back, the changes reach them and the held copies are deleted">
-          <!-- you, and them while they are away -->
-          <g class="in" style="--at:.05s">
-            <rect class="box" x="60" y="100" width="60" height="60" rx="13"/>
-            <rect x="73" y="115" width="34" height="4" rx="2" fill="#e8eef6" opacity=".55"/>
-            <rect x="73" y="125" width="26" height="4" rx="2" fill="#e8eef6" opacity=".35"/>
-            <rect x="73" y="135" width="30" height="4" rx="2" fill="#e8eef6" opacity=".35"/>
-            <text x="90" y="200" text-anchor="middle" font-size="15">you</text>
-          </g>
-          <g class="in" style="--at:.15s">
-            <rect class="box off" x="780" y="100" width="60" height="60" rx="13"/>
-            <text x="810" y="200" text-anchor="middle" font-size="15" class="gone" style="--at:3.2s">them, offline</text>
-          </g>
-          <!-- the four holders -->
-          <g class="in" style="--at:.35s">
-            <rect class="box" x="425" y="20" width="34" height="34" rx="8"/>
-            <rect class="box" x="425" y="80" width="34" height="34" rx="8"/>
-            <rect class="box" x="425" y="140" width="34" height="34" rx="8"/>
-            <rect class="box" x="425" y="200" width="34" height="34" rx="8"/>
-            <text x="442" y="278" text-anchor="middle" font-size="15">four other computers</text>
-          </g>
-          <!-- out to the holders -->
-          <line class="wire ln" style="--len:340;--at:.6s" x1="124" y1="130" x2="419" y2="37"/>
-          <line class="wire ln" style="--len:340;--at:.65s" x1="124" y1="130" x2="419" y2="97"/>
-          <line class="wire ln" style="--len:340;--at:.7s" x1="124" y1="130" x2="419" y2="157"/>
-          <line class="wire ln" style="--len:340;--at:.75s" x1="124" y1="130" x2="419" y2="217"/>
-          <g class="trav once" style="--p:path('M124 130 L442 37');--dur:1.1s;--at:1.1s"><rect x="-10" y="-8" width="20" height="16" rx="5" class="ice"/></g>
-          <g class="trav once" style="--p:path('M124 130 L442 97');--dur:1.1s;--at:1.25s"><rect x="-10" y="-8" width="20" height="16" rx="5" class="ice"/></g>
-          <g class="trav once" style="--p:path('M124 130 L442 157');--dur:1.1s;--at:1.4s"><rect x="-10" y="-8" width="20" height="16" rx="5" class="ice"/></g>
-          <g class="trav once" style="--p:path('M124 130 L442 217');--dur:1.1s;--at:1.55s"><rect x="-10" y="-8" width="20" height="16" rx="5" class="ice"/></g>
-          <!-- held, unread, until they are no longer needed -->
-          <g class="gone" style="--at:5.1s"><rect class="wait ice" style="--at:2.1s" x="434" y="31" width="16" height="12" rx="3"/></g>
-          <g class="gone" style="--at:5.1s"><rect class="wait ice" style="--at:2.25s" x="434" y="91" width="16" height="12" rx="3"/></g>
-          <g class="gone" style="--at:5.1s"><rect class="wait ice" style="--at:2.4s" x="434" y="151" width="16" height="12" rx="3"/></g>
-          <g class="gone" style="--at:5.1s"><rect class="wait ice" style="--at:2.55s" x="434" y="211" width="16" height="12" rx="3"/></g>
-          <!-- they come back, collect, and the copies go -->
-          <g class="in" style="--at:3.3s">
-            <rect class="box" x="780" y="100" width="60" height="60" rx="13"/>
-            <text x="810" y="200" text-anchor="middle" font-size="15">them, back</text>
-          </g>
-          <line class="wire ln" style="--len:340;--at:3.5s" x1="465" y1="97" x2="774" y2="130"/>
-          <g class="trav once" style="--p:path('M442 97 L810 130');--dur:1.2s;--at:3.8s"><rect x="-10" y="-8" width="20" height="16" rx="5" class="ice"/></g>
-          <g class="in" style="--at:4.9s">
-            <rect x="793" y="115" width="34" height="4" rx="2" fill="#e8eef6" opacity=".55"/>
-            <rect x="793" y="125" width="26" height="4" rx="2" fill="#e8eef6" opacity=".35"/>
-            <rect x="793" y="135" width="30" height="4" rx="2" fill="#e8eef6" opacity=".35"/>
-          </g>
-        </svg>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================ Grow -->
-  <section class="ch" id="grow">
-    <div class="wrap">
-      <div class="ch-head">
-        <h2 class="rv">Most networks get worse as they grow. This one gets better.</h2>
-        <p class="rv" style="--d:80ms">Every person who joins brings their own computer. That is more ways for your pages to travel, more places to keep your changes safe while a friend is away, and still nothing to pay. A platform needs another data centre for every million people. Synomy needs nothing.</p>
-      </div>
-      <div class="ch-vis grow-wrap rv" data-vig>
-        <svg class="grow" viewBox="0 0 1000 380" aria-hidden="true">
-          <!-- Twelve machines, arriving one at a time. You are the blue one. -->
-          <line x1="500" y1="200" x2="360" y2="120" style="--at:.9;--len:162"/>
-          <line x1="500" y1="200" x2="650" y2="110" style="--at:1.4;--len:175"/>
-          <line x1="360" y1="120" x2="650" y2="110" style="--at:1.5;--len:291"/>
-          <line x1="360" y1="120" x2="220" y2="220" style="--at:2.0;--len:173"/>
-          <line x1="500" y1="200" x2="220" y2="220" style="--at:2.1;--len:281"/>
-          <line x1="650" y1="110" x2="800" y2="190" style="--at:2.5;--len:170"/>
-          <line x1="500" y1="200" x2="800" y2="190" style="--at:2.6;--len:301"/>
-          <line x1="220" y1="220" x2="300" y2="320" style="--at:3.0;--len:129"/>
-          <line x1="500" y1="200" x2="300" y2="320" style="--at:3.1;--len:234"/>
-          <line x1="800" y1="190" x2="880" y2="90" style="--at:3.5;--len:129"/>
-          <line x1="650" y1="110" x2="880" y2="90" style="--at:3.6;--len:231"/>
-          <line x1="360" y1="120" x2="140" y2="80" style="--at:4.0;--len:224"/>
-          <line x1="220" y1="220" x2="140" y2="80" style="--at:4.1;--len:162"/>
-          <line x1="800" y1="190" x2="720" y2="310" style="--at:4.5;--len:145"/>
-          <line x1="500" y1="200" x2="720" y2="310" style="--at:4.6;--len:246"/>
-          <line x1="300" y1="320" x2="720" y2="310" style="--at:4.7;--len:421"/>
-          <line x1="880" y1="90" x2="960" y2="250" style="--at:5.0;--len:179"/>
-          <line x1="800" y1="190" x2="960" y2="250" style="--at:5.1;--len:171"/>
-          <line x1="140" y1="80" x2="60" y2="230" style="--at:5.5;--len:170"/>
-          <line x1="220" y1="220" x2="60" y2="230" style="--at:5.6;--len:161"/>
-          <line x1="300" y1="320" x2="60" y2="230" style="--at:5.7;--len:257"/>
-          <line x1="650" y1="110" x2="560" y2="30" style="--at:6.0;--len:121"/>
-          <line x1="360" y1="120" x2="560" y2="30" style="--at:6.1;--len:220"/>
-          <line x1="880" y1="90" x2="560" y2="30" style="--at:6.2;--len:326"/>
-
-          <circle class="you" cx="500" cy="200" r="7" style="--at:.2"/>
-          <circle cx="360" cy="120" r="5" style="--at:.8"/>
-          <circle cx="650" cy="110" r="5" style="--at:1.3"/>
-          <circle cx="220" cy="220" r="5" style="--at:1.9"/>
-          <circle cx="800" cy="190" r="5" style="--at:2.4"/>
-          <circle cx="300" cy="320" r="5" style="--at:2.9"/>
-          <circle cx="880" cy="90" r="5" style="--at:3.4"/>
-          <circle cx="140" cy="80" r="5" style="--at:3.9"/>
-          <circle cx="720" cy="310" r="5" style="--at:4.4"/>
-          <circle cx="960" cy="250" r="5" style="--at:4.9"/>
-          <circle cx="60" cy="230" r="5" style="--at:5.4"/>
-          <circle cx="560" cy="30" r="5" style="--at:5.9"/>
-        </svg>
-        <div class="grow-cap"><span>You, and the people you know, and the people they know.</span><span>No server anywhere in the picture.</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================ Gone -->
-  <section class="ch" id="gone">
-    <div class="wrap">
-      <div class="ch-head">
-        <h2 class="rv">So these are gone.</h2>
-        <p class="rv" style="--d:80ms">Not as a promise. There is no business model to protect, because there was never a cost to cover.</p>
-      </div>
-      <div class="ch-vis">
-        <ul class="gone rv" data-vig>
-          <li style="--i:0">Ads</li>
-          <li style="--i:1">Selling your data</li>
-          <li style="--i:2">Sign-ups</li>
-          <li style="--i:3">Features behind a paywall</li>
-          <li style="--i:4">A feed that picks for you</li>
-          <li style="--i:5">Terms that change on you</li>
-          <li style="--i:6">A new owner</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================ Free -->
-  <section class="ch" id="free">
-    <div class="wrap">
-      <div class="ch-head">
-        <h2 class="rv">Free, with nothing held back.</h2>
-        <p class="rv" style="--d:80ms">Every feature in Synomy is free, for everyone, for good. Giving it away costs nothing, because your own computers do the work.</p>
-      </div>
-      <div class="ch-vis">
-        <div class="plans">
-          <div class="plan rv" style="--d:0ms">
-            <h3>Free</h3>
-            <p class="plan-say">Everything the app does.</p>
-            <ul>
-              <li>Notes, meetings, search, chat, sharing and files</li>
-              <li>The social cloud, which keeps your changes safe with other Synomy users while a friend is offline</li>
-              <li>No trial, no account, no ads</li>
-            </ul>
-          </div>
-          <div class="plan later rv" style="--d:120ms">
-            <h3>Paid, perhaps one day</h3>
-            <p class="plan-say">The same app, a little more dependable.</p>
-            <ul>
-              <li>Your changes kept on servers we rent, instead of on other people's computers</li>
-              <li>So they arrive even when nobody else happens to be online</li>
-              <li>Servers cost money every month, so this would be a small subscription</li>
-            </ul>
-          </div>
-        </div>
-        <p class="ch-fine rv" style="--d:200ms">There is no paid plan today. If one comes, it pays for servers, not for features: nothing in the free app gets taken away to make room for it.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- The way in: the cave between the argument and the app. -->
-  <div class="interlude" data-depth aria-hidden="true">
-    <img class="scene" src="assets/cave.webp" alt="" width="990" height="324" loading="lazy">
-  </div>
-
-  <!-- ============================================================ Next -->
-  <section class="next" id="next">
-    <div class="wrap">
-      <div class="ch-head">
-        <h2 class="rv">Notes are the first chapter.</h2>
-        <p class="rv" style="--d:80ms">The network that carries your pages already carries your messages and your files. A photo or a call can travel the same way. Everything you use a platform for today, without the platform.</p>
-      </div>
-      <div class="ch-vis">
-        <div class="cols">
-          <div class="rv today" style="--d:0ms">
-            <h3>Today</h3>
-            <ul>
-              <li><b>Notes</b> that are files on your computer.</li>
-              <li><b>Meetings</b>, recorded and transcribed, with every speaker told apart.</li>
-              <li><b>Search</b> that understands the question, not just the words.</li>
-              <li><b>Writing together</b>, live, with no cloud in between.</li>
-              <li><b>Comments</b> on any paragraph of a page you share.</li>
-              <li><b>Files</b> of any size, sent straight to a friend.</li>
-              <li><b>PDFs and tables</b>, inside your notes.</li>
-              <li><b>The social cloud</b>, so your changes reach a friend who was offline.</li>
-            </ul>
-          </div>
-          <div class="rv soon" style="--d:120ms">
-            <h3>Later</h3>
-            <ul>
-              <li><b>Photos, posts and calls</b>, with the people you chose and no feed in between.</li>
-              <li><b>Whatever a platform does</b> that people actually want, minus the platform.</li>
-            </ul>
-          </div>
-        </div>
-        <p class="ch-fine rv" style="--d:260ms">Later comes with no date. It is the direction, and the network is already built for it.</p>
-
-        <div class="today-shot rv" style="--d:120ms">
+  <!-- ============================================================ The app -->
+  <section class="see" id="see">
+    <div class="wrap rv">
     <div class="hero-shot">
       <div class="shot-move">
         <div class="app" aria-hidden="true">
@@ -872,130 +226,66 @@ html:not(.js) .grow line { stroke-dashoffset: 0; }
         </div>
       </div>
     </div>
-          <div class="today-cap">
-            <p>Chapter one, as it looks today.</p>
-            <a class="more" href="app.html">See everything the app does
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-            </a>
-          </div>
-        </div>
+      <div class="see-cap">
+        <a class="more" href="app.html">See everything it does
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- ============================================================ Now -->
-  <section class="ch" id="now">
+  <!-- ============================================================ Beside the cloud apps -->
+  <section class="ch" id="versus">
+    <div class="wrap">
+      <h2 class="big rv"><span>Other apps rent you</span> <span>your own notes.</span></h2>
+      <div class="vs rv" role="table" aria-label="Synomy beside cloud note apps">
+        <div class="vs-row vs-head" role="row"><span role="columnheader"></span><span class="us" role="columnheader"><img src="assets/icon-256.png" alt="" width="26" height="26">Synomy</span><span class="them" role="columnheader">Cloud apps<small>Notion, Google Docs, Evernote</small></span></div>
+        <div class="vs-row" role="row"><span role="rowheader">Where your notes live</span><span class="us" role="cell">On your computer</span><span class="them" role="cell">On their servers</span></div>
+        <div class="vs-row" role="row"><span role="rowheader">Signing up</span><span class="us" role="cell">Not needed</span><span class="them" role="cell">Account required</span></div>
+        <div class="vs-row" role="row"><span role="rowheader">Meetings typed out</span><span class="us" role="cell">Free, never uploaded</span><span class="them" role="cell">Paid extra, uploaded</span></div>
+        <div class="vs-row" role="row"><span role="rowheader">Writing together</span><span class="us" role="cell">Straight to each other</span><span class="them" role="cell">Through their servers</span></div>
+        <div class="vs-row" role="row"><span role="rowheader">Paying for more</span><span class="us" role="cell">Never. All of it is free.</span><span class="them" role="cell">Storage, AI, teams</span></div>
+        <div class="vs-row" role="row"><span role="rowheader">With no internet</span><span class="us" role="cell">Works offline</span><span class="them" role="cell">Partly</span></div>
+        <div class="vs-row" role="row"><span role="rowheader">If the company stops</span><span class="us" role="cell">Keeps working</span><span class="them" role="cell">Stops working</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ No bill -->
+  <section class="ch" id="nobill">
     <div class="wrap">
       <div class="ch-head">
-        <h2 class="rv">Why now, and not ten years ago.</h2>
+        <h2 class="rv"><span>No servers.</span> <span>No bill.</span> <span>Free for good.</span></h2>
         <div>
-          <p class="rv" style="--d:80ms">Building something like this used to take a company, and a company needs a business model. Today two people can build it, with AI doing much of the typing.</p>
-          <p class="rv" style="--d:160ms">So there is no company behind Synomy. No investors, no shareholders, and nothing to pay back.</p>
+          <p class="rv" style="--d:80ms">Your own computers do the work, so there is nothing to pay for. And no reason to sell you.</p>
+          <a class="more rv" style="--d:140ms" href="docs.html">How it works with no servers
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
         </div>
       </div>
+      <ul class="gone rv" data-vig>
+        <li style="--i:0">Ads</li>
+        <li style="--i:1">Selling your data</li>
+        <li style="--i:2">Sign-ups</li>
+        <li style="--i:3">Paywalls</li>
+        <li style="--i:4">A feed that picks for you</li>
+        <li style="--i:5">Terms that change on you</li>
+      </ul>
     </div>
   </section>
 
-  <!-- ============================================================ Questions -->
-  <section class="ch" id="questions">
+  <!-- ============================================================ Inside -->
+  <section class="ch" id="inside">
     <div class="wrap">
-      <div class="ch-head">
-        <h2 class="rv">Questions, answered plainly.</h2>
-        <p class="rv" style="--d:80ms">You don't need any of this to use Synomy. It is here for when you want to know exactly what you are trusting.</p>
-      </div>
-      <div class="ch-vis qa-list rv" style="--d:120ms">
-      <details class="qa" id="hearing">
-        <summary>Who hears my meetings?</summary>
-        <div class="ans">
-          <p>Only your own computer. Synomy turns the recording into text right there on your machine and tells the voices apart. The sound is never sent anywhere.</p>
-          <div class="deep"><h4>The technical bit</h4>
-            <p>Two kinds of AI model do the work, both kept on your computer: one writes down what is said, the other tells the voices apart. They are downloaded once, the first time you transcribe, and work without the internet from then on.</p>
-            <p>You choose how careful they are. <b>Quick</b> is the fastest and knows seven languages (Mac only). <b>Standard</b> and <b>Thorough</b> know 25, Dutch among them; Thorough takes longest and makes the fewest mistakes.</p>
-            <p>One optional extra does use the internet: a written summary, if you connect an AI service with a key of your own. It sends the transcript's text, never the sound, and stays off until you set it up.</p>
-          </div>
-        </div>
-      </details>
-      <details class="qa" id="meaning">
-        <summary>How can search understand a question with no cloud?</summary>
-        <div class="ans">
-          <p>A small model on your computer remembers what each sentence in your notes is about, not only which words are in it. Your question is read the same way, and the sentences closest to it in meaning are your answers, even when they are worded differently or written in another language.</p>
-          <div class="deep"><h4>The technical bit</h4>
-            <p>The model turns every sentence into a list of numbers that describes its meaning, called an embedding. Your question gets one too, and the sentences whose numbers lie closest to it come first.</p>
-            <p>The model is downloaded once, about 135 MB. The index it builds lives in your project folder and never leaves your computer. PDFs are searched the same way; a scanned PDF with no text in it is not.</p>
-          </div>
-        </div>
-      </details>
-      <details class="qa" id="sealed">
-        <summary>Who can read what I share or send?</summary>
-        <div class="ans">
-          <p>Only the people you sent it to. It is locked on your computer before it leaves, and only their computers hold what opens it. Whatever carries it in between sees scrambled text.</p>
-          <div class="deep"><h4>The technical bit</h4>
-            <p>This is end-to-end encryption, the same idea secure messengers use. Every computer makes its own keys and never gives the secret half away. When two computers first connect, they agree on a key only they know, and everything between them is sealed with it: pages, comments, files and live typing.</p>
-            <p>By name: <b>X25519</b> to agree on the key, <b>ChaCha20-Poly1305</b> to seal, and <b>Ed25519</b> signatures, so nobody can pretend to be your friend. There is no master key anywhere, so there is nothing for anyone to hand over.</p>
-          </div>
-        </div>
-      </details>
-      <details class="qa" id="finding">
-        <summary>How do two computers find each other with no server?</summary>
-        <div class="ans">
-          <p>Directly. On the same Wi‑Fi they spot each other at once. In a room with no network at all, they can still reach each other over Bluetooth. Across the internet, Synomy finds a way between them and sends things straight across. Nothing in the middle keeps a copy.</p>
-          <div class="deep"><h4>The technical bit</h4>
-            <p>How Synomy finds that way, even on networks that try to keep computers apart, is the one part we keep to ourselves. What we can say: there is no Synomy server, and anything that helps along the way only ever handles sealed data.</p>
-            <p>Bluetooth is slow, so with no network around it carries your text and your typing; pictures and files wait for a faster way. Two Macs can also talk over Wi‑Fi directly, with no router in between.</p>
-          </div>
-        </div>
-      </details>
-      <details class="qa" id="offline">
-        <summary>What if my friend is offline?</summary>
-        <div class="ans">
-          <p>With the social cloud switched on, your changes still reach them: they wait, locked, on a few other computers running Synomy, and your friend's computer collects them when it comes back. With it off, your changes travel the next time you are both online.</p>
-          <div class="deep"><h4>The technical bit</h4>
-            <p>The social cloud is off until you switch it on. Your changes go to four holders: your own other computers first, then friends, then other people who switched it on too. In return your computer keeps room for theirs, four times what your own waiting changes take and at least 200 MB.</p>
-            <p>A held copy is deleted as soon as everyone has caught up, and after two weeks at the latest. For now it carries your text and the shape of your pages; pictures and files follow when the two of you are online together.</p>
-            <p>The computers holding your changes see your computer's internet address, as any two computers that talk to each other do. They never see your name or a word you wrote.</p>
-          </div>
-        </div>
-      </details>
-      <details class="qa" id="lost">
-        <summary>What if I lose my laptop?</summary>
-        <div class="ans">
-          <p>Your notes are ordinary files in a folder you picked, so back them up the way you back up anything else: Time Machine, File History, a USB stick. Every page you shared is also on your friends' computers, and a second computer of your own keeps a copy too once you link it.</p>
-          <div class="deep"><h4>The technical bit</h4>
-            <p>The social cloud is not a backup. It holds changes only while they are on their way to somebody, and deletes them once they arrive.</p>
-            <p>A page you delete in Synomy waits in its trash for 30 days, and every page keeps its own history, so a mistake is easy to undo. A lost computer is what your own backup is for.</p>
-          </div>
-        </div>
-      </details>
-      <details class="qa" id="account">
-        <summary>Do I need an account?</summary>
-        <div class="ans">
-          <p>No. There is nothing to sign in to and nothing to sign up for. You download the app, pick a folder for your notes and start writing.</p>
-        </div>
-      </details>
-      <details class="qa" id="systems">
-        <summary>Does it work between a Mac and a Windows PC?</summary>
-        <div class="ans">
-          <p>Yes. It is the same app on both, and a Mac and a Windows laptop share pages, comment and write together exactly as two Macs do. There is no Linux version.</p>
-        </div>
-      </details>
-      <details class="qa" id="knows">
-        <summary>What does Synomy know about me?</summary>
-        <div class="ans">
-          <p>Nothing. There is no Synomy server, so there is nowhere for anything about you to go. Not your name, not your notes, not how often you open the app.</p>
-          <div class="deep"><h4>The technical bit</h4>
-            <p>Your computer does talk to a few others, and none of them is ours: GitHub, where it looks for a new version every half hour (unless a friend hands it over first); the site the transcription and search models come from, the first time you use them; the people you share with, and the services that help two computers find each other; and anything you connect yourself, such as a calendar link or an AI service.</p>
-            <p>Each of them can see your computer's internet address, the way any website you visit can. None of them receives your notes.</p>
-          </div>
-        </div>
-      </details>
-      <details class="qa" id="stops">
-        <summary>What if Synomy stops tomorrow?</summary>
-        <div class="ans">
-          <p>Everything you have keeps working. Your notes are files, so they open in any app. Synomy never asks a server for permission to run, so it keeps running. Your friends' computers are the network, so sharing keeps working too.</p>
-          <p>The only thing that would stop is new versions.</p>
-        </div>
-      </details>
-      </div>
+      <h2 class="big rv">All in one app.</h2>
+      <ul class="feats">
+        <li class="rv" style="--d:0ms"><a href="app.html#meetings"><b>Meetings, typed out.</b><span>Every word and every speaker, written down on your own computer.</span></a></li>
+        <li class="rv" style="--d:60ms"><a href="app.html#search"><b>Search that gets you.</b><span>Ask in your own words. It finds the page, however you wrote it.</span></a></li>
+        <li class="rv" style="--d:120ms"><a href="app.html#writing"><b>Pages that do more.</b><span>To-dos, tables, PDFs and cards, all inside your notes.</span></a></li>
+        <li class="rv" style="--d:180ms"><a href="app.html#together"><b>Write together, live.</b><span>See each other type, straight from one computer to the other.</span></a></li>
+        <li class="rv" style="--d:240ms"><a href="app.html#yours"><b>Files you keep.</b><span>Every page is a file in a folder you pick. Back it up like anything else.</span></a></li>
+        <li class="rv" style="--d:300ms"><a href="app.html#everything"><b>Mac and Windows.</b><span>The same app on both, and they work together.</span></a></li>
+      </ul>
     </div>
   </section>
 
@@ -1003,10 +293,9 @@ html:not(.js) .grow line { stroke-dashoffset: 0; }
   <section class="community" id="community">
     <div class="wrap">
       <h2 class="rv"><span>Help build it.</span> <span>Join us on Discord.</span></h2>
-      <p class="rv" style="--d:80ms">Tell us what Synomy should do next, report a bug, or ask anything these answers left out. The people who make Synomy are there too, so it goes straight to them.</p>
-      <p class="asks rv" style="--d:140ms"><span>Ideas</span><span>Bug reports</span><span>Questions</span><span>How you use it</span></p>
-      <a class="btn btn-light btn-lg rv" style="--d:200ms" href="https://discord.gg/fm6PRXMeNC" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.865-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .078-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.009c.12.1.246.199.373.292a.077.077 0 0 1-.006.128 12.3 12.3 0 0 1-1.873.891.077.077 0 0 0-.041.107c.36.698.772 1.363 1.225 1.993a.076.076 0 0 0 .084.029 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.086-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.332-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.086-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.332-.946 2.418-2.157 2.418z"/></svg><span>Join us on Discord</span></a>
-      <span class="fine rv" style="--d:240ms">discord.gg/fm6PRXMeNC · Joining needs a Discord account.</span>
+      <p class="asks rv" style="--d:80ms"><span>Ideas</span><span>Bug reports</span><span>Questions</span><span>How you use it</span></p>
+      <a class="btn btn-light btn-lg rv" style="--d:140ms" href="https://discord.gg/fm6PRXMeNC" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.865-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .078-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.009c.12.1.246.199.373.292a.077.077 0 0 1-.006.128 12.3 12.3 0 0 1-1.873.891.077.077 0 0 0-.041.107c.36.698.772 1.363 1.225 1.993a.076.076 0 0 0 .084.029 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.086-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.332-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.086-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.095 2.157 2.42 0 1.332-.946 2.418-2.157 2.418z"/></svg><span>Join us on Discord</span></a>
+      <span class="fine rv" style="--d:200ms">discord.gg/fm6PRXMeNC · The people who make Synomy are there too.</span>
     </div>
   </section>
 
@@ -1024,7 +313,7 @@ html:not(.js) .grow line { stroke-dashoffset: 0; }
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.5v9m0 0 3.2-3.2M8 10.5 4.8 7.3M2 12v1.5a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V12"/></svg>
             <span id="cta-get-label">Download the latest version</span>
           </a>
-          <p class="req">For Macs with macOS 11 Big Sur or newer, with an Apple or Intel chip (on Big Sur and Monterey, update Safari to 16.4 first), and for Windows 10 from the 2020 update on, or Windows 11. Synomy is in beta, so expect the odd rough edge and frequent updates; Intel Macs and older versions of macOS are the least tested. First time installing an app from the web? <a href="install.html">Here is every click, step by step.</a></p>
+          <p class="req">For Mac (macOS 11 or newer) and Windows 10 or 11. Still in beta, so expect the odd rough edge. First install? <a href="install.html">Every click, step by step.</a></p>
         </div>
         <div class="plats" id="plats">
           <a class="plat" data-os="macos" data-arch="arm64" href="https://github.com/LarsLagauw/synomy-releases/releases/latest">
@@ -1051,6 +340,7 @@ html:not(.js) .grow line { stroke-dashoffset: 0; }
     <h2>Keep reading</h2>
     <ul>
         <li><a href="app.html"><b>The app</b> <span>Everything it does today, from meetings to comments.</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a></li>
+        <li><a href="docs.html"><b>Docs</b> <span>How it works, in full, and plain answers to fair questions.</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a></li>
         <li><a href="install.html"><b>Install</b> <span>Every click of the first install, on Mac and Windows.</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a></li>
     </ul>
   </div>
@@ -1062,7 +352,7 @@ html:not(.js) .grow line { stroke-dashoffset: 0; }
     <span class="fsp"></span>
     <span>Version <span data-version>2.6.0 beta</span></span>
     <a href="app.html">The app</a>
-    <a href="#questions">Questions</a>
+    <a href="docs.html">Docs</a>
     <a href="install.html">Install help</a>
     <a href="https://discord.gg/fm6PRXMeNC" rel="noopener">Discord</a>
     <a href="https://github.com/LarsLagauw/synomy-releases/releases">All releases</a>
