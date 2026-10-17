@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Connect your AI to Synomy Notes</title>
+<meta name="description" content="Step by step: make a free Ollama account, create a key, paste it into Synomy, and pick a model that writes your meeting notes.">
+<!-- Reached from the button in Settings › AI, never from the other pages: it
+     is a manual for people who already have the app, not a page to land on. -->
+<meta name="robots" content="noindex">
+
+<meta property="og:title" content="Connect your AI to Synomy Notes">
+<meta property="og:description" content="Five minutes, once: an Ollama account, a key, and the model to choose.">
+<meta property="og:image" content="https://larslagauw.github.io/synomy-releases/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://larslagauw.github.io/synomy-releases/assets/og.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#1a7fd0">
+
+<link rel="icon" href="assets/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=e9ca61b6">
+<script>document.documentElement.className += ' js';</script>
+
+<style>
+/* The install page's layout: a plain hero over a low ridge, then numbered steps. */
+.hero.plain { color: var(--ink); padding-top: calc(var(--bar-h) + 88px); padding-bottom: 0; min-height: 0; overflow: visible; }
+.hero.plain .range { --range-w: min(1300px, 120vw); --range-top: clamp(28px, 4vw, 52px); margin-bottom: calc(min(1300px, 120vw) * -.07); opacity: .85; }
+@media (max-width: 640px) { .hero.plain .range { --range-w: 190vw; } }
+.hero.plain .hero-h { text-shadow: none; font-size: clamp(36px, 5.4vw, 64px); }
+.hero.plain .hero-lede { color: var(--ink-2); text-shadow: none; }
+
+.guide { max-width: 720px; margin: 0 auto; padding: clamp(56px, 7vw, 90px) 0 0; }
+.guide > h2 { font-size: clamp(28px, 3.2vw, 38px); letter-spacing: -.01em; }
+.guide > .intro { margin-top: 12px; color: var(--ink-2); font-size: 18px; }
+.steps { list-style: none; margin: 40px 0 0; padding: 0; counter-reset: s; }
+.steps > li { counter-increment: s; position: relative; padding: 0 0 44px 56px; }
+.steps > li::before {
+  content: counter(s); position: absolute; left: 0; top: -2px;
+  width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--frost-2); color: var(--ink); border: 1px solid var(--rim); font: 600 16px/1 var(--display);
+}
+.steps > li:not(:last-child)::after {
+  content: ''; position: absolute; left: 16.5px; top: 42px; bottom: 10px; width: 1px; background: var(--line);
+}
+.steps h3 { font-size: 21px; line-height: 1.3; }
+.steps p { margin-top: 8px; color: var(--ink-2); }
+.steps p b, .steps li li b, .aside b { color: var(--ink); font-weight: 600; }
+.steps ul { margin: 10px 0 0; padding-left: 20px; color: var(--ink-2); }
+.steps ul li + li { margin-top: 4px; }
+.aside { margin-top: 18px; padding: 16px 20px; border-radius: 14px; }
+.aside h4 { margin: 0; font: 600 16px/1.4 var(--display); }
+.aside p { margin-top: 6px; font-size: 16px; }
+.tip { font-size: 15px; color: var(--ink-3) !important; }
+.why { max-width: 720px; margin: 20px auto 0; padding: 26px 0 0; border-top: 1px solid var(--line); }
+.why h2 { font-size: 22px; }
+.why p { margin-top: 8px; color: var(--ink-2); }
+.why p + p { margin-top: 10px; }
+.done { padding-bottom: clamp(80px, 10vw, 130px); }
+code { font: 500 .92em/1 ui-monospace, 'SF Mono', Menlo, Consolas, monospace; color: var(--ink); background: var(--frost-2); border: 1px solid var(--rim); border-radius: 6px; padding: 2px 6px; white-space: nowrap; }
+
+/* ---- the two models, side by side ---- */
+.models { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 18px; }
+@media (max-width: 640px) { .models { grid-template-columns: 1fr; } }
+.model { padding: 18px 20px; border-radius: 14px; }
+.model .tag { font: 600 12px/1 var(--display); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+.model h4 { margin: 10px 0 0; font: 600 19px/1.3 var(--display); }
+.model h4 code { font-size: 15px; }
+.model p { margin-top: 8px; font-size: 16px; }
+.model .cost { margin-top: 10px; font-size: 14px; color: var(--ink-3); }
+
+/* ---- a drawing of Synomy's own Settings › AI, in the app's light theme ---- */
+.shot { margin-top: 18px; display: flex; justify-content: center; font-family: var(--ui); }
+.app-pane {
+  width: min(100%, 470px); border-radius: 12px; background: #fff; overflow: hidden;
+  box-shadow: 0 20px 50px -22px rgba(10, 30, 50, .4), 0 0 0 1px rgba(0, 0, 0, .09); font-size: 13px; color: #1d1d1f;
+}
+.app-pane .ttl { padding: 11px 16px; font-weight: 600; border-bottom: 1px solid #e5e5e5; background: #f6f6f6; }
+.app-pane .grp { padding: 14px 16px 16px; display: grid; gap: 12px; }
+.app-pane .lbl { font-weight: 600; font-size: 12px; color: #6e6e73; margin-bottom: 6px; }
+.app-pane .in { padding: 8px 10px; border-radius: 8px; border: 1px solid #d2d2d7; color: #86868b; }
+.app-pane .in.full { color: #1d1d1f; }
+.app-pane .k { justify-self: start; padding: 5px 12px; border-radius: 7px; background: #f5f5f7; box-shadow: 0 0 0 .5px rgba(0, 0, 0, .2); }
+.hl { outline: 2.5px solid #f2a516; outline-offset: 2px; }
+@media (max-width: 560px) {
+  .steps > li { padding-left: 46px; }
+  .steps > li::before { width: 30px; height: 30px; font-size: 15px; }
+  .steps > li:not(:last-child)::after { left: 14.5px; }
+}
+</style>
+</head>
+<body>
+
+<header class="bar ink" id="bar">
+  <div class="bar-in">
+    <a class="mark" href="index.html">
+      <img src="assets/icon.png" alt="" width="28" height="28">
+      <span>Synomy Notes</span>
+    </a>
+    <nav class="nav" aria-label="Pages">
+      <a href="index.html">Why Synomy</a>
+      <a href="app.html">The app</a>
+      <a href="how.html">How it works</a>
+      <a href="install.html">Install</a>
+    </nav>
+    <div class="bar-sp"></div>
+    <span class="ver" data-version>2.4.20 beta</span>
+    <a class="btn btn-sm btn-bar" id="cta-bar" href="https://github.com/LarsLagauw/synomy-releases/releases/latest">Download</a>
+  </div>
+</header>
+
+<main id="top" class="wrap">
+
+  <section class="hero plain">
+    <div class="hero-in">
+      <h1 class="hero-h">Connect your AI.</h1>
+      <p class="hero-lede">Synomy can turn a finished meeting into notes: the to-do's, the decisions, who said what. For that it needs an AI service. This takes five minutes, once, and you can start for free.</p>
+    </div>
+    <img class="scene range" src="assets/range-ridge.webp" alt="" width="989" height="222">
+  </section>
+
+  <section class="guide">
+    <h2>Step by step</h2>
+    <p class="intro">The service is <b>Ollama Cloud</b>. You make an account there, it gives you a key, and you paste that key into Synomy. That's all.</p>
+
+    <ol class="steps">
+      <li>
+        <h3>Make an Ollama account.</h3>
+        <p>Go to <a href="https://ollama.com" rel="noopener">ollama.com</a> and click <b>Sign in</b> at the top right. Sign up with your email address, or with <b>Continue with Google</b> or <b>Continue with GitHub</b>. If you used email, open the message Ollama sends you and confirm it.</p>
+        <p class="tip">You don't need to download Ollama itself, and you don't need a credit card. The free plan is enough to start.</p>
+      </li>
+      <li>
+        <h3>Create a key.</h3>
+        <p>Signed in, go to <a href="https://ollama.com/settings/keys" rel="noopener">ollama.com/settings/keys</a>. Create a new key and give it a name you'll recognise, like <b>Synomy</b>. Copy the key it shows you.</p>
+        <p class="tip">Treat the key like a password: anyone who has it can use your account. Don't send it to anyone. If it ever leaks, delete it on the same page and make a new one.</p>
+      </li>
+      <li>
+        <h3>Paste it into Synomy.</h3>
+        <p>In Synomy, click the <b>gear</b> in the top bar to open <b>Settings</b>, and go to <b>AI</b>. Paste the key into <b>Ollama Cloud key</b>, then click anywhere outside the field. It's saved on this computer only.</p>
+        <div class="shot" aria-hidden="true">
+          <div class="app-pane">
+            <div class="ttl">Settings › AI</div>
+            <div class="grp">
+              <div><div class="lbl">Ollama Cloud key</div><div class="in full hl">••••••••••••</div></div>
+              <div><div class="lbl">Model</div><div class="in">gemma4:31b</div></div>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <h3>Choose the model, or leave it empty.</h3>
+        <p>The <b>Model</b> field says which AI writes your notes. Leave it empty and Synomy uses <code>gemma4:31b</code>, which works on the free plan. To use another one, type its name exactly as below.</p>
+        <div class="models">
+          <div class="model aside">
+            <div class="tag">Free plan · the default</div>
+            <h4><code>gemma4:31b</code></h4>
+            <p>Google's Gemma 4. Writes clear notes in English, Dutch, French, German and many other languages, and answers in a second or two.</p>
+            <p class="cost">$0.14 read, $0.40 written, per million tokens</p>
+          </div>
+          <div class="model aside">
+            <div class="tag">Smarter, about the same price</div>
+            <h4><code>glm-5.3-flash</code></h4>
+            <p>Z.ai's GLM-5.3 Flash, from August 2026. Noticeably sharper at long, messy meetings. It thinks before it writes, so a summary takes longer.</p>
+            <p class="cost">$0.15 read, $0.50 written · needs Pro or added credits</p>
+          </div>
+        </div>
+        <p class="tip">Either way, an hour-long meeting costs around a cent or less. Prices are Ollama's, October 2026; they can change, and <a href="https://ollama.com/pricing" rel="noopener">ollama.com/pricing</a> has today's.</p>
+        <details class="tech"><summary>The technical bit</summary><div>
+          <p>Synomy calls <code>https://ollama.com/api/chat</code> with your key and the model name you typed, so any name from <a href="https://ollama.com/search?c=cloud" rel="noopener">Ollama's cloud list</a> works, with or without <code>-cloud</code> at the end. Prices are per million tokens; a token is about three quarters of an English word.</p>
+          <p>A free key that asks for a model outside the free plan gets “not in the Free plan” back, and the meeting simply has no Summary tab. GLM-5.3 Flash always reasons first, and that reasoning counts toward what it may write per pass, so on a very long meeting Gemma 4 can be the more dependable choice.</p>
+        </div></details>
+      </li>
+      <li>
+        <h3>Record a meeting.</h3>
+        <p>When the transcript is finished, the meeting gets a <b>Summary</b> tab with the notes. Nothing else changes: without a key, Synomy works exactly the same, just without that tab.</p>
+      </li>
+    </ol>
+
+    <div class="aside">
+      <h4>No Summary tab after a meeting?</h4>
+      <p>Check these three, in this order:</p>
+      <p><b>The key.</b> Paste it again in Settings › AI, without spaces, or make a new one on Ollama's keys page.</p>
+      <p><b>The model.</b> Empty the Model field, so Synomy uses <code>gemma4:31b</code>. A name that is misspelled, retired, or not in your plan gives no summary.</p>
+      <p><b>Your free use.</b> It comes back every month. For more, add credits or take Ollama's Pro plan ($20 a month, with $60 of use in it). You can see what you've used at <a href="https://ollama.com/settings" rel="noopener">ollama.com/settings</a>.</p>
+    </div>
+  </section>
+
+  <section class="why done">
+    <h2>What gets sent, and to whom?</h2>
+    <p>Only the transcript of the meeting you recorded, once it's finished, and only when you've pasted a key. Not your other notes, not your pages, not your files. This is the one thing in Synomy that sends your own words to a company.</p>
+    <p>Ollama says it doesn't store your meetings or train on them. That's their promise, not ours, so read <a href="https://ollama.com/privacy" rel="noopener">their privacy policy</a> if it matters to you. You can delete the key in Synomy's Settings at any time, and nothing is sent after that.</p>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <a class="mark" href="index.html"><img src="assets/icon.png" alt="" width="28" height="28"><span>Synomy Notes</span></a>
+    <span class="fsp"></span>
+    <span>Version <span data-version>2.4.20 beta</span></span>
+    <a href="index.html">Why Synomy</a>
+    <a href="app.html">The app</a>
+    <a href="how.html">How it works</a>
+    <a href="https://github.com/LarsLagauw/synomy-releases/releases">All releases</a>
+    <a href="https://github.com/LarsLagauw/synomy-releases/blob/main/EULA.md">Licence</a>
+  </div>
+</footer>
+
+<script src="assets/site.js?v=43f35e74"></script>
+</body>
+</html>
