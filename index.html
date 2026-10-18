@@ -22,7 +22,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700&family=Hanken+Grotesk:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=75a333ee">
+<link rel="stylesheet" href="assets/site.css?v=aa75bc41">
 <script>document.documentElement.className += ' js';</script>
 <script>
 /* The long read moved to docs.html (October 2026). A link to one of its
@@ -53,12 +53,13 @@
 .hero.say .hero-lede, .hero.say .hero-meta { text-shadow: 0 1px 18px rgba(0, 0, 0, .8); }
 .hero.say .range { --range-w: min(1400px, 122vw); --range-top: clamp(26px, 3.6vw, 48px); }
 
-/* ---- the app itself, rising out of the range ---- */
-.see { position: relative; z-index: 1; margin-top: calc(min(1400px, 122vw) * -.1); }
-.see .hero-shot { margin: 0 auto; padding-inline: 0; max-width: 760px; }
-/* Drawn wider than shown, so the bar has the room it has on a real screen. */
-.see .app { --w: 1100; }
-.see .a-desk { height: calc(var(--u) * 560); }
+/* ---- a glimpse of the app, rising out of the range: a page two people are
+   writing, a meeting typing itself out, a search finding by meaning ---- */
+.see { position: relative; z-index: 1; margin-top: calc(min(1400px, 122vw) * -.09); }
+.see .glimpse { --kw: 1000; --kh: 410; max-width: 100%; }
+.gp-page { --x: 262; --y: 10; --w: 496; z-index: 1; }
+.gp-meet { --x: 0; --y: 226; --w: 300; z-index: 2; }
+.gp-find { --x: 700; --y: 92; --w: 300; z-index: 2; }
 .see-cap { display: flex; justify-content: center; margin-top: 22px; }
 .see-cap .more { margin: 0; }
 
@@ -132,6 +133,10 @@ html:not(.js) .gone li::after { transform: none; }
   .hero.say .hero-cta { flex-direction: column; align-items: stretch; max-width: 380px; margin-inline: auto; }
   .hero.say .hero-cta .btn { justify-content: center; }
   .see { margin-top: -40px; }
+  .see .glimpse { --kw: 500; --kh: 520; }
+  .gp-page { --x: 0; --y: 0; --w: 480; }
+  .gp-meet { --x: 20; --y: 300; --w: 480; }
+  .gp-find { display: none; }
   /* A phone has no room for three columns: each row's label stands over its
      two answers, and the lit column becomes the lit answer. */
   .vs { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: none; column-gap: 10px; }
@@ -200,32 +205,13 @@ html:not(.js) .gone li::after { transform: none; }
   <!-- ============================================================ The app -->
   <section class="see" id="see">
     <div class="wrap rv">
-    <div class="hero-shot">
-      <div class="shot-move">
-        <div class="app" aria-hidden="true">
-          <div class="a-bar"><span class="a-tl"><i></i><i></i><i></i></span>
-            <div class="a-left"><span class="a-chip ico"><i data-g="chevron.backward"></i></span><span class="a-chip ico dis"><i data-g="chevron.forward"></i></span><span class="a-chip"><i data-g="square.grid.2x2"></i>Pages<i class="hint" data-g="chevron.down"></i></span><span class="a-chip"><i data-g="plus"></i>New</span><span class="a-chip drop"><i data-g="chevron.down"></i></span></div>
-            <div class="a-centre"><span class="a-proj"><i class="pg" data-g="book"></i>Law, year two<i class="hint" data-g="chevron.down"></i></span></div>
-            <div class="a-right"><span class="a-chip"><i data-g="ph:magnifying-glass"></i>Search</span><span class="a-chip ico"><i data-g="ph:bell"></i></span><span class="a-chip ico"><i data-g="gearshape"></i></span><span class="a-chip ico"><i data-g="ph:dots-three"></i></span></div>
-          </div>
-          <div class="a-desk">
-            <div class="e-page">
-              <h1 class="e-title">Contract law, week 6</h1>
-              <p class="e-p">Lecture on Tuesday, seminar on Thursday. Read chapter 9 before the seminar.</p>
-              <ul class="e-todo">
-                <li class="on">Read chapter 9</li>
-                <li>Summarise the two cases</li>
-                <li>Three questions for the seminar</li>
-              </ul>
-              <div class="e-card yellow"><div class="t">Offer and acceptance</div><div class="s">The two cases to compare on Thursday</div><div class="l">Remember</div><div class="b">An invitation to treat is not an offer.</div></div>
-              <p class="e-p">The lecture, <span class="e-hl">with the part about the shop window</span> at 41 minutes:</p>
-              <div class="e-badge"><div class="t"><i data-g="mic"></i>Lecture, Tuesday 14 October</div><div class="d">Recorded and transcribed · 1 h 32 min</div></div>
-            </div>
-          </div>
-          <span class="a-ver" data-version>2.6.0 beta</span>
+      <div class="vis">
+        <div class="glimpse" aria-hidden="true">
+          <div class="gp gp-page fade" style="--fd:0s"><div class="g-page"><div class="g-title">Weekend market</div><div class="g-meta">Saturday 12 September · Stall 14</div><ul class="g-todo"><li class="on">Book the stall</li><li class="on">Order 40 jars from Lena</li><li>Print the price cards</li></ul><p class="g-p"><span class="g-type" style="--td:0s;--tw:330">Marco brings the van at eight.</span><i class="g-caret" data-who="Lena" style="--h:330"></i></p><div class="g-card" style="--h:210"><div class="t">Bring more change</div><div class="s">Last spring we ran out before eleven.</div><div class="l">Float</div><div class="b">€ 150 in coins, € 100 in fives</div></div></div></div>
+          <div class="gp gp-meet" style="--fd:-3s"><div class="g-rec"><span class="dot"></span><b>Recording</b><span class="t">12:48</span><span class="g-wave"><i style="--i:0;--a:0.35"></i><i style="--i:1;--a:0.7"></i><i style="--i:2;--a:0.5"></i><i style="--i:3;--a:0.95"></i><i style="--i:4;--a:0.6"></i><i style="--i:5;--a:0.8"></i><i style="--i:6;--a:0.4"></i><i style="--i:7;--a:0.9"></i><i style="--i:8;--a:0.55"></i><i style="--i:9;--a:0.75"></i><i style="--i:10;--a:0.45"></i><i style="--i:11;--a:0.85"></i><i style="--i:12;--a:0.5"></i><i style="--i:13;--a:0.65"></i></span></div><div class="g-tr"><div class="g-line" style="--i:0;--h:330"><span class="who">Lena</span><span class="say">Forty jars should be plenty.</span></div><div class="g-line" style="--i:1;--h:150"><span class="who">Marco</span><span class="say">I'll bring the folding tables.</span></div><div class="g-line" style="--i:2;--h:210"><span class="who">You</span><span class="say">Then we're set for Saturday.</span></div></div></div>
+          <div class="gp gp-find" style="--fd:-5.5s"><div class="g-field"><i data-g="ph:magnifying-glass"></i><span><span class="g-type once" style="--tw:300">dinner at Marco's</span><i class="g-cur"></i></span></div><div class="g-hits"><div class="g-hit top" style="--i:0"><div class="ht"><i data-g="doc.text"></i>Saturday plans<span class="sc">86%</span></div><div class="sn">Pasta at <mark>his place</mark>, around seven</div></div><div class="g-hit" style="--i:1"><div class="ht"><i data-g="doc.text"></i>Weekend market<span class="sc">41%</span></div><div class="sn">Marco, with the van</div></div></div></div>
         </div>
       </div>
-    </div>
       <div class="see-cap">
         <a class="more" href="app.html">See everything it does
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
@@ -360,7 +346,7 @@ html:not(.js) .gone li::after { transform: none; }
   </div>
 </footer>
 
-<script src="assets/glyphs.js?v=f78f2b7b"></script>
+<script src="assets/glyphs.js?v=ef8a0ea4"></script>
 <script src="assets/site.js?v=f3fed5f7"></script>
 </body>
 </html>
