@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Synomy in numbers</title>
+<meta name="description" content="How many people use Synomy Notes each day, week and month, on which version, and what they use most. Counted anonymously, pooled, updated every night.">
+
+<meta property="og:title" content="Synomy in numbers">
+<meta property="og:description" content="Daily, weekly and monthly users, counted anonymously and pooled.">
+<meta property="og:image" content="https://larslagauw.github.io/synomy-releases/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://larslagauw.github.io/synomy-releases/assets/og.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#1a7fd0">
+
+<link rel="icon" href="assets/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=aa75bc41">
+<script>document.documentElement.className += ' js';</script>
+
+<style>
+/* The public numbers (PLAN.md D71). Series colours are the first three
+   categorical slots stepped for a dark surface, validated all-pairs against
+   --night (CVD ΔE 9.4, normal 20.9, all ≥ 3:1); bars are one hue. */
+.stats {
+  --s-day: #3987e5; --s-week: #d95926; --s-month: #199e70; --bar: var(--sky-500);
+  max-width: 880px; margin: 0 auto; padding: calc(var(--bar-h) + 88px) 0 clamp(80px, 10vw, 130px);
+}
+.stats h1 { font-size: clamp(36px, 5.4vw, 60px); letter-spacing: -.02em; text-align: center; }
+.stats .lede { margin: 14px auto 0; max-width: 620px; text-align: center; color: var(--ink-2); font-size: 18px; }
+.stats .asof { margin-top: 8px; text-align: center; color: var(--ink-3); font-size: 15px; }
+.stats .note { margin: 26px auto 0; max-width: 620px; padding: 14px 18px; border-radius: 14px; background: var(--frost-2); border: 1px solid var(--rim); color: var(--ink-2); text-align: center; }
+
+.tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 48px; }
+.tile { padding: 22px 22px 20px; border-radius: 18px; background: var(--frost); border: 1px solid var(--rim); }
+.tile .k { display: flex; align-items: center; gap: 8px; color: var(--ink-2); font-size: 15px; }
+.tile .k i { width: 14px; height: 2px; border-radius: 1px; background: currentColor; }
+.tile .v { margin-top: 8px; font: 600 clamp(34px, 5vw, 48px)/1 var(--display); color: var(--ink); }
+.tile .d { margin-top: 8px; color: var(--ink-3); font-size: 14px; }
+
+.block { margin-top: 64px; }
+.block h2 { font-size: clamp(22px, 2.6vw, 28px); letter-spacing: -.01em; }
+.block > p { margin-top: 6px; color: var(--ink-2); }
+
+.chart { position: relative; margin-top: 22px; }
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.chart .grid line { stroke: var(--line); stroke-width: 1; }
+.chart .axis text { fill: var(--ink-3); font: 12px var(--body); }
+.chart .series path { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.chart .end circle { stroke: var(--night); stroke-width: 2; }
+.chart .end text { fill: var(--ink-2); font: 13px var(--body); }
+.chart .cross { stroke: var(--rim); stroke-width: 1; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 14px; color: var(--ink-2); font-size: 14px; }
+.legend span { display: inline-flex; align-items: center; gap: 8px; }
+.legend i { width: 14px; height: 2px; border-radius: 1px; }
+.tip {
+  position: absolute; pointer-events: none; padding: 10px 12px; border-radius: 10px; min-width: 150px;
+  background: #0b1018; border: 1px solid var(--rim); color: var(--ink); font-size: 13px; line-height: 1.5;
+  box-shadow: 0 14px 40px -14px rgba(0, 0, 0, .8); transform: translate(-50%, -100%); white-space: nowrap;
+}
+.tip b { display: block; font-weight: 600; margin-bottom: 2px; }
+.tip span { display: flex; align-items: center; gap: 8px; color: var(--ink-2); }
+.tip span em { margin-left: auto; padding-left: 14px; font-style: normal; color: var(--ink); font-variant-numeric: tabular-nums; }
+.tip i { width: 10px; height: 2px; border-radius: 1px; }
+
+.bars { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 10px; }
+.bars li { display: grid; grid-template-columns: minmax(120px, 30%) 1fr 132px; align-items: center; gap: 14px; }
+.bars .name { color: var(--ink-2); font-size: 15px; overflow-wrap: anywhere; }
+.bars .track { position: relative; display: flex; align-items: center; gap: 10px; min-height: 18px; }
+.bars .fill { height: 14px; min-width: 3px; border-radius: 0 4px 4px 0; background: var(--bar); }
+.bars .val { color: var(--ink); font-size: 14px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.spark { position: relative; height: 30px; }
+.spark svg { display: block; width: 100%; height: 30px; overflow: visible; }
+.spark path { fill: none; stroke: var(--bar); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.spark .wash { fill: var(--bar); opacity: .1; stroke: none; }
+.spark circle { fill: var(--bar); stroke: var(--night); stroke-width: 2; }
+.spark .at { fill: var(--ink); }
+.cols { display: grid; grid-template-columns: minmax(120px, 30%) 1fr 132px; gap: 14px; margin-top: 18px; color: var(--ink-3); font-size: 13px; }
+.cols span:last-child { text-align: left; }
+
+.how { margin-top: 72px; padding-top: 26px; border-top: 1px solid var(--line); color: var(--ink-2); }
+.how h2 { font-size: 22px; color: var(--ink); }
+.how p { margin-top: 8px; }
+.how a { color: var(--ink); }
+details.table { margin-top: 14px; color: var(--ink-2); font-size: 14px; }
+details.table summary { cursor: pointer; }
+details.table table { margin-top: 10px; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+details.table th, details.table td { padding: 4px 18px 4px 0; text-align: right; }
+details.table th:first-child, details.table td:first-child { text-align: left; }
+
+@media (max-width: 720px) {
+  .tiles { grid-template-columns: 1fr; }
+  .bars li { grid-template-columns: 1fr 112px; gap: 4px 12px; }
+  .bars .name { grid-column: 1 / -1; }
+  .cols { display: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="bar ink" id="bar">
+  <div class="bar-in">
+    <a class="mark" href="index.html">
+      <img src="assets/icon.png" alt="" width="28" height="28">
+      <span>Synomy Notes</span>
+    </a>
+    <nav class="nav" aria-label="Pages">
+      <a href="index.html">Why Synomy</a>
+      <a href="app.html">The app</a>
+      <a href="docs.html">Docs</a>
+      <a href="install.html">Install</a>
+    </nav>
+    <div class="bar-sp"></div>
+    <span class="ver" data-version>2.6.0 beta</span>
+    <a class="btn btn-sm btn-bar" id="cta-bar" href="https://github.com/LarsLagauw/synomy-releases/releases/latest">Download</a>
+  </div>
+</header>
+
+<main id="top" class="wrap">
+  <div class="stats">
+    <h1>Synomy in numbers.</h1>
+    <p class="lede">How many people use Synomy, and what they use most. Every computer is counted anonymously, and only totals are shown here.</p>
+    <p class="asof" id="asof"></p>
+    <p class="note" id="note" hidden></p>
+
+    <div id="body" hidden>
+      <div class="tiles">
+        <div class="tile"><div class="k"><i style="color:var(--s-day)"></i>Used yesterday</div><div class="v" id="dau">–</div><div class="d">computers</div></div>
+        <div class="tile"><div class="k"><i style="color:var(--s-week)"></i>This week</div><div class="v" id="wau">–</div><div class="d">computers, last 7 days</div></div>
+        <div class="tile"><div class="k"><i style="color:var(--s-month)"></i>This month</div><div class="v" id="mau">–</div><div class="d">computers, last 30 days</div></div>
+      </div>
+
+      <section class="block">
+        <h2>Over time</h2>
+        <p>Computers that used Synomy that day, that week and that month.</p>
+        <div class="chart" id="history"></div>
+        <div class="legend">
+          <span><i style="background:var(--s-day)"></i>Daily</span>
+          <span><i style="background:var(--s-week)"></i>Weekly</span>
+          <span><i style="background:var(--s-month)"></i>Monthly</span>
+        </div>
+        <details class="table"><summary>Show as a table</summary><table id="history-table"></table></details>
+      </section>
+
+      <section class="block">
+        <h2>How often</h2>
+        <p>Computers used in the last four weeks, by how many of those 28 days.</p>
+        <ul class="bars" id="often"></ul>
+      </section>
+
+      <section class="block">
+        <h2>What people use</h2>
+        <p>Share of this month's computers that used each part of Synomy at least once.</p>
+        <ul class="bars" id="features"></ul>
+      </section>
+
+      <section class="block">
+        <h2>Versions</h2>
+        <p>The version each computer ran last, and how quickly a new one is taken up.</p>
+        <ul class="bars" id="versions"></ul>
+      </section>
+
+      <section class="block">
+        <h2>Computers</h2>
+        <p>Which kind of computer.</p>
+        <ul class="bars" id="platforms"></ul>
+      </section>
+
+      <section class="block" id="ext-block">
+        <h2>Extensions</h2>
+        <p>Share of this month's computers with each extension switched on.</p>
+        <ul class="bars" id="extensions"></ul>
+      </section>
+    </div>
+
+    <section class="how">
+      <h2>How this is counted</h2>
+      <p>Once a day that you use it, Synomy sends a random number made on your computer, its version, and how many times each feature was used. Never your notes, your name, the people you share with, or anything you typed, and the number is not your friend code. The counter keeps no addresses.</p>
+      <p>Only totals are published, and anything fewer than five computers share is folded into "other" or left out. You can switch counting off in Settings › Diagnostics; that also deletes the number and the counts on your computer.</p>
+    </section>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <a class="mark" href="index.html"><img src="assets/icon.png" alt="" width="28" height="28"><span>Synomy Notes</span></a>
+    <span class="fsp"></span>
+    <span>Version <span data-version>2.6.0 beta</span></span>
+    <a href="index.html">Why Synomy</a>
+    <a href="app.html">The app</a>
+    <a href="docs.html">Docs</a>
+    <a href="https://discord.gg/fm6PRXMeNC" rel="noopener">Discord</a>
+    <a href="https://github.com/LarsLagauw/synomy-releases/releases">All releases</a>
+    <a href="https://github.com/LarsLagauw/synomy-releases/blob/main/EULA.md">Licence</a>
+  </div>
+</footer>
+
+<script>
+(() => {
+  "use strict";
+  // The counter's pooled days (infra/usage), one per night, oldest first.
+  const SOURCE = "https://synomy-usage.synomy-usage.workers.dev/v1/stats";
+  const DAY_MS = 86400000;
+
+  // What each counted feature is called on this page. A feature not listed
+  // here is shown by its own name rather than hidden.
+  const NAMES = {
+    "page.new": "New page", "page.sub": "Subpage", "page.open": "Opening pages", "page.tile": "Pages side by side",
+    "page.delete": "Deleting pages", "page.pin": "Pinning pages", "page.icon": "Page icons", "page.coedit": "Writing together",
+    "window.new": "Second window", "project.new": "New project", "project.open": "Switching project", "project.make": "Folder made a project",
+    "pages.press": "Pages screen", "projects.press": "Projects", "search.press": "Search", "search.hit": "Opening a search result",
+    "history.open": "Version history", "history.restore": "Restoring a version", "trash.open": "Trash", "trash.restore": "Restoring from the trash",
+    "share.press": "Share", "share.send": "Sending a page", "share.sync": "Syncing a page", "share.accept": "Accepting a shared page",
+    "friend.add": "Adding a friend", "friend.accept": "Accepting a friend", "device.link": "Linking own devices", "comment.add": "Comments",
+    "settings.press": "Settings", "bell.press": "Notifications", "files.press": "Sending files", "store.get": "Getting an extension",
+    "search.model": "Smart search", "speech.model": "Speech model", "ai.key": "Connecting an AI", "api.key": "Local API",
+    "meeting.record": "Recording a meeting", "meeting.file": "Transcribing a file",
+    "import.markdown": "Importing Markdown", "import.table": "Importing a table", "import.files": "Adding files", "import.pdf": "Adding a PDF",
+    "block.move": "Moving blocks to a page", "block.into": "Dragging blocks into a page", "link.open": "Opening links", "pdf.mark": "Marking PDFs",
+    "database.row": "Database rows", "database.edit": "Editing databases", "database.export": "Exporting databases",
+    "database.calendar": "Calendar feeds", "database.formula": "Formulas", "database.relate": "Relations",
+    "export.pdf": "PDF export", "export.md": "Markdown export", "export.html": "HTML export", "export.docx": "Word export", "export.txt": "Text export",
+  };
+  const EXTENSIONS = { "meeting-memory": "Meeting Memory", "meeting-coach": "Meeting Assist", dictation: "Dictation", other: "Others" };
+  const PLATFORMS = {
+    "macos-arm64": "Mac, Apple silicon", "macos-x86_64": "Mac, Intel", "windows-x86_64": "Windows",
+    "windows-arm64": "Windows on Arm", "linux-x86_64": "Linux", other: "Other",
+  };
+  const OFTEN = { daily: "Most days (20 or more)", weekly: "Every week (4 to 19 days)", monthly: "Now and then (1 to 3 days)" };
+
+  const nameOf = (key) => {
+    if (NAMES[key]) return NAMES[key];
+    if (key.startsWith("slash.")) return "/" + key.slice(6);
+    if (key.startsWith("ext.")) {
+      const [, id, ...call] = key.split(".");
+      return (EXTENSIONS[id] || id) + ": " + call.join(".");
+    }
+    return key;
+  };
+  const fmt = (n) => n.toLocaleString("en");
+  const pct = (share) => Math.round(share * 100) + "%";
+  const date = (d) => new Date(d * DAY_MS).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+  const el = (tag, cls, text) => {
+    const node = document.createElement(tag);
+    if (cls) node.className = cls;
+    if (text != null) node.textContent = text;
+    return node;
+  };
+  const $ = (id) => document.getElementById(id);
+  const NS = "http://www.w3.org/2000/svg";
+  const svgEl = (parent, tag, attrs) => {
+    const node = document.createElementNS(NS, tag);
+    for (const k in attrs) node.setAttribute(k, attrs[k]);
+    parent.append(node);
+    return node;
+  };
+
+  // One tooltip for the whole page, put next to whatever is hovered.
+  const tip = el("div", "tip");
+  tip.hidden = true;
+  function showTip(host, left, top, title, lines) {
+    if (tip.parentNode !== host) host.append(tip);
+    tip.textContent = "";
+    tip.append(el("b", null, title));
+    for (const [colour, name, value] of lines) {
+      const line = el("span");
+      if (colour) {
+        const key = el("i");
+        key.style.background = `var(${colour})`;
+        line.append(key);
+      }
+      line.append(name, el("em", null, value));
+      tip.append(line);
+    }
+    tip.style.left = left + "px";
+    tip.style.top = top + "px";
+    tip.hidden = false;
+  }
+  const hideTip = () => (tip.hidden = true);
+
+  // A row's share on every pooled day: `null` where it was not named that day
+  // (fewer than five computers, or not out yet), so the line breaks there
+  // rather than claiming nobody.
+  function shares(days, pick, total) {
+    return days.map((day) => {
+      const n = pick(day);
+      const of = total(day);
+      return n == null || !of ? null : n / of;
+    });
+  }
+
+  // A row's history: one hue, its own 0–100% scale across the whole period,
+  // the last day marked. Hover gives the day and the share.
+  function spark(days, values) {
+    const W = 132, H = 30;
+    const box = el("div", "spark");
+    const svg = document.createElementNS(NS, "svg");
+    svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+    svg.setAttribute("preserveAspectRatio", "none");
+    svg.setAttribute("aria-hidden", "true");
+    box.append(svg);
+    const n = values.length;
+    const x = (i) => (n === 1 ? W / 2 : (i / (n - 1)) * (W - 8) + 4);
+    const top = Math.max(0.05, ...values.filter((v) => v != null));
+    const y = (v) => H - 3 - (v / top) * (H - 8);
+    let d = "", wash = "", run = [];
+    const flush = () => {
+      if (run.length > 1) {
+        wash += `M${x(run[0])} ${H} ` + run.map((i) => `L${x(i)} ${y(values[i])}`).join(" ") + ` L${x(run[run.length - 1])} ${H} Z `;
+      }
+      run = [];
+    };
+    values.forEach((v, i) => {
+      if (v == null) return flush();
+      d += (run.length ? "L" : "M") + x(i).toFixed(1) + " " + y(v).toFixed(1) + " ";
+      run.push(i);
+    });
+    flush();
+    if (wash) svgEl(svg, "path", { d: wash, class: "wash" });
+    if (d) svgEl(svg, "path", { d });
+    const lastIndex = values.length - 1;
+    if (values[lastIndex] != null) svgEl(svg, "circle", { cx: x(lastIndex), cy: y(values[lastIndex]), r: 3.5 });
+    const dot = svgEl(svg, "circle", { r: 3.5, class: "at", visibility: "hidden" });
+    box.addEventListener("pointermove", (event) => {
+      const rect = box.getBoundingClientRect();
+      const px = ((event.clientX - rect.left) / rect.width) * W;
+      const i = Math.max(0, Math.min(n - 1, Math.round(((px - 4) / (W - 8)) * (n - 1))));
+      const v = values[i];
+      dot.setAttribute("cx", x(i));
+      dot.setAttribute("cy", v == null ? H - 3 : y(v));
+      dot.setAttribute("visibility", v == null ? "hidden" : "visible");
+      showTip(box, (x(i) / W) * rect.width, -6, date(days[i].d), [[null, "Share", v == null ? "under 5" : pct(v)]]);
+    });
+    box.addEventListener("pointerleave", () => {
+      dot.setAttribute("visibility", "hidden");
+      hideTip();
+    });
+    return box;
+  }
+
+  // Rows named on the last day, a bar for today's share and a graph of every
+  // day's.
+  function rows(list, days, pairs, total, label) {
+    const last = days[days.length - 1];
+    const today = pairs(last);
+    const of = total(last) || 1;
+    const most = Math.max(1, ...today.map((r) => r[1]));
+    list.textContent = "";
+    if (!list.previousElementSibling || !list.previousElementSibling.classList.contains("cols")) {
+      const cols = el("div", "cols");
+      cols.append(el("span"), el("span", null, "Now"), el("span", null, "Over time"));
+      list.before(cols);
+    }
+    for (const [key, n] of today) {
+      const li = el("li");
+      li.append(el("span", "name", label(key)));
+      const track = el("span", "track");
+      const fill = el("span", "fill");
+      fill.style.width = (n / most) * 72 + "%";
+      track.title = fmt(n) + " computers";
+      track.append(fill, el("span", "val", pct(n / of)));
+      li.append(track);
+      const values = shares(days, (day) => {
+        const hit = pairs(day).find((r) => r[0] === key);
+        return hit ? hit[1] : null;
+      }, total);
+      li.append(spark(days, values));
+      list.append(li);
+    }
+  }
+
+  // Daily, weekly and monthly computers on one axis: one unit, computers.
+  function history(box, days) {
+    // Drawn at the box's own width, so the axis text stays its size on a phone.
+    const W = Math.max(300, Math.round(box.clientWidth) || 880);
+    const narrow = W < 560;
+    const H = narrow ? 220 : 300, L = 40, R = narrow ? 44 : 70, T = 12, B = 30;
+    const svg = document.createElementNS(NS, "svg");
+    svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+    svg.setAttribute("role", "img");
+    svg.setAttribute("aria-label", "Daily, weekly and monthly computers over time");
+    const top = Math.max(1, ...days.map((r) => r.mau));
+    const step = niceStep(top / 4);
+    const ceil = Math.ceil(top / step) * step;
+    const x0 = days[0].d, x1 = days[days.length - 1].d;
+    const x = (d) => L + (x1 === x0 ? (W - L - R) / 2 : ((d - x0) / (x1 - x0)) * (W - L - R));
+    const y = (n) => T + (1 - n / ceil) * (H - T - B);
+    const grid = svgEl(svg, "g", { class: "grid" });
+    const axis = svgEl(svg, "g", { class: "axis" });
+    for (let v = 0; v <= ceil; v += step) {
+      svgEl(grid, "line", { x1: L, x2: W - R, y1: y(v), y2: y(v) });
+      svgEl(axis, "text", { x: L - 8, y: y(v) + 4, "text-anchor": "end" }).textContent = compact(v);
+    }
+    // The first and the last day; one centred date while there is one day.
+    const ticks = x1 === x0 ? [[x0, "middle"]] : [[x0, "start"], [x1, "end"]];
+    for (const [d, anchor] of ticks) {
+      svgEl(axis, "text", { x: x(d), y: H - 8, "text-anchor": anchor }).textContent = date(d);
+    }
+    const series = [["--s-day", "dau", "Daily"], ["--s-week", "wau", "Weekly"], ["--s-month", "mau", "Monthly"]];
+    const lines = svgEl(svg, "g", { class: "series" });
+    const ends = svgEl(svg, "g", { class: "end" });
+    const last = days[days.length - 1];
+    for (const [colour, key] of series) {
+      const d = days.map((r, k) => (k ? "L" : "M") + x(r.d).toFixed(1) + " " + y(r[key]).toFixed(1)).join(" ");
+      svgEl(lines, "path", { d, stroke: `var(${colour})` });
+      svgEl(ends, "circle", { cx: x(last.d), cy: y(last[key]), r: 4, fill: `var(${colour})` });
+    }
+    // End labels only where they will not sit on each other.
+    let lastY = -Infinity;
+    for (const key of ["mau", "wau", "dau"]) {
+      const at = y(last[key]);
+      if (at - lastY < 16) continue;
+      svgEl(ends, "text", { x: x(last.d) + 10, y: at + 4 }).textContent = fmt(last[key]);
+      lastY = at;
+    }
+    const cross = svgEl(svg, "line", { class: "cross", y1: T, y2: H - B, visibility: "hidden" });
+    box.textContent = "";
+    box.append(svg);
+    svg.addEventListener("pointermove", (event) => {
+      const rect = svg.getBoundingClientRect();
+      const px = ((event.clientX - rect.left) / rect.width) * W;
+      let near = days[0];
+      for (const r of days) if (Math.abs(x(r.d) - px) < Math.abs(x(near.d) - px)) near = r;
+      cross.setAttribute("x1", x(near.d));
+      cross.setAttribute("x2", x(near.d));
+      cross.setAttribute("visibility", "visible");
+      showTip(box, (x(near.d) / W) * rect.width, (y(near.mau) / H) * rect.height - 10, date(near.d),
+        series.map(([colour, key, name]) => [colour, name, fmt(near[key])]));
+    });
+    svg.addEventListener("pointerleave", () => {
+      cross.setAttribute("visibility", "hidden");
+      hideTip();
+    });
+  }
+
+  function niceStep(raw) {
+    const p = Math.pow(10, Math.floor(Math.log10(Math.max(raw, 1))));
+    const m = raw / p;
+    return (m <= 1 ? 1 : m <= 2 ? 2 : m <= 5 ? 5 : 10) * p;
+  }
+  const compact = (n) => (n >= 1000 ? (n / 1000).toFixed(n % 1000 ? 1 : 0) + "K" : String(n));
+
+  function table(days) {
+    const t = $("history-table");
+    t.textContent = "";
+    const head = el("tr");
+    for (const h of ["Day", "Daily", "Weekly", "Monthly"]) head.append(el("th", null, h));
+    t.append(head);
+    for (const r of days.slice().reverse()) {
+      const tr = el("tr");
+      tr.append(el("td", null, date(r.d)));
+      for (const key of ["dau", "wau", "mau"]) tr.append(el("td", null, fmt(r[key])));
+      t.append(tr);
+    }
+  }
+
+  function draw(days, example) {
+    // Shown first: the chart is drawn at the width it is given.
+    $("body").hidden = false;
+    const last = days[days.length - 1];
+    $("dau").textContent = fmt(last.dau);
+    $("wau").textContent = fmt(last.wau);
+    $("mau").textContent = fmt(last.mau);
+    $("asof").textContent = (example ? "Example numbers, not real ones · " : "") + "As of " + date(last.d) + ", updated every night.";
+    history($("history"), days);
+    let width = $("history").clientWidth;
+    window.addEventListener("resize", () => {
+      if ($("history").clientWidth === width) return;
+      width = $("history").clientWidth;
+      history($("history"), days);
+    });
+    table(days);
+    const mau = (day) => day.mau;
+    // Its own total: four weeks, where the month is thirty days.
+    const often = (day) => ["daily", "weekly", "monthly"].map((k) => [k, (day.often || {})[k] || 0]);
+    rows($("often"), days, often, (day) => often(day).reduce((sum, r) => sum + r[1], 0), (k) => OFTEN[k]);
+    rows($("features"), days, (day) => day.features || [], mau, nameOf);
+    rows($("versions"), days, (day) => day.versions || [], mau, (k) => (k === "other" ? "Other" : k.replace("-", " ")));
+    rows($("platforms"), days, (day) => day.platforms || [], mau, (k) => PLATFORMS[k] || k);
+    $("ext-block").hidden = !(last.extensions || []).length;
+    rows($("extensions"), days, (day) => day.extensions || [], mau, (k) => EXTENSIONS[k] || k);
+  }
+
+  function empty(text) {
+    $("note").textContent = text;
+    $("note").hidden = false;
+  }
+
+  // `#example` draws made-up numbers, to see the page before there are real ones.
+  function example() {
+    const end = Math.floor(Date.now() / DAY_MS) - 1;
+    const days = [];
+    for (let i = 89; i >= 0; i--) {
+      const t = (89 - i) / 89;
+      const g = 1 + t * 1.6;
+      const mau = Math.round(104 * g);
+      const fresh = Math.min(1, Math.max(0, (t - 0.55) * 3));
+      days.push({
+        d: end - i,
+        dau: Math.round(38 * g + 6 * Math.sin(i)), wau: Math.round(71 * g), mau,
+        often: { daily: Math.round(mau * 0.3), weekly: Math.round(mau * 0.45), monthly: Math.round(mau * 0.25) },
+        versions: t < 0.55
+          ? [["2.6.5-beta", Math.round(mau * 0.85)], ["other", Math.round(mau * 0.15)]]
+          : [["2.6.6-beta", Math.round(mau * 0.8 * fresh)], ["2.6.5-beta", Math.round(mau * (0.85 - 0.75 * fresh))], ["other", Math.round(mau * 0.1)]],
+        platforms: [["macos-arm64", Math.round(mau * 0.56)], ["windows-x86_64", Math.round(mau * (0.3 + t * 0.06))], ["macos-x86_64", Math.round(mau * 0.11)]],
+        features: [["page.new", Math.round(mau * 0.9)], ["page.open", Math.round(mau * 0.88)], ["search.press", Math.round(mau * (0.5 + t * 0.15))],
+          ["slash.table", Math.round(mau * 0.47)], ["meeting.record", Math.round(mau * (0.25 + t * 0.15))],
+          ["page.coedit", Math.round(mau * (0.2 + t * 0.1))], ["share.send", Math.round(mau * 0.25)], ["slash.todo", Math.round(mau * 0.22)],
+          ["pdf.mark", Math.round(mau * 0.16)], ["history.open", Math.round(mau * 0.09)]],
+        extensions: t < 0.3 ? [["meeting-memory", Math.round(mau * 0.2)]]
+          : [["meeting-memory", Math.round(mau * (0.2 + t * 0.06))], ["dictation", Math.round(mau * t * 0.18)], ["meeting-coach", Math.round(mau * 0.07)]],
+      });
+    }
+    return days;
+  }
+
+  if (location.hash === "#example") {
+    draw(example(), true);
+    return;
+  }
+  fetch(SOURCE, { mode: "cors" })
+    .then((r) => (r.ok ? r.json() : null))
+    .then((stats) => {
+      if (stats && stats.days && stats.days.length) draw(stats.days, false);
+      else empty("The first numbers appear the morning after the first computers on the next update are used.");
+    })
+    .catch(() => empty("The numbers could not be loaded just now. Try again in a minute."));
+})();
+</script>
+<script src="assets/site.js?v=f3fed5f7"></script>
+</body>
+</html>

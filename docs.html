@@ -286,7 +286,7 @@ html:not(.js) .grow line { stroke-dashoffset: 0; }
   <section class="ch" id="chain">
     <div class="wrap">
       <div class="ch-head">
-        <h2 class="rv">Synomy has no servers. Everything follows from that.</h2>
+        <h2 class="rv">No server ever holds your notes. Everything follows from that.</h2>
         <p class="rv" style="--d:80ms">Your notes live on your computer. When you share, your computers talk to each other directly. There is no machine in the middle, so there is no bill for one.</p>
       </div>
       <div class="ch-vis">
@@ -872,9 +872,9 @@ html:not(.js) .grow line { stroke-dashoffset: 0; }
       <details class="qa" id="knows">
         <summary>What does Synomy know about me?</summary>
         <div class="ans">
-          <p>Nothing. There is no Synomy server, so there is nowhere for anything about you to go. Not your name, not your notes, not how often you open the app.</p>
+          <p>Nothing that is yours. Once a day you use it, Synomy counts itself: it sends a random number made on your computer, its version, and how many times each feature was used. That is how we know how many people use it and what they use, and the totals are on the <a href="stats.html">numbers page</a> for anyone to see. Never your name, your notes, the people you share with, or anything you typed. Switch it off in Settings › Diagnostics and the number and the counts are deleted.</p>
           <div class="deep"><h4>The technical bit</h4>
-            <p>Your computer does talk to a few others, and none of them is ours: GitHub, where it looks for a new version every half hour (unless a friend hands it over first); the site the transcription and search models come from, the first time you use them; the people you share with, and the services that help two computers find each other; and anything you connect yourself, such as a calendar link or an AI service.</p>
+            <p>Your computer talks to a few others: the counter above, a small program we run on Cloudflare that keeps one line per computer per day and no addresses; GitHub, where it looks for a new version every half hour (unless a friend hands it over first); the site the transcription and search models come from, the first time you use them; the people you share with, and the services that help two computers find each other; and anything you connect yourself, such as a calendar link or an AI service.</p>
             <p>Each of them can see your computer's internet address, the way any website you visit can. None of them receives your notes.</p>
           </div>
         </div>
@@ -911,6 +911,7 @@ html:not(.js) .grow line { stroke-dashoffset: 0; }
     <span>Version <span data-version>2.6.0 beta</span></span>
     <a href="app.html">The app</a>
     <a href="docs.html">Docs</a>
+    <a href="stats.html">Numbers</a>
     <a href="install.html">Install help</a>
     <a href="https://discord.gg/fm6PRXMeNC" rel="noopener">Discord</a>
     <a href="https://github.com/LarsLagauw/synomy-releases/releases">All releases</a>
