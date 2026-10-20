@@ -36,6 +36,7 @@
 .stats h1 { font-size: clamp(36px, 5.4vw, 60px); letter-spacing: -.02em; text-align: center; }
 .stats .lede { margin: 14px auto 0; max-width: 620px; text-align: center; color: var(--ink-2); font-size: 18px; }
 .stats .asof { margin-top: 8px; text-align: center; color: var(--ink-3); font-size: 15px; }
+.stats .soon { margin-top: 14px; color: var(--ink-3); font-size: 15px; }
 .stats .note { margin: 26px auto 0; max-width: 620px; padding: 14px 18px; border-radius: 14px; background: var(--frost-2); border: 1px solid var(--rim); color: var(--ink-2); text-align: center; }
 
 .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 48px; }
@@ -132,7 +133,7 @@ details.table th:first-child, details.table td:first-child { text-align: left; }
 
     <div id="body" hidden>
       <div class="tiles">
-        <div class="tile"><div class="k"><i style="color:var(--s-day)"></i>Used yesterday</div><div class="v" id="dau">–</div><div class="d">computers</div></div>
+        <div class="tile"><div class="k"><i style="color:var(--s-day)"></i><span id="dau-k">Used yesterday</span></div><div class="v" id="dau">–</div><div class="d">computers</div></div>
         <div class="tile"><div class="k"><i style="color:var(--s-week)"></i>This week</div><div class="v" id="wau">–</div><div class="d">computers, last 7 days</div></div>
         <div class="tile"><div class="k"><i style="color:var(--s-month)"></i>This month</div><div class="v" id="mau">–</div><div class="d">computers, last 30 days</div></div>
       </div>
@@ -159,6 +160,7 @@ details.table th:first-child, details.table td:first-child { text-align: left; }
         <h2>What people use</h2>
         <p>Share of this month's computers that used each part of Synomy at least once.</p>
         <ul class="bars" id="features"></ul>
+        <p class="soon" id="features-soon" hidden>A day's counts travel with the next day's report, so this fills in from the day after a computer is first used.</p>
       </section>
 
       <section class="block">
@@ -468,7 +470,13 @@ details.table th:first-child, details.table td:first-child { text-align: left; }
     $("dau").textContent = fmt(last.dau);
     $("wau").textContent = fmt(last.wau);
     $("mau").textContent = fmt(last.mau);
-    $("asof").textContent = (example ? "Example numbers, not real ones · " : "") + "As of " + date(last.d) + ", updated every night.";
+    // Today is pooled live as it goes (`freshen` in infra/usage), a past day
+    // once it is over.
+    const when = last.live && last.at
+      ? "Today so far, as of " + new Date(last.at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) + ". Refreshed every 15 minutes."
+      : "As of " + date(last.d) + ".";
+    $("asof").textContent = (example ? "Example numbers, not real ones · " : "") + when;
+    $("dau-k").textContent = last.live ? "Today so far" : "Used yesterday";
     history($("history"), days);
     let width = $("history").clientWidth;
     window.addEventListener("resize", () => {
@@ -482,6 +490,7 @@ details.table th:first-child, details.table td:first-child { text-align: left; }
     const often = (day) => ["daily", "weekly", "monthly"].map((k) => [k, (day.often || {})[k] || 0]);
     rows($("often"), days, often, (day) => often(day).reduce((sum, r) => sum + r[1], 0), (k) => OFTEN[k]);
     rows($("features"), days, (day) => day.features || [], mau, nameOf);
+    $("features-soon").hidden = (last.features || []).length > 0;
     rows($("versions"), days, (day) => day.versions || [], mau, (k) => (k === "other" ? "Other" : k.replace("-", " ")));
     rows($("platforms"), days, (day) => day.platforms || [], mau, (k) => PLATFORMS[k] || k);
     $("ext-block").hidden = !(last.extensions || []).length;
@@ -525,11 +534,13 @@ details.table th:first-child, details.table td:first-child { text-align: left; }
     draw(example(), true);
     return;
   }
-  fetch(SOURCE, { mode: "cors" })
+  // A new address every five minutes, so a browser that kept an older answer
+  // never shows it past then.
+  fetch(SOURCE + "?t=" + Math.floor(Date.now() / 300000), { mode: "cors" })
     .then((r) => (r.ok ? r.json() : null))
     .then((stats) => {
       if (stats && stats.days && stats.days.length) draw(stats.days, false);
-      else empty("The first numbers appear the morning after the first computers on the next update are used.");
+      else empty("No computer has reported yet.");
     })
     .catch(() => empty("The numbers could not be loaded just now. Try again in a minute."));
 })();
