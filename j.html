@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>You're invited to a page on Synomy</title>
+<meta name="description" content="Somebody shared a page with you on Synomy Notes. Open it in the app, or install Synomy first.">
+<!-- An invite is personal: nothing about it belongs in a search index. -->
+<meta name="robots" content="noindex">
+<meta property="og:title" content="You're invited to a page on Synomy">
+<meta property="og:description" content="Open it in Synomy Notes and you work on it together.">
+<meta property="og:image" content="https://larslagauw.github.io/synomy-releases/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:image" content="https://larslagauw.github.io/synomy-releases/assets/og.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#1a7fd0">
+
+<link rel="icon" href="assets/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=aa75bc41">
+<script>document.documentElement.className += ' js';</script>
+
+<style>
+.hero.plain { color: var(--ink); padding-top: calc(var(--bar-h) + 88px); padding-bottom: 0; min-height: 0; overflow: visible; }
+.hero.plain .range { --range-w: min(1300px, 120vw); --range-top: clamp(28px, 4vw, 52px); margin-bottom: calc(min(1300px, 120vw) * -.07); opacity: .85; }
+@media (max-width: 640px) { .hero.plain .range { --range-w: 190vw; } }
+.hero.plain .hero-h { text-shadow: none; font-size: clamp(34px, 5vw, 58px); }
+.hero.plain .hero-lede { color: var(--ink-2); text-shadow: none; }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 30px; }
+.steps { list-style: none; max-width: 640px; margin: clamp(48px, 6vw, 80px) auto 0; padding: 0; counter-reset: s; }
+.steps > li { counter-increment: s; position: relative; padding: 0 0 36px 56px; }
+.steps > li::before {
+  content: counter(s); position: absolute; left: 0; top: -2px;
+  width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--frost-2); color: var(--ink); border: 1px solid var(--rim); font: 600 16px/1 var(--display);
+}
+.steps h3 { font-size: 20px; line-height: 1.3; }
+.steps p { margin-top: 8px; color: var(--ink-2); }
+.steps p b { color: var(--ink); font-weight: 600; }
+.copy-row { margin-top: 12px; }
+.quiet { max-width: 640px; margin: 8px auto 0; padding: 22px 0 clamp(80px, 10vw, 120px); border-top: 1px solid var(--line); color: var(--ink-3); font-size: 15px; }
+.broken[hidden], .ok[hidden] { display: none; }
+</style>
+</head>
+<body>
+
+<header class="bar ink" id="bar">
+  <div class="bar-in">
+    <a class="mark" href="index.html">
+      <img src="assets/icon.png" alt="" width="28" height="28">
+      <span>Synomy Notes</span>
+    </a>
+    <nav class="nav" aria-label="Pages">
+      <a href="index.html">Why Synomy</a>
+      <a href="app.html">The app</a>
+      <a href="docs.html">Docs</a>
+      <a href="install.html">Install</a>
+    </nav>
+    <div class="bar-sp"></div>
+    <span class="ver" data-version>2.6.0 beta</span>
+    <a class="btn btn-sm btn-bar" id="cta-bar" href="https://github.com/LarsLagauw/synomy-releases/releases/latest">Download</a>
+  </div>
+</header>
+
+<main id="top" class="wrap">
+
+  <section class="hero plain">
+    <div class="hero-in ok">
+      <h1 class="hero-h">You're invited to a page.</h1>
+      <p class="hero-lede">Somebody shared a page with you on Synomy Notes. Open it in the app and you work on it together, as friends.</p>
+      <div class="hero-cta">
+        <a class="btn btn-light" id="open" href="#">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 2.5h4v4M13.5 2.5 7 9M12 9.5V13a.5.5 0 0 1-.5.5h-8A.5.5 0 0 1 3 13V5a.5.5 0 0 1 .5-.5H7"/></svg>
+          <span>Open in Synomy</span>
+        </a>
+        <a class="btn btn-ghost" id="cta-main" href="https://github.com/LarsLagauw/synomy-releases/releases/latest">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.5v9m0 0 3.2-3.2M8 10.5 4.8 7.3M2 12v1.5a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V12"/></svg>
+          <span id="cta-main-label">Download Synomy</span>
+        </a>
+      </div>
+      <span class="hero-meta" id="cta-note">Free · Mac and Windows</span>
+    </div>
+    <div class="hero-in broken" hidden>
+      <h1 class="hero-h">This link is incomplete.</h1>
+      <p class="hero-lede">The end of it was cut off on the way. Ask whoever sent it to copy the whole link again.</p>
+    </div>
+    <img class="scene range" src="assets/range-ridge.webp" alt="" width="989" height="222">
+  </section>
+
+  <ol class="steps ok">
+    <li>
+      <h3>Have Synomy? Press Open in Synomy.</h3>
+      <p>Your browser asks whether to open <b>Synomy Notes</b>: allow it. Synomy asks you to add the person who sent the link as a friend, then opens the page.</p>
+    </li>
+    <li>
+      <h3>Not yet? Install it first.</h3>
+      <p>Download Synomy above and follow <a href="install.html">the install steps</a>. Then come back here — or open the link again — and press <b>Open in Synomy</b>.</p>
+      <div class="copy-row"><button class="btn btn-ghost btn-sm" id="copy" type="button">Copy this link</button></div>
+    </li>
+  </ol>
+
+  <p class="quiet ok">The invite is in the part of this link after the <b>#</b>, which your browser keeps to itself: it never reaches this website, and nothing about it is stored here. The link works for two weeks, even while the person who sent it is offline.</p>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <a class="mark" href="index.html"><img src="assets/icon.png" alt="" width="28" height="28"><span>Synomy Notes</span></a>
+    <span class="fsp"></span>
+    <span>Version <span data-version>2.6.0 beta</span></span>
+    <a href="index.html">Why Synomy</a>
+    <a href="app.html">The app</a>
+    <a href="docs.html">Docs</a>
+    <a href="https://discord.gg/fm6PRXMeNC" rel="noopener">Discord</a>
+  </div>
+</footer>
+
+<script src="assets/site.js?v=f3fed5f7"></script>
+<script>
+/* A JOIN LINK (PLAN.md D83). The code is the fragment: 64 characters of
+   base64url. It is handed to the app as synomy://j/<code>, which the app's
+   installer registered, and nowhere else — no request from this page carries it. */
+(function () {
+  var code = location.hash.slice(1).replace(/[\/.)\s]+$/, '');
+  var ok = /^[A-Za-z0-9_-]{64}$/.test(code);
+  document.querySelectorAll('.ok').forEach(function (node) { node.hidden = !ok; });
+  document.querySelectorAll('.broken').forEach(function (node) { node.hidden = ok; });
+  if (!ok) return;
+  var app = 'synomy://j/' + code;
+  var open = document.getElementById('open');
+  open.href = app;
+  /* Tried once on arrival: where Synomy is installed the browser asks at once,
+     and where it is not nothing happens and the buttons are there. */
+  setTimeout(function () { location.href = app; }, 350);
+  var copy = document.getElementById('copy');
+  copy.addEventListener('click', function () {
+    var done = function () { copy.textContent = 'Copied'; setTimeout(function () { copy.textContent = 'Copy this link'; }, 1600); };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(location.href).then(done, function () {});
+    }
+  });
+})();
+</script>
+</body>
+</html>
